@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employees — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+<link rel="stylesheet" href="../../css/employees.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div id="pageBody">Loading…</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="employeeDetailModal">
+  <div class="modal-box" style="max-width:680px;">
+    <span class="modal-close" onclick="closeModal('employeeDetailModal')"><i class="bi bi-x-lg"></i></span>
+    <div id="employeeDetailBody">Loading…</div>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-employees.js"></script>
+</body>
+</html>

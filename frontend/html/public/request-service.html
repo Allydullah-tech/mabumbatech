@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Service — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/landing.css?v1">
+<link rel="stylesheet" href="../../css/request-service.css?v=1">
+</head>
+<body class="landing inner">
+<div id="siteHeader"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Let's Build Together</span>
+      <h2>Request a Service</h2>
+      <p>Fill in the details below. Our admin team will review and assign a specialist to your project.</p>
+      <div class="rs-chips">
+        <span><i class="bi bi-person-check"></i> Reviewed by our admin team</span>
+        <span><i class="bi bi-people"></i> Specialist assigned to you</span>
+        <span><i class="bi bi-geo-alt"></i> Track it with a reference code</span>
+      </div>
+    </div>
+
+    <div class="rs-wrap" id="requestWrap">
+      <div id="requestCard" class="rs-card">
+        <div class="rs-card-head">
+          <h3>Tell us about your project</h3>
+          <p>It takes about two minutes. Fields marked <span style="color:var(--danger);font-weight:700;">*</span> are required.</p>
+        </div>
+
+        <form id="requestForm" class="form rs-form" enctype="multipart/form-data">
+          <div id="guestFields" class="rs-sec">
+            <h3 class="rs-sec-title"><span class="rs-num">1</span><span>Your details<small>So we know who to get back to</small></span></h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="rs-req">Full Name</label>
+                <div class="rs-field"><i class="bi bi-person"></i><input type="text" name="guest_name" placeholder="e.g. Amina Juma" autocomplete="name" required></div>
+              </div>
+              <div class="form-group">
+                <label class="rs-req">Email</label>
+                <div class="rs-field"><i class="bi bi-envelope"></i><input type="email" name="guest_email" placeholder="you@example.com" autocomplete="email" required></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone <span class="rs-opt">(recommended)</span></label>
+              <div class="rs-field"><i class="bi bi-telephone"></i><input type="text" name="guest_phone" placeholder="e.g. +255 7XX XXX XXX" autocomplete="tel" inputmode="tel"></div>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h3 class="rs-sec-title"><span class="rs-num">2</span><span>Project details<small>What do you need us to build or deliver?</small></span></h3>
+            <div class="form-group">
+              <label class="rs-req">Service Needed</label>
+              <div class="rs-field"><i class="bi bi-grid"></i>
+                <select name="service_id" id="serviceSelect" required>
+                  <option value="">Select a service…</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="rs-req">Subject</label>
+              <div class="rs-field"><i class="bi bi-type"></i><input type="text" name="subject" placeholder="Short title for your request" required></div>
+            </div>
+            <div class="form-group">
+              <label class="rs-req">Describe your request</label>
+              <div class="rs-field"><i class="bi bi-chat-left-text"></i><textarea name="message" rows="5" placeholder="What do you need? Mention goals, features, who it is for, or anything that helps us understand." required></textarea></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Estimated Budget <span class="rs-opt">(optional)</span></label>
+                <div class="rs-field"><i class="bi bi-cash-coin"></i><input type="text" name="budget" placeholder="e.g. TZS 500,000"></div>
+              </div>
+              <div class="form-group">
+                <label>Preferred Deadline <span class="rs-opt">(optional)</span></label>
+                <div class="rs-field"><i class="bi bi-calendar-event"></i><input type="date" name="deadline"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h3 class="rs-sec-title"><span class="rs-num">3</span><span>Attachments<small>Optional — logos, sketches, documents</small></span></h3>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="rs-drop" id="fileDrop">
+                <input type="file" name="attachments[]" id="fileInput" multiple>
+                <span class="rs-drop-ic"><i class="bi bi-cloud-arrow-up"></i></span>
+                <span><b>Click to choose files, or drop them here</b><span>Up to 3 files · Images, PDF, Word/Excel/PowerPoint or ZIP · 10MB each</span></span>
+              </label>
+              <ul class="rs-files" id="fileList"></ul>
+            </div>
+          </div>
+
+          <div class="form-check rs-agree">
+            <input type="checkbox" id="agreeTerms" name="agree_terms" required>
+            <label for="agreeTerms">I agree to the MABUMBA TECH <a data-open-terms href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block rs-submit" id="submitBtn"><i class="bi bi-send"></i> Submit Request</button>
+          <p class="rs-secure"><i class="bi bi-shield-check"></i> Your details are only used to handle this request.</p>
+        </form>
+      </div>
+
+      <aside class="rs-aside">
+        <div class="rs-panel">
+          <h4>What happens next</h4>
+          <ol class="rs-steps">
+            <li><span class="rs-step-ic"><i class="bi bi-send-check"></i></span><div><b>You submit the request</b><span>You get a reference code straight away to follow your request.</span></div></li>
+            <li><span class="rs-step-ic"><i class="bi bi-person-check"></i></span><div><b>We review it</b><span>Our admin team reads your details and picks the right specialist.</span></div></li>
+            <li><span class="rs-step-ic"><i class="bi bi-chat-dots"></i></span><div><b>We contact you</b><span>The assigned specialist gets in touch to agree the way forward.</span></div></li>
+          </ol>
+        </div>
+        <div class="rs-panel rs-contact">
+          <h4>Prefer to talk first?</h4>
+          <p>Call or write to us and we will help you describe what you need.</p>
+          <a href="tel:+255620839640"><i class="bi bi-telephone"></i> +255 620 839 640</a>
+          <a href="tel:+255760620418"><i class="bi bi-telephone"></i> +255 760 620 418</a>
+          <a href="mailto:mabumbatech@gmail.com"><i class="bi bi-envelope"></i> mabumbatech@gmail.com</a>
+        </div>
+      </aside>
+    </div>
+
+    <div id="requestSuccess" class="rs-success" style="display:none;">
+      <div class="rs-success-ic"><i class="bi bi-check-lg"></i></div>
+      <h3>Your request has been submitted successfully</h3>
+      <p>Our team will contact you as soon as possible. Thank you for choosing MABUMBA TECH.</p>
+      <div class="rs-code"><small>Reference code</small><b id="requestSuccessCode"></b></div>
+      <p class="small" style="margin:6px 0 0;">Keep this code — you can use it to track your request at any time.</p>
+      <div class="rs-success-actions">
+        <a id="requestSuccessTrackLink" href="#" class="btn btn-primary"><i class="bi bi-geo-alt"></i> Track my request</a>
+        <a href="../home.html" class="btn btn-outline"><i class="bi bi-house"></i> Back to home</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="siteFooter"></div>
+<script src="../../js/config.js"></script>
+<script src="../../js/terms.js"></script>
+<script src="../../js/layout-public.js"></script>
+<script src="../../js/pages/public-request-service.js?v=2"></script>
+</body>
+</html>

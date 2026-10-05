@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms &amp; Conditions — MABUMBA TECH</title>
+    <link rel="icon" href="../../img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/landing.css?v1">
+</head>
+
+<body class="landing inner">
+    <div id="siteHeader"></div>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="tag">Legal</span>
+                <h2>Terms &amp; Conditions</h2>
+                <p>Please read these Terms carefully before creating an account or requesting a service.</p>
+            </div>
+
+            <div class="card" id="termsPageContent" style="max-width:820px;margin:0 auto;padding:24px;">
+                <!-- Filled by terms.js so this page and the modal always show the same text. -->
+            </div>
+        </div>
+    </section>
+
+    <div id="siteFooter"></div>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/terms.js"></script>
+    <script src="../../js/layout-public.js"></script>
+    <script>
+        renderTermsPage('termsPageContent');
+        initPublicLayout('terms');
+    </script>
+</body>
+
+</html>

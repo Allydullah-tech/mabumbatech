@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accountant Desk — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+<link rel="stylesheet" href="../../css/accountant.css?v=2">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div id="pageBody">Loading…</div>
+    </div>
+  </main>
+</div>
+
+<!-- Record a finished project's budget as income -->
+<div class="modal-bg" id="incomeModal">
+  <div class="modal-box" style="max-width:480px;">
+    <span class="modal-close" onclick="closeModal('incomeModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-cash-coin"></i> Record Project Income</h3>
+    <form id="incomeForm">
+      <input type="hidden" name="action" value="record_project_income">
+      <input type="hidden" name="request_id" id="incomeRequestId">
+      <div class="acc-modal-info" id="incomeInfo"></div>
+      <div class="form-group"><label>Amount to record (TZS)</label><input type="number" name="amount" id="incomeAmount" min="1" step="0.01" required></div>
+      <div class="form-group"><label>How was it received?</label>
+        <select name="payment_method"><option value="bank_transfer">Bank transfer</option><option value="mobile_money">Mobile money</option><option value="cash">Cash</option><option value="other">Other</option></select></div>
+      <p class="small" id="incomeHint" style="margin:-4px 0 10px;"></p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record as Company Income</button>
+    </form>
+  </div>
+</div>
+
+<!-- Pay (part of) an approved company budget -->
+<div class="modal-bg" id="transferModal">
+  <div class="modal-box" style="max-width:500px;">
+    <span class="modal-close" onclick="closeModal('transferModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-send-check"></i> Pay Company Budget</h3>
+    <form id="transferForm">
+      <input type="hidden" name="action" value="pay_budget">
+      <input type="hidden" name="budget_id" id="transferBudgetId">
+      <div class="acc-modal-info" id="transferInfo"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Amount to pay now (TZS)</label><input type="number" name="amount" id="transferAmount" min="1" step="0.01" required></div>
+        <div class="form-group"><label>How are you paying?</label>
+          <select name="payment_method"><option value="bank_transfer">Bank transfer</option><option value="mobile_money">Mobile money</option><option value="cash">Cash</option><option value="other">Other</option></select></div>
+      </div>
+      <div class="form-group"><label>Payment reference <span class="small">(optional)</span></label><input type="text" name="reference" maxlength="80" placeholder="e.g. bank receipt / transaction number"></div>
+      <div class="form-group"><label>Note <span class="small">(optional)</span></label><input type="text" name="note" maxlength="255" placeholder="e.g. first half of the budget"></div>
+      <p class="small" id="transferHint" style="margin:-4px 0 10px;"></p>
+      <p class="small" style="margin:-4px 0 10px;">Each payment is recorded as a <b>company budget expense</b> and reduces company funds. You can pay a budget in parts until it is fully paid.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record Payment</button>
+    </form>
+  </div>
+</div>
+
+<!-- Budget details + payment records -->
+<div class="modal-bg" id="budgetViewModal">
+  <div class="modal-box" style="max-width:720px;">
+    <span class="modal-close" onclick="closeModal('budgetViewModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-briefcase"></i> Budget Details</h3>
+    <div id="budgetViewBody"></div>
+  </div>
+</div>
+
+<!-- Record a company loan -->
+<div class="modal-bg" id="loanModal">
+  <div class="modal-box" style="max-width:560px;">
+    <span class="modal-close" onclick="closeModal('loanModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-bank2"></i> Record Company Loan</h3>
+    <form id="loanForm" autocomplete="off">
+      <input type="hidden" name="action" value="loan_create">
+      <div class="form-group"><label>Loan provider / bank</label><input type="text" name="provider" list="bankList" maxlength="150" placeholder="e.g. CRDB Bank" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Loan amount received (TZS)</label><input type="number" name="principal" min="1" step="0.01" required></div>
+        <div class="form-group"><label>Total to repay (TZS) <span class="small">(with interest)</span></label><input type="number" name="total_repayable" min="1" step="0.01" placeholder="same as loan if no interest"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date received</label><input type="date" name="date_received" id="loanDateReceived" required></div>
+        <div class="form-group"><label>Final repayment date <span class="small">(optional)</span></label><input type="date" name="due_date"></div>
+      </div>
+      <div class="form-group"><label>Planned repayment per instalment (TZS) <span class="small">(optional)</span></label><input type="number" name="installment_amount" min="1" step="0.01" placeholder="e.g. 500000 per month"></div>
+      <div class="form-group"><label>Purpose</label><input type="text" name="purpose" maxlength="255" placeholder="e.g. Buy stock / office equipment" required minlength="3"></div>
+      <div class="form-group"><label>Notes <span class="small">(optional)</span></label><textarea name="notes" rows="2" maxlength="500" placeholder="Loan agreement number, guarantor, conditions…"></textarea></div>
+      <p class="small" style="margin:-4px 0 10px;">The loan is recorded as money owed — it is <b>not</b> counted as income or profit.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save Loan</button>
+    </form>
+  </div>
+</div>
+
+<!-- Record a loan repayment -->
+<div class="modal-bg" id="repayModal">
+  <div class="modal-box" style="max-width:520px;">
+    <span class="modal-close" onclick="closeModal('repayModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-cash-stack"></i> Record Loan Repayment</h3>
+    <form id="repayForm" autocomplete="off">
+      <input type="hidden" name="action" value="loan_repay">
+      <input type="hidden" name="loan_id" id="repayLoanId">
+      <div class="acc-modal-info" id="repayInfo"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Repayment amount (TZS)</label><input type="number" name="amount" id="repayAmount" min="1" step="0.01" required></div>
+        <div class="form-group"><label>Date paid</label><input type="date" name="paid_date" id="repayDate" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>How was it paid?</label>
+          <select name="payment_method"><option value="bank_transfer">Bank transfer</option><option value="mobile_money">Mobile money</option><option value="cash">Cash</option><option value="other">Other</option></select></div>
+        <div class="form-group"><label>Reference <span class="small">(optional)</span></label><input type="text" name="reference" maxlength="80" placeholder="e.g. bank receipt number"></div>
+      </div>
+      <div class="form-group"><label>Notes <span class="small">(optional)</span></label><input type="text" name="notes" maxlength="255" placeholder="e.g. instalment 3 of 12"></div>
+      <p class="small" id="repayHint" style="margin:-4px 0 10px;"></p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record Repayment</button>
+    </form>
+  </div>
+</div>
+
+<!-- Record an expense / other income -->
+<div class="modal-bg" id="entryModal">
+  <div class="modal-box" style="max-width:540px;">
+    <span class="modal-close" onclick="closeModal('entryModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="entryTitle"><i class="bi bi-receipt"></i> Record Expense</h3>
+    <form id="entryForm" autocomplete="off">
+      <input type="hidden" name="action" id="entryAction" value="record_expense">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" name="transaction_date" id="entryDate" required></div>
+        <div class="form-group"><label>Amount (TZS)</label><input type="number" name="amount" id="entryAmount" min="1" step="0.01" placeholder="0" required></div>
+      </div>
+      <div class="form-group"><label>Category</label><select name="category" id="entryCategory" required></select></div>
+      <div class="form-group"><label id="entryPayeeLabel">Paid to</label><input type="text" name="payee" id="entryPayee" maxlength="120" placeholder="e.g. TANESCO, Landlord, Shop name" required></div>
+      <div class="form-group"><label>What was it for?</label><textarea name="description" id="entryDesc" rows="2" maxlength="255" placeholder="e.g. September office rent" required minlength="3"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Payment method</label>
+          <select name="payment_method" id="entryMethod"><option value="cash">Cash</option><option value="bank_transfer">Bank transfer</option><option value="mobile_money">Mobile money</option><option value="card">Card</option><option value="other">Other</option></select></div>
+        <div class="form-group"><label>Receipt / reference no. <span class="small">(optional)</span></label><input type="text" name="reference" id="entryRef" maxlength="80" placeholder="e.g. receipt number"></div>
+      </div>
+      <div id="entryImpact"></div>
+      <button class="btn btn-primary btn-block" id="entrySubmit"><i class="bi bi-check2"></i> Record Expense</button>
+    </form>
+  </div>
+</div>
+
+<!-- Pay one salary -->
+<div class="modal-bg" id="payModal">
+  <div class="modal-box" style="max-width:500px;">
+    <span class="modal-close" onclick="closeModal('payModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-wallet2"></i> Pay Salary</h3>
+    <form id="payForm">
+      <input type="hidden" name="action" value="pay_salary">
+      <input type="hidden" name="user_id" id="payUserId">
+      <input type="hidden" name="month" id="payMonth">
+      <div class="acc-modal-info" id="payInfo"></div>
+      <div class="form-group"><label>How are you paying?</label>
+        <select name="payment_method"><option value="bank_transfer">Bank transfer</option><option value="mobile_money">Mobile money</option><option value="cash">Cash</option><option value="other">Other</option></select></div>
+      <div class="form-group"><label>Payment reference <span class="small">(optional)</span></label><input type="text" name="reference" maxlength="80" placeholder="e.g. bank receipt / transaction number"></div>
+      <div id="payLossWarn"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Salary Has Been Paid</button>
+    </form>
+  </div>
+</div>
+
+<!-- Bank account + salary -->
+<div class="modal-bg" id="bankModal">
+  <div class="modal-box" style="max-width:500px;">
+    <span class="modal-close" onclick="closeModal('bankModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="bankModalTitle"><i class="bi bi-bank"></i> Bank Account</h3>
+    <form id="bankForm">
+      <input type="hidden" name="action" value="save_bank_account">
+      <input type="hidden" name="user_id" id="bankUserId">
+      <div class="form-group"><label>Bank name</label><input type="text" name="bank_name" id="bankName" list="bankList" maxlength="100" placeholder="e.g. CRDB Bank" autocomplete="off">
+        <datalist id="bankList"><option value="CRDB Bank"><option value="NMB Bank"><option value="NBC Bank"><option value="Stanbic Bank"><option value="Equity Bank"><option value="Exim Bank"><option value="DTB Bank"><option value="ABSA Bank"><option value="Azania Bank"><option value="KCB Bank"><option value="TPB Bank"><option value="I&amp;M Bank"><option value="Access Bank"></datalist></div>
+      <div class="form-group"><label>Account name <span class="small">(as written at the bank)</span></label><input type="text" name="account_name" id="bankAccName" maxlength="120" placeholder="e.g. Amina Juma Mushi" autocomplete="off"></div>
+      <div class="form-group"><label>Account number</label><input type="text" name="account_number" id="bankAccNo" maxlength="40" inputmode="numeric" placeholder="e.g. 0152345678900" autocomplete="off"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Monthly salary (TZS)</label><input type="number" name="monthly_salary" id="bankSalary" min="0" step="0.01" placeholder="e.g. 800000"></div>
+        <div class="form-group"><label>Pay from month</label><input type="month" name="salary_start" id="bankStart"></div>
+      </div>
+      <p class="small" style="margin:-4px 0 10px;">Leave the bank fields empty if this person has no account yet. A salary is shown as <b>unpaid</b> from the chosen month until you pay it.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-accountant.js?v=3"></script>
+</body>
+</html>

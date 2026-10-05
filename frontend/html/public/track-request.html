@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Request — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css?v2">
+<link rel="stylesheet" href="../../css/forms.css?v2">
+<link rel="stylesheet" href="../../css/landing.css?v1">
+<link rel="stylesheet" href="../../css/track.css?v1">
+</head>
+<body class="landing inner">
+<div id="siteHeader"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Stay Informed</span>
+      <h2>Track Your Request</h2>
+      <p>Enter the tracking code you received after submitting a request.</p>
+    </div>
+
+    <div class="tr">
+      <div class="tr-search">
+        <div class="tr-search-ic"><i class="bi bi-geo-alt"></i></div>
+        <h3>Find your request</h3>
+        <p class="tr-search-lead">Use the tracking code from your submission, or search with the phone number you used.</p>
+
+        <div class="tr-tabs">
+          <a href="#" id="tabByCode" class="active"><i class="bi bi-upc-scan"></i> By Tracking Code</a>
+          <a href="#" id="tabByPhone"><i class="bi bi-telephone"></i> Forgot Your Code? Use Phone</a>
+        </div>
+
+        <form id="trackForm" class="form tr-form" style="display:flex;">
+          <label class="tr-field"><i class="bi bi-upc-scan"></i><input type="text" name="code" id="codeInput" placeholder="e.g. MBT-A1B2C3" aria-label="Tracking code" autocomplete="off"></label>
+          <button class="btn btn-primary"><i class="bi bi-search"></i> Track</button>
+        </form>
+
+        <form id="phoneForm" class="form tr-form" style="display:none;">
+          <label class="tr-field"><i class="bi bi-telephone"></i><input type="text" name="phone" id="phoneInput" placeholder="e.g. 0620839640" aria-label="Phone number" autocomplete="tel"></label>
+          <button class="btn btn-primary"><i class="bi bi-search"></i> Find My Requests</button>
+        </form>
+        <p class="tr-hint" id="phoneHint" style="display:none;"><i class="bi bi-info-circle"></i> We'll show every request submitted with this phone number.</p>
+      </div>
+
+      <div class="tr-steps" id="trackHelp">
+        <div class="tr-step">
+          <div class="tr-step-num">1</div>
+          <div><h4>Submit a request</h4><p>Tell us what you need using the Request Service form.</p></div>
+        </div>
+        <div class="tr-step">
+          <div class="tr-step-num">2</div>
+          <div><h4>Get your tracking code</h4><p>You receive it right after your request is submitted.</p></div>
+        </div>
+        <div class="tr-step">
+          <div class="tr-step-num">3</div>
+          <div><h4>Follow the progress</h4><p>See the status, your specialist, project links and files.</p></div>
+        </div>
+      </div>
+
+      <div id="resultContainer"></div>
+    </div>
+  </div>
+</section>
+
+<div id="siteFooter"></div>
+<script src="../../js/config.js?v2"></script>
+<script src="../../js/layout-public.js?v2"></script>
+<script src="../../js/project-panels.js?v2"></script>
+<script src="../../js/pages/public-track-request.js?v2"></script>
+</body>
+</html>

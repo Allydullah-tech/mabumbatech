@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="grid grid-4" style="margin-bottom:18px;">
+        <div class="card stat-card" id="cardCustomers"><div class="ic blue"><i class="bi bi-person-lines-fill"></i></div><div><b id="statCustomers">—</b><span>Customer Accounts</span><span class="small" id="statNewCustomers"></span></div></div>
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-hourglass-split"></i></div><div><b id="statPending">—</b><span>Pending Requests</span></div></div>
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-arrow-repeat"></i></div><div><b id="statInProgress">—</b><span>Active Projects</span></div></div>
+        <div class="card stat-card"><div class="ic green"><i class="bi bi-check2-circle"></i></div><div><b id="statCompleted">—</b><span>Completed</span></div></div>
+      </div>
+
+      <div class="grid grid-4" style="margin-bottom:18px;">
+        <div class="card stat-card" id="cardUrgent"><div class="ic red"><i class="bi bi-exclamation-triangle"></i></div><div><b id="statUrgent">—</b><span>Urgent Requests</span></div></div>
+        <div class="card stat-card" id="cardMessages"><div class="ic red"><i class="bi bi-envelope"></i></div><div><b id="statMessages">—</b><span>Unread Contact Messages</span></div></div>
+        <div class="card stat-card"><div class="ic blue"><i class="bi bi-people"></i></div><div><b id="statStaff">—</b><span>Staff Accounts</span></div></div>
+        <div class="card stat-card"><div class="ic blue"><i class="bi bi-shield-lock"></i></div><div><b id="statAdmins">—</b><span>Administrators</span></div></div>
+      </div>
+
+      <!-- Manager only (built by admin-dashboard.js): read-only Financial Overview with period filter -->
+      <section class="panel fo-panel" id="financePanel" style="display:none;margin-bottom:18px;">
+        <div class="fo-head">
+          <div class="fo-title">
+            <h3><i class="bi bi-pie-chart"></i> Financial Overview</h3>
+            <span class="fo-sub" id="foRangeLabel">This month</span>
+          </div>
+          <div class="fo-filter" id="foFilter" role="tablist" aria-label="Time period">
+            <button type="button" data-p="this_month" class="active">This month</button>
+            <button type="button" data-p="last_month">Last month</button>
+            <button type="button" data-p="last_3_months">3 months</button>
+            <button type="button" data-p="this_year">This year</button>
+            <button type="button" data-p="all">All time</button>
+            <button type="button" data-p="custom"><i class="bi bi-calendar3"></i> Custom</button>
+          </div>
+        </div>
+        <div class="fo-custom" id="foCustom" style="display:none;">
+          <label>From <input type="date" id="foFrom"></label>
+          <label>To <input type="date" id="foTo"></label>
+          <button type="button" class="btn btn-primary btn-sm" id="foApply">Apply</button>
+        </div>
+        <div class="fo-body" id="foBody"><div class="fo-loading">Loading…</div></div>
+      </section>
+
+      <div class="grid grid-2" style="align-items:start;margin-bottom:18px;">
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-inboxes"></i> Recent Requests</h3><a href="requests.html" class="small">View all</a></div>
+          <div class="table-wrap">
+            <table class="tbl">
+              <thead><tr><th>Code</th><th>Request</th><th>Client</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody id="recentRequestsBody"><tr><td colspan="5" class="empty-state">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-bar-chart"></i> Requests by Category</h3></div>
+          <div class="panel-body" id="categoryLoadBody">Loading…</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="align-items:start;margin-bottom:18px;">
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-graph-up"></i> Service Demand — Last 6 Months</h3></div>
+          <div class="panel-body" id="demandTrendBody">Loading…</div>
+        </div>
+        <div class="panel" id="staffActivityPanel">
+          <div class="panel-head"><h3><i class="bi bi-activity"></i> Staff Activity</h3></div>
+          <div class="notif-row-list" id="staffActivityBody" style="max-height:280px;overflow-y:auto;">Loading…</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="align-items:start;">
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-chat-dots"></i> Recent Conversation Activity</h3></div>
+          <div class="notif-row-list" id="recentMessagesBody" style="max-height:280px;overflow-y:auto;">Loading…</div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-bell"></i> Recent Notifications</h3><a href="../notifications.html" class="small">View all</a></div>
+          <div class="notif-row-list" id="recentNotificationsBody" style="max-height:280px;overflow-y:auto;">Loading…</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-dashboard.js"></script>
+</body>
+</html>

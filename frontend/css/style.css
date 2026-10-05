@@ -1,0 +1,1355 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    /* Brand palette — sampled directly from the MABUMBA TECH logo (navy + vivid blue) */
+    --navy-950: #050b1a;
+    --navy-900: #0a1830;
+    --navy-800: #0f2249;
+    --blue-900: #0a2f6b;
+    --blue-800: #0d3f8f;
+    --blue-700: #0054b8;
+    --blue-600: #1568d6;
+    --blue-500: #2f83f0;
+    --blue-400: #5da2f5;
+    --blue-100: #e7f1ff;
+    --blue-50: #f5f9ff;
+    --cyan: #17b8d6;
+    --cyan-100: #e2f8fb;
+    --ink: #0f1728;
+    --ink-soft: #5c6b85;
+    --line: #e6eaf2;
+    --white: #ffffff;
+    --ok: #159a63;
+    --ok-100: #e5f7ee;
+    --warn: #d68a0d;
+    --warn-100: #fdf1dc;
+    --danger: #e04438;
+    --danger-100: #fdeceb;
+    --radius-sm: 8px;
+    --radius: 13px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+    --shadow-xs: 0 1px 3px rgba(10, 30, 70, .06);
+    --shadow: 0 4px 18px rgba(10, 40, 90, .08);
+    --shadow-lg: 0 20px 48px rgba(10, 30, 70, .16);
+    --shadow-hover: 0 10px 28px rgba(10, 40, 90, .16);
+    --focus-ring: 0 0 0 3px var(--blue-100);
+    --transition-fast: .15s ease;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   RESET / GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: var(--blue-50);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* A visible, on-brand focus outline for keyboard navigation — improves
+   accessibility/professionalism without changing anything for mouse users
+   (only shows on :focus-visible, not on every click). */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 2px;
+}
+
+a {
+    color: var(--blue-700);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--blue-900);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0 0 6px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    color: var(--ink);
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.35rem;
+}
+
+h3 {
+    font-size: 1.05rem;
+    letter-spacing: -.005em;
+}
+
+p {
+    margin: 0 0 10px;
+    color: var(--ink-soft);
+    font-size: .92rem;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.small {
+    font-size: .8rem;
+    color: var(--ink-soft);
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: -.005em;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn i {
+    font-size: .95rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 84, 184, .28);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--blue-800), var(--blue-700));
+    color: #fff;
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: #fff;
+    border-color: var(--blue-700);
+    color: var(--blue-700);
+}
+
+.btn-outline:hover {
+    background: var(--blue-100);
+    transform: translateY(-1px);
+}
+
+.btn-light {
+    background: #fff;
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+.btn-light:hover {
+    background: var(--blue-50);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #c53a2f;
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-sm {
+    padding: 7px 12px;
+    font-size: .78rem;
+    border-radius: 7px;
+}
+
+.btn-block {
+    width: 100%;
+    justify-content: center;
+}
+
+.btn:disabled,
+.btn[disabled] {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* Cards get a subtle lift on hover wherever they're interactive/clickable —
+   purely additive polish, no layout changes. Cards used purely for static
+   grouping (already covered by other rules) are unaffected since this only
+   applies :hover, which no-op's until the pointer is actually over one. */
+.card,
+.service-card,
+.portfolio-card {
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover,
+.service-card:hover,
+.portfolio-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: #d6e3fb;
+}
+
+
+/* =========================================================
+   TOP NAVIGATION
+   ========================================================= */
+
+.topbar {
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    max-width: 1180px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    color: var(--blue-800);
+    font-size: 1.05rem;
+}
+
+.brand img {
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.nav-links a {
+    padding: 9px 13px;
+    border-radius: var(--radius-sm);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: var(--blue-100);
+    color: var(--blue-800);
+}
+
+.nav-cta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--blue-800);
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   LANDING PAGE HEADER — solid brand-blue variant
+   (scoped to .topbar-home so it only affects home.html;
+   every other page keeps the default white .topbar)
+   ========================================================= */
+
+.topbar.topbar-home {
+    background: linear-gradient(90deg, var(--navy-900), var(--blue-800));
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.topbar.topbar-home .brand,
+.topbar.topbar-home .nav-toggle {
+    color: #fff;
+}
+
+/* The wordmark PNG already carries the full "MABUMBA TECH" lockup and
+   tagline, so the adjacent plain-text label is hidden to avoid double
+   branding — purely visual, the element stays in the DOM. */
+.topbar.topbar-home .brand-home .brand-name {
+    display: none;
+}
+
+.topbar.topbar-home .brand-home img {
+    height: 60px;
+    width: auto;
+}
+
+.topbar.topbar-home .nav-links a {
+    color: rgba(255, 255, 255, .82);
+}
+
+.topbar.topbar-home .nav-links a:hover,
+.topbar.topbar-home .nav-links a.active {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+}
+
+.topbar.topbar-home .btn-outline {
+    background: transparent;
+    border-color: rgba(255, 255, 255, .65);
+    color: #fff;
+}
+
+.topbar.topbar-home .btn-outline:hover {
+    background: rgba(255, 255, 255, .15);
+    border-color: #fff;
+}
+
+/* Mobile dropdown menu stays on its normal white background/dark text. */
+.topbar.topbar-home .nav-links.open-mobile a {
+    color: var(--ink-soft);
+}
+
+.topbar.topbar-home .nav-links.open-mobile a:hover,
+.topbar.topbar-home .nav-links.open-mobile a.active {
+    background: var(--blue-100);
+    color: var(--blue-800);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background:
+        radial-gradient(1200px 500px at 80% -10%, #dfeeff 0%, transparent 60%),
+        radial-gradient(900px 420px at -10% 110%, #eaf3ff 0%, transparent 55%),
+        linear-gradient(180deg, #f3f8ff, #eef5ff);
+    padding: 54px 0;
+    z-index: 1;
+}
+
+/* Faint tech-grid dot pattern behind the hero content — pure CSS, no image. */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(13, 82, 184, .12) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(650px 420px at 78% 15%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(650px 420px at 78% 15%, #000 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text {
+    flex: 1.1;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-100);
+    color: var(--blue-700);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    margin-bottom: 14px;
+}
+
+.hero-text h1 {
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+    color: var(--blue-900);
+    font-weight: 900;
+    letter-spacing: -.02em;
+}
+
+.hero-text h1 span {
+    background: linear-gradient(90deg, var(--blue-700), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-text p {
+    font-size: .98rem;
+    max-width: 520px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 22px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.hero-stats div b {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--blue-800);
+}
+
+.hero-stats div span {
+    font-size: .75rem;
+    color: var(--ink-soft);
+}
+
+
+/* =========================================================
+   HERO LOGO
+   ========================================================= */
+
+.hero-logo-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-logo-circle {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, var(--blue-100) 55%, #dcebff 100%);
+    border: 1px solid #d7e7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 60px rgba(13, 82, 184, .18), inset 0 0 0 10px #ffffff;
+}
+
+.hero-logo-circle::before {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    border: 2px dashed #bcdcff;
+    animation: spin 40s linear infinite;
+}
+
+.hero-logo-circle img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(13, 82, 184, .25));
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section {
+    position: relative;
+    z-index: 2;
+    padding: 50px 0;
+    margin-top: 0;
+    clear: both;
+}
+
+.section-head {
+    max-width: 640px;
+    margin: 0 auto 26px;
+    text-align: center;
+}
+
+.section-head .tag {
+    display: inline-block;
+    color: var(--blue-700);
+    font-weight: 700;
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: var(--blue-100);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.section-alt {
+    background: #fff;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+
+/* =========================================================
+   MABUMBA TECH INTRO SECTION
+   ========================================================= */
+
+.about-intro {
+    position: relative;
+    z-index: 3;
+    background: var(--blue-50);
+    padding: 46px 0;
+    margin-top: 0;
+    clear: both;
+}
+
+
+/* =========================================================
+   GRIDS
+   ========================================================= */
+
+.grid {
+    display: grid;
+    gap: 14px;
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.portfolio-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* =========================================================
+   SMALL CARDS
+   ========================================================= */
+
+.card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    transition: .15s;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SERVICE CARDS
+   ========================================================= */
+
+.service-card .ic {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--blue-100), #d9ebff);
+    color: var(--blue-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.service-card h3 {
+    font-size: .95rem;
+}
+
+.service-card p {
+    font-size: .8rem;
+    margin-bottom: 8px;
+}
+
+.service-card a {
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MISSION / VISION CARDS
+   ========================================================= */
+
+.mv-card {
+    text-align: left;
+}
+
+.mv-card .ic {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.mv-card h3 {
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--blue-700);
+}
+
+.mv-card p {
+    font-size: .82rem;
+}
+
+
+/* =========================================================
+   PORTFOLIO CARDS
+   ========================================================= */
+
+.portfolio-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.portfolio-card .thumb {
+    height: 130px;
+    background: linear-gradient(135deg, var(--blue-700), var(--cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.8rem;
+}
+
+.portfolio-card .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.portfolio-card .body {
+    padding: 12px 14px;
+}
+
+.portfolio-card h3 {
+    font-size: .88rem;
+}
+
+.portfolio-card .cat {
+    font-size: .7rem;
+    color: var(--blue-700);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.portfolio-card p {
+    font-size: .78rem;
+}
+
+.portfolio-card.pf-profile {
+    padding: 22px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portfolio-card.pf-profile .logo-box {
+    width: 100%;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.portfolio-card.pf-profile .logo-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.portfolio-card.pf-profile .logo-box i {
+    font-size: 2rem;
+    color: var(--blue-500);
+}
+
+.portfolio-card.pf-profile h3 {
+    font-size: .95rem;
+    color: var(--blue-800);
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+.portfolio-card.pf-profile .visit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--blue-600);
+    margin-bottom: 6px;
+}
+
+.portfolio-card.pf-profile .visit-link:hover {
+    color: var(--blue-800);
+}
+
+.portfolio-card.pf-profile .cat-line {
+    display: block;
+    font-size: .78rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+.portfolio-card.pf-profile .pf-details {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+    width: 100%;
+}
+
+.portfolio-card.pf-profile .pf-details p {
+    font-size: .78rem;
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   PROCESS / STEP CARDS
+   ========================================================= */
+
+.step-card {
+    position: relative;
+    padding-top: 30px;
+}
+
+.step-num {
+    position: absolute;
+    top: -14px;
+    left: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(0, 84, 184, .3);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    background: linear-gradient(180deg, var(--navy-900), var(--navy-950));
+    color: #cfe0ff;
+    padding: 44px 0 16px;
+    margin-top: auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 26px;
+}
+
+footer h4 {
+    color: #fff;
+    font-size: .85rem;
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: #b9d3f7;
+    font-size: .8rem;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.footer-brand img {
+    height: 50px;
+    width: auto;
+    max-width: 210px;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    box-shadow: var(--shadow);
+}
+
+/* The logo image already contains the "MABUMBA TECH" wordmark, so the
+   plain-text label next to it is hidden to avoid double branding. */
+.footer-brand span {
+    display: none;
+}
+
+footer p {
+    color: #a9c2ea;
+    font-size: .78rem;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    margin-top: 26px;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: .75rem;
+    color: #93aede;
+}
+
+.social-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.social-row a {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.social-row a:hover {
+    background: var(--blue-600);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ALERTS / BADGES
+   ========================================================= */
+
+.alert {
+    padding: 11px 14px;
+    border-radius: var(--radius-sm);
+    font-size: .82rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-ok {
+    background: var(--ok-100);
+    color: #0f6b46;
+    border: 1px solid #bfe9d3;
+}
+
+.alert-err {
+    background: var(--danger-100);
+    color: #a3291f;
+    border: 1px solid #f6c7c2;
+}
+
+.alert-info {
+    background: var(--blue-100);
+    color: var(--blue-800);
+    border: 1px solid #cfe3fb;
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+}
+
+.badge-ok {
+    background: var(--ok-100);
+    color: var(--ok);
+}
+
+.badge-warn {
+    background: var(--warn-100);
+    color: var(--warn);
+}
+
+.badge-info {
+    background: var(--blue-100);
+    color: var(--blue-700);
+}
+
+.badge-off {
+    background: var(--danger-100);
+    color: var(--danger);
+}
+
+.badge-cat {
+    background: var(--cyan-100);
+    color: #0e7d92;
+}
+
+
+/* =========================================================
+   UTILITY
+   ========================================================= */
+
+.divider {
+    height: 1px;
+    background: var(--line);
+    margin: 20px 0;
+}
+
+.mt0 {
+    margin-top: 0;
+}
+
+.mb0 {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media(max-width:960px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .hero {
+        min-height: 650px;
+        padding: 55px 0 60px;
+    }
+    .hero-inner {
+        flex-direction: column;
+        gap: 45px;
+    }
+    .hero-text {
+        width: 100%;
+        text-align: center;
+    }
+    .hero-text p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-actions {
+        justify-content: center;
+    }
+    .hero-stats {
+        justify-content: center;
+    }
+    .hero-logo-wrap {
+        width: 100%;
+    }
+    .hero-logo-circle {
+        width: 230px;
+        height: 230px;
+    }
+    .nav-links,
+    .nav-cta .btn-outline {
+        display: none;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    /* Mobile hamburger dropdown */
+    .nav-links.open-mobile {
+        display: flex!important;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid var(--line);
+        box-shadow: var(--shadow-lg);
+        padding: 6px 20px 12px;
+        z-index: 60;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    .nav-links.open-mobile a {
+        padding: 13px 4px;
+        border-bottom: 1px solid var(--line);
+        width: 100%;
+    }
+    .nav-links.open-mobile a:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Dimmed backdrop behind the open mobile nav drawer (created dynamically by
+   renderPublicHeader() in layout-public.js). Tapping it closes the menu. */
+.nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 20, 45, .45);
+    z-index: 55;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.nav-backdrop.show {
+    display: block;
+    opacity: 1;
+}
+
+@media(min-width:961px) {
+    .nav-backdrop {
+        display: none!important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:560px) {
+    .grid-4,
+    .grid-3,
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .hero {
+        min-height: 680px;
+        padding: 45px 0 55px;
+    }
+    .hero-text h1 {
+        font-size: 1.85rem;
+    }
+    .hero-text p {
+        font-size: .9rem;
+    }
+    .hero-logo-circle {
+        width: 210px;
+        height: 210px;
+    }
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-actions .btn {
+        width: 100%;
+        max-width: 260px;
+        justify-content: center;
+    }
+    .hero-stats {
+        gap: 16px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ---- Scroll-reveal entrance animation (see layout-public.js: initScrollReveal) ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        transition-duration: .001ms !important;
+    }
+}
+
+/* ---- Tabs / filter row (used on public portfolio category filter, etc.) ---- */
+.tabs-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.tabs-row a{padding:7px 13px;border-radius:20px;font-size:.78rem;font-weight:700;background:#fff;border:1px solid var(--line);color:var(--ink-soft);text-decoration:none;}
+.tabs-row a.active,.tabs-row a:hover{background:linear-gradient(135deg,var(--blue-700),var(--blue-600));color:#fff;border-color:var(--blue-700);}
+
+/* ---- Floating WhatsApp quick-contact button ---- */
+.floating-whatsapp {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25D366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .28);
+    z-index: 90;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.floating-whatsapp:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .32);
+    color: #fff;
+}
+@media (max-width: 600px) {
+    .floating-whatsapp {
+        width: 48px;
+        height: 48px;
+        font-size: 1.35rem;
+        right: 14px;
+        bottom: 14px;
+    }
+}
+
+
+/* =========================================================
+   TEAM PAGE — CEO down to every member: photo, name,
+   department/position, contacts, optional short note.
+   ========================================================= */
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.team-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 16px;
+    text-align: center;
+    transition: .15s;
+}
+
+.team-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.team-avatar {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.team-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.team-name {
+    margin: 0 0 2px;
+    font-size: 1rem;
+}
+
+.team-role {
+    color: var(--blue-700);
+    font-weight: 600;
+    font-size: .82rem;
+    margin-bottom: 10px;
+}
+
+.team-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: .8rem;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+}
+
+.team-contacts a {
+    color: var(--ink-soft);
+}
+
+.team-contacts a:hover {
+    color: var(--blue-700);
+}
+
+.team-note {
+    font-size: .8rem;
+    margin: 8px 0 0;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+}
+
+@media (max-width: 560px) {
+    .team-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

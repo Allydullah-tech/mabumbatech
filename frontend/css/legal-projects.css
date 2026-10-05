@@ -1,0 +1,66 @@
+/* MABUMBA TECH — Legal page: Company Projects (uses the shared dashboard tokens) */
+.lp-panel .panel-head{align-items:center;gap:14px;}
+.lp-panel .panel-head .search-box{margin-left:auto;}
+.lp-toolbar{padding:14px 18px 0;}
+.lp-toolbar .tabs-row{margin-bottom:12px;}
+
+.lp-table td{vertical-align:middle;}
+.lp-row{cursor:pointer;}
+.lp-code{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.02em;color:var(--blue-700);background:var(--blue-100);padding:4px 9px;border-radius:6px;white-space:nowrap;}
+.lp-project{min-width:200px;}
+.lp-title{font-weight:700;color:var(--ink);font-size:.86rem;}
+.lp-sub{font-size:.72rem;color:var(--ink-soft);margin-top:2px;}
+.lp-sub i{font-size:.7rem;}
+.lp-service{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:var(--ink);white-space:nowrap;}
+.lp-service i{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--blue-50);color:var(--blue-600);font-size:.85rem;}
+.lp-budget{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.lp-none{color:var(--ink-soft);font-weight:400;}
+.lp-progress{min-width:120px;}
+.lp-progress b{font-size:.72rem;margin-left:8px;color:var(--ink);}
+.lp-progress .lp-bar{display:inline-block;vertical-align:middle;width:70px;}
+.lp-bar{height:7px;background:var(--blue-100);border-radius:20px;overflow:hidden;}
+.lp-bar span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue-600),var(--cyan));}
+.lp-bar.big{height:9px;display:block;width:100%;}
+.lp-res{display:flex;gap:6px;}
+.lp-chip{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:.72rem;font-weight:700;}
+.lp-chip.is-empty{background:#f1f4f9;color:#9aa8bf;font-weight:600;}
+.lp-row:hover td{background:var(--blue-50);}
+
+/* Project details modal */
+#projectViewModal .modal-box{max-width:780px;padding:0;}
+#projectViewModal .modal-close{position:sticky;top:12px;float:right;margin:12px 14px 0 0;z-index:3;background:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-xs);}
+#projectViewBody{padding:22px 24px 24px;}
+.lp-modal-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-right:34px;}
+.lp-modal-head h3{margin:0 0 2px;font-size:1.1rem;overflow-wrap:anywhere;}
+.lp-modal-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;flex-shrink:0;background:linear-gradient(135deg,var(--blue-700),var(--blue-500));box-shadow:0 4px 12px rgba(10,40,90,.18);}
+.lp-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px;}
+.lp-field{background:var(--blue-50);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;min-width:0;}
+.lp-field span{display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:3px;}
+.lp-field b{display:block;font-size:.82rem;color:var(--ink);overflow-wrap:anywhere;}
+.lp-prog{margin-bottom:6px;}
+.lp-prog-top{display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:6px;color:var(--ink-soft);}
+.lp-prog-top b{color:var(--ink);}
+.lp-section{margin-top:20px;}
+.lp-section h4{display:flex;align-items:center;gap:7px;margin:0 0 10px;font-size:.86rem;}
+.lp-section h4 i{color:var(--blue-600);}
+.lp-section h4 em{font-style:normal;font-size:.7rem;font-weight:700;background:var(--blue-100);color:var(--blue-700);border-radius:20px;padding:1px 8px;}
+.lp-desc{margin:0;font-size:.84rem;line-height:1.6;white-space:pre-wrap;color:var(--ink);background:var(--blue-50);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;}
+.lp-res-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;background:#fff;}
+.lp-res-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--blue-100);color:var(--blue-700);font-size:1.05rem;flex-shrink:0;}
+.lp-res-ic.file{background:var(--ok-100);color:#16663a;}
+.lp-res-main{flex:1;min-width:0;}
+.lp-res-main b{display:block;font-size:.83rem;overflow-wrap:anywhere;}
+.lp-res-main span{display:block;font-size:.72rem;color:var(--ink-soft);margin-top:1px;overflow-wrap:anywhere;}
+.lp-res-empty{display:flex;align-items:center;gap:8px;justify-content:center;padding:14px;border:1px dashed var(--line);border-radius:var(--radius);font-size:.78rem;color:var(--ink-soft);background:var(--blue-50);}
+.lp-thread{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;}
+.lp-msg{border:1px solid var(--line);border-radius:var(--radius-sm);padding:9px 12px;background:var(--blue-50);}
+.lp-msg b{display:block;font-size:.76rem;margin-bottom:2px;}
+.lp-msg span{display:block;font-size:.8rem;color:var(--ink-soft);white-space:pre-wrap;overflow-wrap:anywhere;}
+.lp-modal-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);}
+
+@media (max-width:760px){
+  .lp-fields{grid-template-columns:repeat(2,minmax(0,1fr));}
+  #projectViewBody{padding:18px 16px 20px;}
+  .lp-res-item{flex-wrap:wrap;}
+  .lp-panel .panel-head .search-box{margin-left:0;}
+}

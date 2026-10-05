@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MABUMBA TECH — Technology. Innovation. Solution.</title>
+    <meta name="description" content="Technology. Innovation. Solution. — quality and affordable technology solutions that turn ideas into practical results.">
+    <link rel="icon" href="../img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css?v2">
+    <link rel="stylesheet" href="../css/forms.css?v2">
+    <link rel="stylesheet" href="../css/landing.css?v2">
+</head>
+
+<body class="landing">
+
+    <!-- Header is static so navigation (including Login) always works, even before any JS/API call completes. -->
+    <header class="topbar topbar-home">
+        <div class="topbar-inner">
+            <a href="home.html" class="brand brand-home">
+                <img src="../img/logo4.png" alt="MABUMBA TECH">
+                <span class="brand-name">MABUMBA TECH</span>
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="active">Home</a>
+                <a href="public/about.html">About</a>
+                <a href="public/team.html">Team</a>
+                <a href="public/services.html">Services</a>
+                <a href="public/portfolio.html">Portfolio</a>
+                <a href="public/track-request.html">Track Request</a>
+                <a href="public/contact.html">Contact</a>
+            </nav>
+            <div class="nav-cta" id="navCta">
+                <a href="auth/login.html" class="btn btn-outline btn-sm"><i class="bi bi-box-arrow-in-right"></i> Staff/Admin Login</a>
+                <a href="public/request-service.html" class="btn btn-primary btn-sm"><i class="bi bi-send"></i> Request Service</a>
+                <button class="nav-toggle" aria-label="Menu"><i class="bi bi-list"></i></button>
+            </div>
+        </div>
+    </header>
+    <div id="flashContainer" class="container" style="padding-top:14px;"></div>
+
+    <section class="lp-hero">
+        <span class="lp-slash s1" aria-hidden="true"></span>
+        <span class="lp-slash s2" aria-hidden="true"></span>
+        <div class="lp-wrap lp-hero-grid">
+            <div class="lp-hero-copy">
+                <span class="lp-pill"><i class="bi bi-lightning-charge-fill"></i> Technology. Innovation. Solution.</span>
+                <h1>Turning ideas into <em>practical technology</em> solutions</h1>
+                <p class="lp-sub">Smart technology solutions that drive innovation, efficiency, and growth. For businesses, organizations, and individuals across Tanzania, East Africa and beyond.</p>
+                <div class="lp-actions">
+                    <a href="public/request-service.html" class="btn btn-primary"><i class="bi bi-send"></i> Request a Service</a>
+                    <a href="public/services.html" class="btn btn-outline"><i class="bi bi-grid"></i> Our Services</a>
+                </div>
+                <ul class="lp-stats">
+                    <li><b id="statStaff">8+</b><span>Skilled Specialists</span></li>
+                    <li><b id="statDone">40+</b><span>Projects Completed</span></li>
+                    <li><b>8+</b><span>Service Categories</span></li>
+                </ul>
+            </div>
+            <div class="hero-logo-wrap">
+                <div class="hero-logo-circle">
+                    <img src="../img/logo2.png" alt="MABUMBA TECH logo">
+                </div>
+                <span class="lp-chip c1" aria-hidden="true"><i class="bi bi-code-slash"></i> Web</span>
+                <span class="lp-chip c2" aria-hidden="true"><i class="bi bi-phone"></i> Mobile Apps</span>
+                <span class="lp-chip c3" aria-hidden="true"><i class="bi bi-cpu"></i> AI / ML</span>
+                <span class="lp-chip c4" aria-hidden="true"><i class="bi bi-palette"></i> Design</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="lp-ticker" aria-hidden="true">
+        <div class="lp-ticker-track">
+            <span>Web Development</span><span>App Development</span><span>AI / ML Projects</span><span>Graphics Designing</span><span>IT Consultancy</span><span>Software &amp; Hardware</span>
+            <span>Web Development</span><span>App Development</span><span>AI / ML Projects</span><span>Graphics Designing</span><span>IT Consultancy</span><span>Software &amp; Hardware</span>
+        </div>
+    </div>
+
+    <section class="lp-section" id="about">
+        <div class="lp-wrap lp-about-grid">
+            <div class="lp-about-text" data-reveal>
+                <span class="lp-eyebrow">Who We Are</span>
+                <h2 class="lp-title">Technology built around your goals</h2>
+                <p><b>MABUMBA TECH</b> delivers innovative digital and technology solutions that empower businesses, organizations, and individuals. With a strong focus on <b>Tanzania and East Africa</b>, we serve clients <b>regardless of location</b>, delivering solutions wherever they are needed.</p>
+                <a href="public/about.html" class="btn btn-outline btn-sm">More About Us <i class="bi bi-arrow-right"></i></a>
+            </div>
+            <div class="lp-values" data-reveal>
+                <div class="lp-value"><i class="bi bi-shield-check"></i><b>Reliable delivery</b><span>Projects delivered on time, with clear status updates.</span></div>
+                <div class="lp-value"><i class="bi bi-cash-coin"></i><b>Fair, transparent pricing</b><span>Quality work at a price that makes sense.</span></div>
+                <div class="lp-value"><i class="bi bi-people"></i><b>Specialists in every domain</b><span>The right expert assigned to every request.</span></div>
+                <div class="lp-value"><i class="bi bi-graph-up-arrow"></i><b>Built to grow with you</b><span>Solutions that scale as your needs change.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lp-section lp-alt">
+        <div class="lp-wrap">
+            <div class="lp-head" data-reveal>
+                <span class="lp-eyebrow">What We Do</span>
+                <h2 class="lp-title">Digital services we provide</h2>
+                <p class="lp-lead">From concept to launch, our specialist teams cover every part of your technology needs.</p>
+            </div>
+            <div class="svc-grid" id="servicesList" data-reveal>
+                <div class="svc-item">
+                    <span class="svc-ic"><i class="bi bi-code-slash"></i></span>
+                    <h3>Web Development</h3>
+                    <p>Business websites, e-commerce platforms and web applications.</p>
+                </div>
+                <div class="svc-item">
+                    <span class="svc-ic"><i class="bi bi-phone"></i></span>
+                    <h3>App Development</h3>
+                    <p>Android, iOS and cross-platform mobile applications.</p>
+                </div>
+                <div class="svc-item">
+                    <span class="svc-ic"><i class="bi bi-cpu"></i></span>
+                    <h3>Software &amp; Hardware Solutions</h3>
+                    <p>Custom software, system installation, repair and maintenance.</p>
+                </div>
+                <div class="svc-item">
+                    <span class="svc-ic"><i class="bi bi-diagram-3"></i></span>
+                    <h3>IT Consultancy</h3>
+                    <p>Technology planning, systems audit and digital strategy.</p>
+                </div>
+            </div>
+            <div class="lp-more"><a href="public/services.html" class="btn btn-primary">View All 8 Services <i class="bi bi-arrow-right"></i></a></div>
+        </div>
+    </section>
+
+    <section class="lp-section lp-dark">
+        <div class="lp-wrap">
+            <div class="lp-head" data-reveal>
+                <span class="lp-eyebrow">Simple Process</span>
+                <h2 class="lp-title">How it works</h2>
+                <p class="lp-lead">Four easy steps from your first idea to a finished solution.</p>
+            </div>
+            <div class="lp-steps" data-reveal>
+                <div class="lp-step"><span class="lp-step-num">1</span><h3>Submit Request</h3><p>Tell us what you need through our simple request form.</p></div>
+                <div class="lp-step"><span class="lp-step-num">2</span><h3>We Review</h3><p>Our admin team reviews and assigns your request to the right specialist.</p></div>
+                <div class="lp-step"><span class="lp-step-num">3</span><h3>We Build</h3><p>Our staff work on your project and keep your status updated.</p></div>
+                <div class="lp-step"><span class="lp-step-num">4</span><h3>You Receive</h3><p>Get your finished solution, delivered on time and on budget.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lp-section lp-alt" id="featuredWorkSection" style="display:none;">
+        <div class="lp-wrap">
+            <div class="lp-head">
+                <span class="lp-eyebrow">Recent Work</span>
+                <h2 class="lp-title">Featured solutions</h2>
+                <p class="lp-lead">A few projects our team has recently delivered.</p>
+            </div>
+            <div class="lp-work-grid" id="featuredWorkGrid"></div>
+            <div class="lp-more"><a href="public/portfolio.html" class="btn btn-outline">View Full Portfolio <i class="bi bi-arrow-right"></i></a></div>
+        </div>
+    </section>
+
+    <section class="lp-section lp-cta">
+        <div class="lp-wrap" data-reveal>
+            <div class="lp-cta-panel">
+                <div>
+                    <h2>Ready to start your project?</h2>
+                    <p>Tell us about your idea &mdash; our team will get back to you shortly. Prefer to browse first? <a href="public/portfolio.html">See our recent work</a>.</p>
+                </div>
+                <div class="lp-cta-actions">
+                    <a href="public/request-service.html" class="btn btn-light"><i class="bi bi-send"></i> Get Started</a>
+                    <a href="public/track-request.html" class="btn btn-ghost"><i class="bi bi-search"></i> Track a Request</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer is static for the same reliability reason as the header. -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="../img/logo.png" alt="logo">
+                        <span>MABUMBA TECH</span>
+                    </div>
+                    <p>Technology. Innovation. Solution. To deliver quality and affordable technology solutions that turn ideas into practical results and help people, businesses, and organizations grow.</p>
+                    <div class="social-row">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="public/about.html">About Us</a></li>
+                        <li><a href="public/portfolio.html">Portfolio</a></li>
+                        <li><a href="public/contact.html">Contact</a></li>
+                        <li><a href="auth/login.html?as=staff">Staff Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="public/services.html">Web Development</a></li>
+                        <li><a href="public/services.html">App Development</a></li>
+                        <li><a href="public/services.html">AI/ML Projects</a></li>
+                        <li><a href="public/services.html">Graphics Designing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Get in Touch</h4>
+                    <ul>
+                        <li><i class="bi bi-geo-alt"></i> Mbeya, Tanzania</li>
+                        <li><i class="bi bi-envelope"></i> mabumbatech@gmail.com</li>
+                        <li><i class="bi bi-telephone"></i> +255 620 839 640 / +255 760 620 418</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 MABUMBA TECH. All rights reserved.</span>
+                <span>Technology. Innovation. Solution.</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="../js/config.js?v2"></script>
+    <script src="../js/layout-public.js?v2"></script>
+    <script src="../js/main.js?v2"></script>
+    <script src="../js/pages/home_page.js?v4"></script>
+</body>
+
+</html>

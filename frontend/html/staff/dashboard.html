@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="card" id="welcomeCard" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;background:linear-gradient(120deg,var(--blue-800),var(--blue-600));border:none;color:#fff;"></div>
+
+      <div class="grid grid-4" style="margin-bottom:18px;">
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-bell"></i></div><div><b id="statNew">—</b><span>New Tasks</span></div></div>
+        <div class="card stat-card"><div class="ic blue"><i class="bi bi-arrow-repeat"></i></div><div><b id="statActive">—</b><span>In Progress</span></div></div>
+        <div class="card stat-card"><div class="ic green"><i class="bi bi-check2-circle"></i></div><div><b id="statDone">—</b><span>Completed</span></div></div>
+        <div class="card stat-card"><div class="ic red"><i class="bi bi-list-check"></i></div><div><b id="statTotal">—</b><span>Total Assigned</span></div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3><i class="bi bi-list-check"></i> Recent Tasks</h3><a href="tasks.html" class="small">View all</a></div>
+        <div class="panel-body" id="recentTasksBody">Loading…</div>
+      </div>
+
+      <div class="grid grid-2" style="align-items:start;margin-top:18px;">
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-exclamation-triangle"></i> Urgent &amp; Due Soon</h3></div>
+          <div class="panel-body" id="urgentTasksBody">Loading…</div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-check2-circle"></i> Recently Completed</h3></div>
+          <div class="panel-body" id="recentlyCompletedBody">Loading…</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/project-panels.js"></script>
+<script src="../../js/pages/staff-dashboard.js"></script>
+</body>
+</html>

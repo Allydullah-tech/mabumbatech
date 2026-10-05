@@ -1,0 +1,61 @@
+/* Accountant Desk (admin/accountant.html) — classes prefixed acc- */
+.acc-alert { display:flex; gap:12px; align-items:flex-start; padding:12px 16px; border-radius:14px; margin-bottom:14px; border:1px solid; font-size:.85rem; line-height:1.5; }
+.acc-alert i { font-size:1.2rem; margin-top:1px; }
+.acc-alert.red { background:#fff1f0; border-color:#ffc9c4; color:#9b1c1c; }
+.acc-alert.orange { background:#fff7e6; border-color:#ffe0a8; color:#8a5300; }
+.acc-alert.green { background:#effaf3; border-color:#bde7cb; color:#16663a; }
+.acc-alert b { font-weight:800; }
+.acc-alert a { color:inherit; text-decoration:underline; font-weight:700; cursor:pointer; }
+
+.acc-sub { display:block; font-size:.72rem; color:var(--ink-soft); margin-top:2px; }
+.acc-neg { color:#c62828 !important; }
+.acc-pos { color:#16663a !important; }
+
+.acc-months { display:flex; gap:8px; overflow-x:auto; padding:2px 14px 12px; scrollbar-width:thin; }
+.acc-month { flex:none; min-width:112px; padding:9px 12px; border-radius:12px; border:1px solid var(--line); background:#fff; text-align:left; cursor:pointer; font:inherit; transition:box-shadow .15s ease, transform .15s ease; }
+.acc-month:hover { box-shadow:var(--shadow); transform:translateY(-1px); }
+.acc-month b { display:block; font-size:.82rem; color:var(--navy-900); }
+.acc-month span { display:block; font-size:.7rem; font-weight:700; margin-top:2px; }
+.acc-month.paid { border-color:#bde7cb; background:#f3fbf6; } .acc-month.paid span { color:#16663a; }
+.acc-month.partial { border-color:#ffe0a8; background:#fffaf0; } .acc-month.partial span { color:#8a5300; }
+.acc-month.unpaid { border-color:#ffc9c4; background:#fff6f5; } .acc-month.unpaid span { color:#b3261e; }
+.acc-month.active { outline:2px solid var(--blue-600); outline-offset:1px; }
+
+.acc-pos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; padding:14px; }
+.acc-pos { }
+.acc-box { border:1px solid var(--line); border-radius:14px; padding:12px 14px; background:#fff; }
+.acc-box small { display:block; font-size:.7rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); }
+.acc-box b { display:block; font-size:1.2rem; margin-top:3px; font-variant-numeric:tabular-nums; }
+.acc-box.loss { border-color:#ffc9c4; background:#fff6f5; }
+
+.acc-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:4px 14px 12px; }
+.acc-toolbar input[type=month], .acc-toolbar input[type=search] { padding:8px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-size:.85rem; background:#fff; }
+.acc-toolbar .grow { flex:1; }
+
+.acc-bank { font-size:.8rem; line-height:1.45; }
+.acc-bank code { font-size:.8rem; font-weight:700; background:var(--blue-50); padding:1px 6px; border-radius:6px; }
+.acc-bank .copy { border:0; background:none; color:var(--blue-600); cursor:pointer; padding:0 4px; }
+.acc-missing { color:#b3261e; font-weight:700; font-size:.78rem; }
+.acc-modal-info { background:var(--blue-50); border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin:0 0 14px; font-size:.84rem; line-height:1.55; }
+.acc-modal-info b { color:var(--navy-900); }
+.acc-num { text-align:right; white-space:nowrap; font-weight:700; font-variant-numeric:tabular-nums; }
+@media (max-width:640px) { .acc-month { min-width:96px; } }
+
+/* Expenses tab */
+.acc-cats { display:flex; flex-direction:column; gap:7px; padding:0 14px 12px; }
+.acc-cat { display:grid; grid-template-columns:170px 1fr 110px; gap:10px; align-items:center; font-size:.8rem; }
+.acc-cat .bar { height:9px; border-radius:99px; background:var(--blue-50); overflow:hidden; }
+.acc-cat .bar i { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--blue-700),var(--blue-500)); }
+.acc-cat b { text-align:right; font-variant-numeric:tabular-nums; }
+.acc-catbadge { display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border-radius:99px; font-size:.72rem; font-weight:700; background:var(--blue-50); color:var(--blue-700); white-space:nowrap; }
+.acc-catbadge.auto { background:#f1f3f6; color:#5b6678; }
+.acc-catbadge.inc { background:#effaf3; color:#16663a; }
+.acc-voucher { font-size:.74rem; font-weight:700; color:var(--blue-700); }
+.acc-toolbar select { padding:8px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-size:.85rem; background:#fff; }
+.acc-foot td { background:var(--blue-50); font-weight:800; }
+@media (max-width:640px) { .acc-cat { grid-template-columns:1fr 90px; } .acc-cat .bar { grid-column:1 / -1; order:3; } }
+
+/* progress bars (budget payments, loan repayments) */
+.acc-progress { height:7px; border-radius:99px; background:#e6eef9; overflow:hidden; margin:5px 0 2px; min-width:90px; }
+.acc-progress i { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--blue-700),var(--blue-500)); transition:width .3s ease; }
+.acc-row-focus td { background:#f1f7ff; }

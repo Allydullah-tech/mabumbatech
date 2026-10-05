@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — MABUMBA TECH</title>
+    <link rel="icon" href="../../img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/style.css?v2">
+    <link rel="stylesheet" href="../../css/forms.css?v2">
+    <link rel="stylesheet" href="../../css/auth.css?v2">
+    <link rel="stylesheet" href="../../css/login.css?v1">
+</head>
+
+<body class="login-page">
+    <main class="lg-stage">
+
+        <!-- Animated background (decorative) -->
+        <span class="lg-blob b1"></span>
+        <span class="lg-blob b2"></span>
+        <span class="lg-blob b3"></span>
+        <span class="lg-slash s1"></span>
+        <span class="lg-slash s2"></span>
+        <div class="lg-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+        <div class="lg-wrap">
+            <div class="lg-card">
+
+                <img class="lg-logo" src="../../img/logo.png" alt="MABUMBA TECH">
+
+                <div class="lg-head">
+                    <h1>Welcome <em>back</em></h1>
+                    <p>Sign in to continue to your account.</p>
+                </div>
+
+                <div class="auth-tabs" id="authTabs"></div>
+                <div id="flashContainer"></div>
+
+                <form id="loginForm" class="form">
+                    <div class="form-group">
+                        <label>Username or Email</label>
+                        <div class="lg-field">
+                            <i class="bi bi-person lg-ic"></i>
+                            <input type="text" name="identity" placeholder="Enter your username or email" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="lg-field">
+                            <i class="bi bi-lock lg-ic"></i>
+                            <input type="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="bi bi-box-arrow-in-right"></i> <span id="loginBtnLabel">Login</span></button>
+                </form>
+
+                <a href="../home.html" class="lg-home"><i class="bi bi-arrow-left"></i> Back to website</a>
+                <p class="auth-foot" id="authFoot"></p>
+            </div>
+        </div>
+
+    </main>
+    <script src="../../js/config.js?v2"></script>
+    <script src="../../js/pages/auth-login.js?v2"></script>
+</body>
+
+</html>

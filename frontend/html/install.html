@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Install — MABUMBA TECH</title>
+<link rel="icon" href="../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/forms.css">
+<link rel="stylesheet" href="../css/auth.css">
+</head>
+<body class="auth-body">
+<div class="auth-wrap">
+  <div class="auth-card" style="max-width:560px;">
+    <div class="auth-brand">
+      <img src="../img/logo.png" alt="MABUMBA TECH">
+      <h1>MABUMBA TECH</h1>
+      <p>Technology. Innovation. Solution.</p>
+    </div>
+
+    <div id="content">
+      <p class="auth-sub">First-time setup — create the database and your Super Administrator account.</p>
+      <div id="flashContainer"></div>
+
+      <form id="installForm" class="form">
+        <h3 class="form-section-title"><i class="bi bi-database"></i> Database Details</h3>
+        <div class="form-row">
+          <div class="form-group"><label>DB Host</label><input type="text" name="db_host" value="localhost" required></div>
+          <div class="form-group"><label>DB Port</label><input type="text" name="db_port" value="3306" placeholder="3306" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>DB Name</label><input type="text" name="db_name" value="mabumbatech" required></div>
+          <div class="form-group"><label>DB Username</label><input type="text" name="db_user" value="root" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>DB Password</label><input type="password" name="db_pass"></div>
+        </div>
+
+        <h3 class="form-section-title"><i class="bi bi-person-badge"></i> Super Administrator Account</h3>
+        <p class="small">This account cannot be suspended and can create other admins and staff.</p>
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required></div>
+          <div class="form-group"><label>Username</label><input type="text" name="username" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+          <div class="form-group"><label>Phone</label><input type="text" name="phone"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Password</label><input type="password" name="password" required minlength="6"></div>
+          <div class="form-group"><label>Confirm Password</label><input type="password" name="confirm_password" required minlength="6"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block"><i class="bi bi-gear-fill"></i> Install System</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/pages/install.js"></script>
+</body>
+</html>

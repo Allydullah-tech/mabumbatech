@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity Log — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3><i class="bi bi-clock-history"></i> Activity Log (<span id="logCount">0</span>)</h3>
+          <div class="search-box"><i class="bi bi-search"></i><input type="text" id="searchInput" placeholder="Search by name, action or details…"></div>
+        </div>
+        <div class="filter-bar" style="display:flex;flex-wrap:wrap;gap:10px;padding:0 16px 16px;">
+          <div class="form-group" style="margin:0;min-width:180px;">
+            <label>Action</label>
+            <select id="actionFilter"><option value="">All actions</option></select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>From</label>
+            <input type="date" id="fromFilter">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>To</label>
+            <input type="date" id="toFilter">
+          </div>
+          <div class="form-group" style="margin:0;align-self:flex-end;">
+            <button class="btn btn-light btn-sm" id="clearFiltersBtn"><i class="bi bi-x-circle"></i> Clear filters</button>
+          </div>
+        </div>
+        <div class="panel-body" id="logBody">Loading…</div>
+        <div id="pager" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-activity-log.js"></script>
+</body>
+</html>

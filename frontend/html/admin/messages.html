@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Messages — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <p class="small" style="margin:0 0 12px;">Messages submitted through the public "Contact Us" form on the website. Use the filters to look back through the history by time.</p>
+      <div class="grid grid-3" id="msgSummary" style="margin-bottom:14px;"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3><i class="bi bi-envelope"></i> Messages (<span id="msgCount">0</span>)</h3>
+          <div class="search-box"><i class="bi bi-search"></i><input type="text" id="searchInput" placeholder="Search by name, email or subject…"></div>
+        </div>
+        <div class="panel-body" style="padding-bottom:0;">
+          <div class="filter-bar" style="margin-bottom:6px;">
+            <label class="small" for="msgPeriod" style="font-weight:700;">Time</label>
+            <select id="msgPeriod"></select>
+            <span id="msgCustom" style="display:none;gap:8px;align-items:center;">
+              <input type="date" id="msgFrom"> <span class="small">to</span> <input type="date" id="msgTo">
+            </span>
+            <label class="small" for="msgStatus" style="font-weight:700;">Show</label>
+            <select id="msgStatus"></select>
+            <span class="small" id="msgRangeLabel"></span>
+          </div>
+        </div>
+        <div class="panel-body" id="messagesBody">Loading…</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-messages.js?v=3"></script>
+</body>
+</html>

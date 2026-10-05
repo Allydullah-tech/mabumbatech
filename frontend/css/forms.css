@@ -1,0 +1,82 @@
+.form-group{margin-bottom:14px;flex:1;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;}
+.form-group label{display:block;font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  font-size:.85rem;font-family:inherit;background:#fbfdff;color:var(--ink);
+  transition:border-color .15s ease,box-shadow .15s ease,background-color .15s ease;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--blue-500);background:#fff;box-shadow:var(--focus-ring);
+}
+.form-group input:disabled{background:#f1f4f9;color:var(--ink-soft);}
+.form-section-title{font-size:.82rem;font-weight:700;color:var(--blue-700);margin:18px 0 10px;display:flex;gap:6px;align-items:center;}
+.form-section-title:first-child{margin-top:0;}
+
+/* Password show/hide toggle (added automatically by config.js) */
+.password-wrap{position:relative;}
+.password-wrap input{padding-right:38px;}
+.password-toggle{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--ink-soft);cursor:pointer;
+  padding:6px;display:flex;align-items:center;font-size:.95rem;
+}
+.password-toggle:hover{color:var(--blue-700);}
+
+/* Required "I agree to the Terms & Conditions" checkbox — used on
+   Create Account and Request a Service forms. */
+.form-check{
+  display:flex;align-items:flex-start;gap:8px;margin:14px 0;font-size:.82rem;color:var(--ink);
+}
+.form-check input[type="checkbox"]{
+  width:16px;height:16px;flex:0 0 16px;margin-top:2px;accent-color:var(--blue-600);cursor:pointer;
+}
+.form-check label{margin:0;font-weight:400;font-size:inherit;cursor:pointer;}
+.form-check a{color:var(--blue-700);font-weight:700;text-decoration:underline;cursor:pointer;}
+.form-check a:hover{color:var(--blue-800);}
+
+/* Terms & Conditions read-only modal (opened from terms.js, without
+   leaving the registration / service-request form). */
+.terms-modal-bg{
+  display:none;position:fixed;inset:0;background:rgba(6,20,45,.6);z-index:400;
+  align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px);
+}
+.terms-modal-bg.show{display:flex;}
+.terms-modal-box{
+  background:#fff;border-radius:var(--radius-lg);max-width:640px;width:100%;
+  max-height:85vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.terms-modal-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 18px;border-bottom:1px solid var(--line);
+}
+.terms-modal-head h3{margin:0;font-size:1rem;display:flex;align-items:center;gap:8px;}
+.terms-modal-close{
+  background:none;border:none;font-size:1.4rem;line-height:1;color:var(--ink-soft);cursor:pointer;padding:0 4px;
+}
+.terms-modal-close:hover{color:var(--danger);}
+.terms-modal-body{padding:16px 18px;overflow-y:auto;font-size:.85rem;line-height:1.6;}
+.terms-modal-body h3{font-size:.88rem;color:var(--blue-700);margin:16px 0 6px;}
+.terms-modal-body h3:first-child{margin-top:0;}
+.terms-modal-body p{margin:0 0 10px;}
+.terms-modal-foot{padding:12px 18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+
+/* Terms & Conditions — table of contents + numbered sections, shared by
+   the modal (terms-modal-body) and the dedicated /public/terms.html page. */
+.terms-toc{
+  background:var(--blue-50);border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px 16px;margin:12px 0 18px;
+}
+.terms-toc h4{margin:0 0 8px;font-size:.82rem;color:var(--blue-700);text-transform:uppercase;letter-spacing:.03em;}
+.terms-toc ul{margin:0;padding-left:18px;columns:2;column-gap:20px;}
+.terms-toc li{font-size:.82rem;margin-bottom:4px;break-inside:avoid;}
+.terms-toc a{color:var(--ink);text-decoration:none;}
+.terms-toc a:hover{color:var(--blue-700);text-decoration:underline;}
+.terms-section{margin-bottom:16px;scroll-margin-top:90px;}
+.terms-section h3{font-size:.92rem;color:var(--blue-700);margin:0 0 6px;}
+.terms-section p{margin:0;text-align:justify;text-justify:inter-word;}
+.terms-page-head{display:flex;justify-content:flex-end;margin-bottom:8px;}
+
+@media (max-width:560px){
+  .terms-toc ul{columns:1;}
+}

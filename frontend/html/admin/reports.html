@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="panel no-print" style="margin-bottom:18px;">
+        <div class="panel-body">
+          <div class="tabs-row" id="rangeTabs"></div>
+          <div id="customRangeRow" style="display:none;gap:10px;align-items:flex-end;margin-top:10px;flex-wrap:wrap;">
+            <div class="form-group" style="margin-bottom:0;"><label>From</label><input type="date" id="customFrom"></div>
+            <div class="form-group" style="margin-bottom:0;"><label>To</label><input type="date" id="customTo"></div>
+            <button class="btn btn-primary btn-sm" id="applyCustomRange"><i class="bi bi-check2"></i> Apply</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px;">
+            <span class="small" id="rangeLabel"></span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;" id="exportButtons">
+              <button type="button" class="btn btn-primary btn-sm" onclick="window.print()"><i class="bi bi-printer"></i> Print</button>
+              <a class="btn btn-light btn-sm" id="exportPdf"><i class="bi bi-file-earmark-pdf"></i> PDF</a>
+              <a class="btn btn-light btn-sm" id="exportXlsx"><i class="bi bi-file-earmark-excel"></i> Excel</a>
+              <a class="btn btn-light btn-sm" id="exportCsv"><i class="bi bi-file-earmark-text"></i> CSV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-sheet">
+        <div class="report-banner">
+          <img src="../../img/logo.png" alt="MABUMBA TECH">
+          <h2>MABUMBA TECH</h2>
+          <p>Company Performance Report</p>
+        </div>
+        <div class="report-meta" id="reportMeta"></div>
+
+        <div id="financialSection"></div>
+        <div id="marketingSection"></div>
+
+        <div class="report-section">
+          <h3 id="opsHeading">Operations</h3>
+          <div class="grid grid-4" style="margin-bottom:18px;" id="summaryCards"></div>
+
+          <div class="grid grid-2" style="align-items:start;">
+            <div class="panel">
+              <div class="panel-head"><h3><i class="bi bi-pie-chart"></i> Requests by Status</h3></div>
+              <div class="panel-body" id="statusBody">Loading…</div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3><i class="bi bi-grid"></i> Requests by Service</h3></div>
+              <div class="table-wrap">
+                <table class="tbl">
+                  <thead><tr><th>Service</th><th>Requests</th></tr></thead>
+                  <tbody id="serviceBody"><tr><td colspan="2" class="empty-state">Loading…</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:18px;">
+            <div class="panel-head"><h3><i class="bi bi-graph-up"></i> Request Trend</h3></div>
+            <div class="panel-body" id="trendBody">Loading…</div>
+          </div>
+
+          <div class="panel" style="margin-top:18px;">
+            <div class="panel-head"><h3><i class="bi bi-person-check"></i> Staff Performance</h3></div>
+            <div class="table-wrap">
+              <table class="tbl">
+                <thead><tr><th>Staff</th><th>Position</th><th>Completed (range)</th><th>Active Now</th><th>Total Assigned</th></tr></thead>
+                <tbody id="staffPerfBody"><tr><td colspan="5" class="empty-state">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid grid-2" style="align-items:start;margin-top:18px;">
+            <div class="panel">
+              <div class="panel-head"><h3><i class="bi bi-person-lines-fill"></i> Customer Activity (Top 15)</h3></div>
+              <div class="table-wrap">
+                <table class="tbl">
+                  <thead><tr><th>Customer</th><th>Email</th><th>Requests</th></tr></thead>
+                  <tbody id="customerActivityBody"><tr><td colspan="3" class="empty-state">Loading…</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3><i class="bi bi-chat-dots"></i> Communication Activity</h3></div>
+              <div class="panel-body" id="commActivityBody">Loading…</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-signoff">
+          <div>
+            <h4>Prepared by</h4>
+            <div class="sign-line"><span>Name:</span><i></i></div>
+            <div class="sign-line"><span>Signature:</span><i></i></div>
+            <div class="sign-line"><span>Date:</span><i></i></div>
+          </div>
+          <div>
+            <h4>Approved by</h4>
+            <div class="sign-line"><span>Name:</span><i></i></div>
+            <div class="sign-line"><span>Signature:</span><i></i></div>
+            <div class="sign-line"><span>Date:</span><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-reports.js"></script>
+</body>
+</html>

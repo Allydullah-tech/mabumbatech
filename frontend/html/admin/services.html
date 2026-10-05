@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services Catalogue — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css?v2">
+<link rel="stylesheet" href="../../css/forms.css?v2">
+<link rel="stylesheet" href="../../css/dashboard.css?v2">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div class="alert alert-info"><i class="bi bi-info-circle"></i> Suspending a service keeps it visible to customers, marked as currently unavailable — it won't be hidden or removed.</div>
+
+      <div class="panel" style="margin-bottom:18px;">
+        <div class="panel-head"><h3><i class="bi bi-plus-circle"></i> Add New Service</h3></div>
+        <div class="panel-body">
+          <form id="addServiceForm">
+            <div class="form-row">
+              <div class="form-group"><label>Service Name</label><input type="text" name="name" required placeholder="e.g. WordPress Migration"></div>
+              <div class="form-group">
+                <label>Department</label>
+                <div style="display:flex;gap:8px;">
+                  <select name="category_key" id="deptSelect" required style="flex:1;"></select>
+                  <button type="button" class="btn btn-light btn-sm" onclick="openModal('addDeptModal')" title="Add a new department"><i class="bi bi-plus-lg"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Icon (Bootstrap Icons class, optional)</label><input type="text" name="icon" placeholder="bi-gear"></div>
+            </div>
+            <div class="form-group"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+            <button class="btn btn-primary"><i class="bi bi-check2"></i> Add Service</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="servicesGrid"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="editServiceModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('editServiceModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-pencil-square"></i> Edit Service</h3>
+    <form id="editServiceForm">
+      <input type="hidden" name="service_id">
+      <div class="form-group"><label>Service Name</label><input type="text" name="name" required></div>
+      <div class="form-group"><label>Department</label><select name="category_key" id="editDeptSelect" required></select></div>
+      <div class="form-group"><label>Icon (Bootstrap Icons class)</label><input type="text" name="icon" placeholder="bi-gear"></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="3"></textarea></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="addDeptModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('addDeptModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-plus-circle"></i> Add New Department</h3>
+    <form id="addDeptForm">
+      <div class="form-group"><label>Department Name</label><input type="text" name="label" required placeholder="e.g. Cloud Services"></div>
+      <div class="form-group"><label>Icon (Bootstrap Icons class, optional)</label><input type="text" name="icon" placeholder="bi-briefcase"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Add Department</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js?v2"></script>
+<script src="../../js/layout-dash.js?v2"></script>
+<script src="../../js/dashboard.js?v2"></script>
+<script src="../../js/pages/admin-services.js?v2"></script>
+</body>
+</html>

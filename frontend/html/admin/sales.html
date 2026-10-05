@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales & Leads — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="grid grid-4" style="margin-bottom:6px;">
+        <div class="card stat-card"><div class="ic blue"><i class="bi bi-person-plus"></i></div><div><b id="statNew">—</b><span>New Leads</span></div></div>
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-file-earmark-text"></i></div><div><b id="statQuotation">—</b><span>In Quotation</span></div></div>
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-arrow-left-right"></i></div><div><b id="statNegotiation">—</b><span>In Negotiation</span></div></div>
+        <div class="card stat-card"><div class="ic green"><i class="bi bi-trophy"></i></div><div><b id="statWon">—</b><span>Won This Month</span></div></div>
+      </div>
+      <p class="small" style="margin:0 0 16px;">A Lead is a potential customer who has shown interest but hasn't requested a service yet — added here manually, or from a website inquiry. Leads move through Quotation and Negotiation, then become <b>Won</b> (creating a real project) or <b>Lost</b>.</p>
+
+      <div class="panel" id="followUpPanel" style="margin-bottom:18px;display:none;">
+        <div class="panel-head"><h3><i class="bi bi-alarm"></i> Follow-ups Due</h3></div>
+        <div class="notif-row-list" id="followUpBody" style="max-height:180px;overflow-y:auto;"></div>
+      </div>
+
+      <div id="pipelineBody">Loading…</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="addLeadModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('addLeadModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-person-plus"></i> Add Lead</h3>
+    <form id="addLeadForm">
+      <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Company (optional)</label><input type="text" name="company_name"></div>
+        <div class="form-group"><label>Source</label>
+          <select name="source" id="addLeadSource">
+            <option value="manual">Direct Outreach</option>
+            <option value="advertisement">Advertisement (saw our ad)</option>
+            <option value="own_search">Own Search (Google / online)</option>
+            <option value="social_media">Social Media</option>
+            <option value="referral">Referral</option>
+            <option value="website_contact">Website Contact Form</option>
+            <option value="phone_call">Phone Call</option>
+            <option value="walk_in">Walk-in</option>
+            <option value="email">Email</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Source details (optional — which ad, who referred…)</label><input type="text" name="source_detail" maxlength="160"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Phone</label><input type="text" name="phone"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Requested Service</label><select name="requested_service_id" id="addLeadService"><option value="">—</option></select></div>
+        <div class="form-group"><label>Assign To</label><select name="assigned_to" id="addLeadAssignee"><option value="">Unassigned</option></select></div>
+      </div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Add Lead</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="leadDetailModal">
+  <div class="modal-box" style="max-width:640px;">
+    <span class="modal-close" onclick="closeModal('leadDetailModal')"><i class="bi bi-x-lg"></i></span>
+    <div id="leadDetailBody">Loading…</div>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-sales.js"></script>
+</body>
+</html>

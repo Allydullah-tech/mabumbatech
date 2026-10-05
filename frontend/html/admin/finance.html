@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div id="pageBody">Loading…</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="incomeExpenseModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('incomeExpenseModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="txnModalTitle"><i class="bi bi-cash-coin"></i> Record Transaction</h3>
+    <form id="txnForm">
+      <input type="hidden" name="action" id="txnAction" value="record_income">
+      <input type="hidden" name="request_id" id="txnRequestId" value="">
+      <div class="form-row">
+        <div class="form-group"><label>Category</label><input type="text" name="category" placeholder="e.g. project_payment, rent, supplies" required></div>
+        <div class="form-group"><label>Amount</label><input type="number" step="0.01" name="amount" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" name="transaction_date"></div>
+        <div class="form-group"><label>Related Customer (optional)</label><select name="customer_id" id="txnCustomerSelect"><option value="">—</option></select></div>
+      </div>
+      <div class="small" id="txnRequestLabel" style="display:none;margin:-6px 0 10px;"></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="invoiceModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('invoiceModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-receipt"></i> New Invoice</h3>
+    <form id="invoiceForm">
+      <div class="form-group"><label>Customer</label><select name="customer_id" id="invoiceCustomerSelect" required><option value="">Select…</option></select></div>
+      <div class="form-row">
+        <div class="form-group"><label>Title</label><input type="text" name="title" required></div>
+        <div class="form-group"><label>Amount</label><input type="number" step="0.01" name="amount" required></div>
+      </div>
+      <div class="form-group"><label>Due Date (optional)</label><input type="date" name="due_date"></div>
+      <input type="hidden" name="request_id" id="invoiceRequestId">
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Create Invoice</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="paymentModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('paymentModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-cash"></i> Record Payment</h3>
+    <form id="paymentForm">
+      <input type="hidden" name="invoice_id" id="paymentInvoiceId">
+      <div class="form-group"><label id="paymentInvoiceLabel">Invoice</label></div>
+      <div class="form-row">
+        <div class="form-group"><label>Amount</label><input type="number" step="0.01" name="amount" required></div>
+        <div class="form-group"><label>Method</label>
+          <select name="payment_method">
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="mobile_money">Mobile Money</option>
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Date</label><input type="date" name="transaction_date"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record Payment</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="payrollModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('payrollModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-people"></i> Add Payroll Record</h3>
+    <form id="payrollForm">
+      <div class="form-group"><label>Employee</label><select name="user_id" id="payrollUserSelect" required><option value="">Select…</option></select></div>
+      <div class="form-group"><label>Period (month)</label><input type="month" name="period_month" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Gross Amount</label><input type="number" step="0.01" name="gross_amount" required></div>
+        <div class="form-group"><label>Deductions</label><input type="number" step="0.01" name="deductions" value="0"></div>
+      </div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-finance.js"></script>
+</body>
+</html>

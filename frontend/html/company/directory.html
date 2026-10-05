@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Directory — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3><i class="bi bi-people-fill"></i> Company Directory (<span id="memberCount">0</span>)</h3>
+          <div class="search-box"><i class="bi bi-search"></i><input type="text" id="searchInput" placeholder="Search by name, department or email…"></div>
+        </div>
+        <p class="meta" style="padding:0 16px 12px;">View-only contact list of everyone at MABUMBA TECH. To make account changes, contact a Super Administrator.</p>
+        <div class="panel-body" id="directoryBody">Loading…</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/company-directory.js"></script>
+</body>
+</html>

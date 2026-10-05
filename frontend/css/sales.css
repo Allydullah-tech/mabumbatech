@@ -1,0 +1,176 @@
+/* =========================================================
+   SALES — Record Sale & Customer Debts
+   Used by admin/record-sale.html and admin/customer-debts.html.
+   Builds on the brand variables from style.css and the shared
+   panel / table / badge styles from dashboard.css.
+   ========================================================= */
+
+/* ---------- Page header ---------- */
+.rs-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.rs-head h2 { margin: 0 0 3px; font-size: 1.25rem; font-weight: 800; color: var(--navy-900); }
+.rs-head p { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+.rs-head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- KPI cards ---------- */
+.rs-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+.rs-kpis .stat-card { padding: 16px 18px; border: 1px solid var(--line); box-shadow: var(--shadow-xs); transition: box-shadow .2s ease, transform .2s ease; }
+.rs-kpis .stat-card.is-link { cursor: pointer; text-decoration: none; color: inherit; }
+.rs-kpis .stat-card.is-link:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.rs-kpis .stat-card small { display: block; margin-top: 2px; font-size: .68rem; color: var(--ink-soft); }
+@media (max-width: 1000px) { .rs-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px)  { .rs-kpis { grid-template-columns: 1fr; } }
+
+/* ---------- Layout ---------- */
+.sale-layout { grid-template-columns: minmax(300px, 5fr) 7fr; gap: 18px; }
+.sale-layout > .panel { box-shadow: var(--shadow-xs); }
+.sale-layout .panel-head { padding: 15px 20px; }
+.sale-layout .panel-head h3 { display: flex; align-items: center; gap: 8px; font-size: .95rem; }
+.sale-layout .panel-head h3 i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; font-size: .85rem; color: #fff; background: linear-gradient(135deg, var(--blue-700), var(--blue-500)); }
+.sale-layout .panel-body { padding: 16px 20px 20px; }
+.panel-count { font-size: .74rem; font-weight: 700; color: var(--blue-700); background: var(--blue-100); border-radius: 999px; padding: 3px 10px; }
+.panel-count:empty { display: none; }
+
+/* ---------- Product picker ---------- */
+.sale-layout .search-box { background: #fff; border: 1.5px solid var(--line); padding: 4px 12px; }
+.sale-layout .search-box input { padding: 9px 0; font-size: .86rem; }
+.sale-product-list { gap: 10px; max-height: 560px; padding-right: 2px; }
+.sale-product { padding: 12px 14px; border-radius: 14px; background: #fff; transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease; }
+.sale-product:hover { box-shadow: 0 4px 14px rgba(10, 40, 90, .08); }
+.sale-product-main b { font-size: .86rem; color: var(--navy-900); }
+.sale-product-main .rs-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 3px; }
+.stock-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 999px; font-size: .68rem; font-weight: 700; background: var(--ok-100); color: var(--ok); }
+.stock-pill.low { background: var(--warn-100); color: var(--warn); }
+.stock-pill.out { background: var(--danger-100); color: var(--danger); }
+.price-chip { font-size: .78rem; font-weight: 800; color: var(--blue-700); }
+.price-min { font-size: .7rem; color: var(--ink-soft); }
+
+/* ---------- Cart ---------- */
+.sale-cart input { padding: 7px 9px; border-radius: 8px; border: 1.5px solid var(--line); }
+.sale-cart input:focus { outline: none; border-color: var(--blue-500); box-shadow: var(--focus-ring); }
+#cartBody .empty-state { padding: 34px 10px; border: 1.5px dashed #cfe1fb; border-radius: 14px; background: var(--blue-50); }
+
+/* ---------- Payment ---------- */
+.pay-box { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+.pay-title { margin-bottom: 9px; font-size: .74rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.pay-methods { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.pay-tile {
+    display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 11px 6px; border: 1.5px solid var(--line); border-radius: 13px;
+    background: #fff; font: inherit; font-size: .72rem; font-weight: 700; color: var(--ink-soft); cursor: pointer; text-align: center; line-height: 1.2;
+    transition: border-color .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.pay-tile i { font-size: 1.15rem; color: var(--blue-500); }
+.pay-tile:hover { border-color: var(--blue-400); background: var(--blue-50); }
+.pay-tile.active { border-color: var(--blue-700); background: var(--blue-100); color: var(--blue-800); box-shadow: 0 0 0 3px rgba(0, 84, 184, .12); }
+.pay-tile.active i { color: var(--blue-700); }
+.pay-tile.credit i { color: var(--warn); }
+.pay-tile.credit.active { border-color: var(--warn); background: var(--warn-100); color: #8a5600; box-shadow: 0 0 0 3px rgba(214, 138, 13, .16); }
+.pay-tile.credit.active i { color: var(--warn); }
+@media (max-width: 640px) { .pay-methods { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pay-extra { margin-top: 12px; }
+.pay-extra select, .credit-box select, .credit-box input, .pay-box input[type="text"] { width: 100%; }
+
+.credit-box { margin-top: 12px; padding: 14px 14px 4px; border: 1.5px solid #f3d9a4; border-radius: 14px; background: #fffaf0; }
+.credit-box h4 { display: flex; align-items: center; gap: 7px; margin: 0 0 12px; font-size: .84rem; font-weight: 800; color: #8a5600; }
+.credit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.credit-grid .form-group { margin-bottom: 12px; }
+.credit-grid .full { grid-column: 1 / -1; }
+@media (max-width: 560px) { .credit-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Totals ---------- */
+.sale-summary { margin: 14px 0 12px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+.sale-summary .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 9px 14px; font-size: .84rem; border-bottom: 1px solid var(--line); }
+.sale-summary .row:last-child { border-bottom: none; }
+.sale-summary .row span { color: var(--ink-soft); }
+.sale-summary .row.grand { padding: 13px 14px; background: var(--blue-50); }
+.sale-summary .row.grand span { color: var(--navy-900); font-weight: 700; }
+.sale-summary .row.grand b { font-size: 1.3rem; color: var(--blue-700); }
+.sale-summary .row.owe b { color: var(--danger); }
+.sale-summary .row.owe { background: var(--danger-100); }
+#completeSaleBtn { padding: 13px 18px; font-size: .92rem; border-radius: 13px; }
+
+/* ---------- Records ---------- */
+.pay-tag { display: inline-flex; align-items: center; gap: 5px; font-size: .74rem; font-weight: 700; color: var(--ink); }
+.pay-tag small { font-weight: 600; color: var(--ink-soft); }
+.credit-flag { display: inline-block; margin-top: 3px; padding: 2px 8px; border-radius: 999px; font-size: .66rem; font-weight: 800; background: var(--warn-100); color: #8a5600; }
+.credit-flag.paid { background: var(--ok-100); color: var(--ok); }
+
+/* =========================================================
+   CUSTOMER DEBTS
+   ========================================================= */
+.debt-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.debt-toolbar .search-box { flex: 1 1 260px; min-width: 0; background: #fff; border: 1.5px solid var(--line); padding: 4px 12px; }
+.debt-toolbar .search-box input { padding: 9px 0; }
+.debt-toolbar select { padding: 10px 12px; border: 1.5px solid var(--line); border-radius: var(--radius-sm); background: #fff; font-size: .82rem; }
+
+.debt-amt { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.debt-amt.owe { color: var(--danger); font-weight: 800; }
+.debt-amt.paid { color: var(--ok); font-weight: 700; }
+.debt-who b { display: block; font-size: .86rem; color: var(--navy-900); }
+.debt-who span { display: block; font-size: .72rem; color: var(--ink-soft); }
+.debt-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .68rem; font-weight: 800; white-space: nowrap; }
+.debt-badge.unpaid { background: var(--danger-100); color: var(--danger); }
+.debt-badge.partial { background: var(--warn-100); color: #8a5600; }
+.debt-badge.paid { background: var(--ok-100); color: var(--ok); }
+.debt-badge.overdue { background: var(--danger); color: #fff; margin-left: 4px; }
+.mini-bar { height: 5px; margin-top: 5px; border-radius: 999px; background: #e9eef7; overflow: hidden; min-width: 70px; }
+.mini-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blue-600), var(--cyan)); }
+
+/* Debt detail modal */
+#debtModal .modal-box { max-width: 760px; padding: 0; border-radius: 22px; position: relative; overflow-x: hidden; }
+#debtModal .modal-close {
+    position: absolute; top: 16px; right: 16px; z-index: 3; float: none; display: grid; place-items: center; width: 34px; height: 34px;
+    border-radius: 50%; background: rgba(255, 255, 255, .14); color: #fff;
+}
+#debtModal .modal-close:hover { background: rgba(255, 255, 255, .28); }
+.debt-head {
+    padding: 24px 64px 22px 26px; color: #fff;
+    background: radial-gradient(360px 200px at 100% 0%, rgba(21, 104, 214, .55), transparent 62%), linear-gradient(160deg, #050b1a 0%, #0a1a3d 55%, #0b2a63 100%);
+}
+.debt-head h3 { margin: 0 0 4px; color: #fff; font-size: 1.15rem; font-weight: 800; overflow-wrap: anywhere; }
+.debt-head p { margin: 0; font-size: .8rem; color: #b7cdf0; overflow-wrap: anywhere; }
+.debt-head .codes { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.debt-head .codes span { padding: 3px 10px; border-radius: 999px; font-size: .7rem; font-weight: 700; background: rgba(255, 255, 255, .14); color: #fff; }
+.debt-sec { padding: 20px 26px 4px; }
+.debt-sec + .debt-sec { border-top: 1px solid var(--line); margin-top: 16px; }
+.debt-sec h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 13px; font-size: .92rem; font-weight: 800; color: var(--navy-900); }
+.debt-sec h4 i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; font-size: .85rem; color: #fff; background: linear-gradient(135deg, var(--blue-700), var(--blue-500)); }
+.debt-sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.debt-sum > div { padding: 12px 14px; border-radius: 12px; background: var(--blue-50); border: 1px solid #e3ebf8; min-width: 0; }
+.debt-sum span { display: block; margin-bottom: 3px; font-size: .7rem; font-weight: 700; color: var(--ink-soft); }
+.debt-sum b { display: block; font-size: 1rem; color: var(--navy-900); overflow-wrap: anywhere; }
+.debt-sum .owe { background: var(--danger-100); border-color: #f8cfcb; }
+.debt-sum .owe b { color: var(--danger); }
+.debt-sum .ok { background: var(--ok-100); border-color: #c8ecda; }
+.debt-sum .ok b { color: var(--ok); }
+.debt-progress { margin: 12px 0 4px; }
+.debt-progress .bar { height: 9px; border-radius: 999px; background: #e9eef7; overflow: hidden; }
+.debt-progress .bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blue-600), var(--cyan)); transition: width .4s ease; }
+.debt-progress small { display: block; margin-top: 5px; font-size: .72rem; color: var(--ink-soft); }
+.debt-info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; font-size: .84rem; }
+.debt-info span { display: block; font-size: .7rem; font-weight: 700; color: var(--ink-soft); }
+.debt-info b { font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+.debt-table-wrap { border: 1px solid var(--line); border-radius: 12px; overflow: auto; max-height: 280px; }
+.debt-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.debt-table th { position: sticky; top: 0; padding: 9px 12px; text-align: left; white-space: nowrap; background: var(--blue-50); color: var(--ink-soft); font-size: .68rem; font-weight: 700; border-bottom: 1px solid var(--line); }
+.debt-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.debt-table tr:last-child td { border-bottom: none; }
+.debt-table .r { text-align: right; white-space: nowrap; }
+.debt-table small { display: block; color: var(--ink-soft); font-size: .7rem; }
+.debt-empty { padding: 22px 14px; text-align: center; font-size: .84rem; color: var(--ink-soft); border: 1.5px dashed #cfe1fb; border-radius: 12px; background: var(--blue-50); }
+.debt-empty i { display: block; margin-bottom: 6px; font-size: 1.5rem; color: var(--blue-400); }
+.debt-form { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--blue-50); }
+.debt-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.debt-form .form-group { margin: 0 0 12px; }
+.debt-form .form-group input, .debt-form .form-group select { width: 100%; background: #fff; }
+.debt-form .full { grid-column: 1 / -1; }
+.debt-form .fill-link { font-size: .72rem; margin-top: 4px; display: inline-block; }
+.debt-paid-note { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 12px; background: var(--ok-100); color: var(--ok); font-weight: 700; font-size: .86rem; }
+.debt-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 26px 22px; }
+
+@media (max-width: 560px) {
+    .debt-head { padding: 22px 58px 20px 18px; }
+    .debt-sec { padding: 18px 18px 2px; }
+    .debt-sum { grid-template-columns: 1fr; }
+    .debt-info, .debt-form-grid { grid-template-columns: 1fr; }
+    .debt-foot { padding: 12px 18px 20px; }
+}

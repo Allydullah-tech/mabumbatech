@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Acquisition — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="tabs-row" id="acqTabs">
+        <a href="#" data-tab="requests" class="active"><i class="bi bi-inboxes"></i> Customer Requests</a>
+        <a href="#" data-tab="sources"><i class="bi bi-bar-chart-line"></i> By Source</a>
+      </div>
+
+      <div id="tab-sources" style="display:none;">
+        <div class="tabs-row" id="sourceRangeTabs"></div>
+        <div id="sourcesBody">Loading…</div>
+      </div>
+
+      <!-- Operations Manager's "Product Requests" desk (built by admin-marketing-acquisition.js) -->
+      <div id="deskBody" style="display:none;"></div>
+
+      <div id="tab-requests">
+      <div id="acqIntro">
+      <div class="grid grid-3" style="margin-bottom:6px;">
+        <div class="card stat-card"><div class="ic blue"><i class="bi bi-person-lines-fill"></i></div><div><b id="statTotal">—</b><span>Acquisition Requests</span></div></div>
+        <div class="card stat-card"><div class="ic orange"><i class="bi bi-hourglass-split"></i></div><div><b id="statPendingReview">—</b><span>Pending Review</span></div></div>
+        <div class="card stat-card"><div class="ic green"><i class="bi bi-trophy"></i></div><div><b id="statConverted">—</b><span>Completed</span></div></div>
+      </div>
+      <p class="small" style="margin:0 0 16px;">Use this when a customer is ready to request a service or product. It creates a real, tracked request and records <b>where the customer came from</b> (their source) for the <b>By Source</b> tab.</p>
+      </div>
+
+      <div class="panel" style="margin-bottom:18px;">
+        <div class="panel-head">
+          <h3><i class="bi bi-search"></i> Search Potential Customers</h3>
+        </div>
+        <div class="form-group" style="padding:0 16px 16px;">
+          <input type="text" id="customerSearchInput" placeholder="Search by name, phone, or email…">
+          <div id="customerSearchResults" class="notif-row-list" style="max-height:200px;overflow-y:auto;margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="acqListPanel">
+        <div class="panel-head">
+          <h3><i class="bi bi-person-lines-fill"></i> Customer Acquisition Requests</h3>
+          <button class="btn btn-primary btn-sm" id="newRequestBtn" onclick="openModal('newRequestModal')"><i class="bi bi-plus-circle"></i> New Customer Request</button>
+        </div>
+        <div class="tabs-row" id="statusTabs"></div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr><th>Tracking Code</th><th>Customer</th><th>Type</th><th>Requested</th><th>Status</th><th>Review</th><th>Created</th><th></th></tr></thead>
+            <tbody id="acquisitionTableBody"><tr><td colspan="8" class="empty-state">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+
+<div class="modal-bg" id="newRequestModal">
+  <div class="modal-box" style="max-width:600px;">
+    <span class="modal-close" onclick="closeModal('newRequestModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-plus-circle"></i> New Customer Request</h3>
+    <p class="small">Register a request on behalf of a customer you found — a tracking code is generated automatically so they can follow its progress.</p>
+    <form id="newRequestForm">
+      <div class="form-row">
+        <div class="form-group"><label>Customer Full Name</label><input type="text" name="full_name" required></div>
+        <div class="form-group"><label>Phone Number</label><input type="text" name="phone" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Location / Address</label><input type="text" name="location"></div>
+      </div>
+
+
+      <div class="form-group">
+        <label>Customer Source <span style="color:var(--danger);">*</span></label>
+        <select name="source" class="js-source-select" required><option value="">— where did this customer come from? —</option></select>
+      </div>
+      <div class="form-group js-detail-group" style="display:none;">
+        <label class="js-detail-label">Details</label>
+        <input type="text" name="source_detail" maxlength="160">
+      </div>
+      <div class="form-group">
+        <label>Customer Needs</label>
+        <div class="tabs-row" id="requestTypeTabs" style="margin:0 0 8px;">
+          <a href="#" data-type="service" class="active">Service</a>
+          <a href="#" data-type="product">Product</a>
+        </div>
+      </div>
+
+      <div class="form-group" id="serviceFieldGroup">
+        <label>Service Required</label>
+        <select name="service_id" id="serviceSelect"><option value="">Select a service…</option></select>
+      </div>
+
+      <div id="productFieldGroup" style="display:none;">
+        <div class="form-group">
+          <label>Product (from catalogue)</label>
+          <select name="product_type_id" id="productSelect"><option value="">Not in catalogue — describe below</option></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Product / Item Description</label><input type="text" name="product_name" placeholder="e.g. HP Laptop, i5, 8GB RAM"></div>
+          <div class="form-group"><label>Quantity</label><input type="number" name="quantity" min="1"></div>
+        </div>
+      </div>
+
+      <div class="form-group"><label>Detailed Requirements / Specifications</label><textarea name="requirements" rows="3" required></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Customer Budget</label><input type="text" name="budget" placeholder="e.g. TZS 500,000"></div>
+        <div class="form-group"><label>Preferred Completion / Delivery Date</label><input type="date" name="preferred_date"></div>
+      </div>
+      <div class="form-group"><label>Additional Notes</label><textarea name="additional_notes" rows="2" placeholder="Any other relevant information…"></textarea></div>
+
+      <div class="form-group">
+        <label>Attach Files (optional, up to 3)</label>
+        <input type="file" name="attachments[]" multiple>
+        <p class="small" style="margin:4px 0 0;">Logos, brand colors, reference docs, or anything the customer wants included — images, PDF, Word/Excel/PowerPoint or ZIP, up to 10MB each. These will be visible to the assigned staff / marketing officer.</p>
+      </div>
+
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Submit &amp; Generate Tracking Code</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="requestDetailModal">
+  <div class="modal-box" style="max-width:600px;">
+    <span class="modal-close" onclick="closeModal('requestDetailModal')"><i class="bi bi-x-lg"></i></span>
+    <div id="requestDetailBody">Loading…</div>
+  </div>
+</div>
+
+<div class="modal-bg" id="dealSaleModal">
+  <div class="modal-box" style="max-width:560px;">
+    <span class="modal-close" onclick="closeModal('dealSaleModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="dealSaleTitle" style="margin-top:0;"><i class="bi bi-cash-coin"></i> Record the Sale</h3>
+    <p class="small" id="dealSaleIntro"></p>
+    <form id="dealSaleForm">
+      <div class="form-group">
+        <label>Product Sold</label>
+        <select id="dealProduct" required></select>
+        <div class="small" id="dealProductHint" style="margin-top:4px;"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Quantity</label><input type="number" id="dealQty" min="1" step="1" required></div>
+        <div class="form-group"><label>Unit Price <span class="small">(blank = standard price)</span></label><input type="number" id="dealPrice" min="0" step="0.01"></div>
+      </div>
+      <p class="small" style="margin:0 0 10px;">Sale total: <b id="dealTotal">0.00</b></p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Payment</label>
+          <select id="dealMethod">
+            <option value="cash">Cash</option>
+            <option value="mobile_money">Mobile Money</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="card">Card</option>
+            <option value="credit">Credit (pays later)</option>
+          </select>
+        </div>
+        <div class="form-group" id="dealChannelBox" style="display:none;"><label>Provider / Bank</label><select id="dealChannel"></select></div>
+      </div>
+      <div id="dealCreditBox" style="display:none;">
+        <div class="form-row">
+          <div class="form-group"><label>Customer Name</label><input type="text" id="dealCustName"></div>
+          <div class="form-group"><label>Customer Phone</label><input type="text" id="dealCustPhone"></div>
+        </div>
+        <div class="form-group"><label>Address <span class="small">(optional)</span></label><input type="text" id="dealCustAddress"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Due Date <span class="small">(optional)</span></label><input type="date" id="dealDue"></div>
+          <div class="form-group"><label>Paid Now <span class="small">(optional)</span></label><input type="number" id="dealDeposit" min="0" step="0.01"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Paid Now Via</label>
+            <select id="dealDepositMethod">
+              <option value="cash">Cash</option>
+              <option value="mobile_money">Mobile Money</option>
+              <option value="bank_transfer">Bank Transfer</option>
+              <option value="card">Card</option>
+            </select>
+          </div>
+          <div class="form-group" id="dealDepositChannelBox" style="display:none;"><label>Provider / Bank</label><select id="dealDepositChannel"></select></div>
+        </div>
+      </div>
+      <div class="form-group" id="dealNoteBox"><label>Note <span class="small">(optional, added to the request history)</span></label><textarea id="dealNote" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block" id="dealSubmit"><i class="bi bi-check2-circle"></i> Complete Deal &amp; Record Sale</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-acquisition-leads.js?v=3"></script>
+<script src="../../js/pages/admin-marketing-acquisition.js?v=5"></script>
+</body>
+</html>

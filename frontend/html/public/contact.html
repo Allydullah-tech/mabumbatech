@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css?v2">
+<link rel="stylesheet" href="../../css/forms.css?v2">
+<link rel="stylesheet" href="../../css/landing.css?v4">
+</head>
+<body class="landing inner">
+<div id="siteHeader"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Get In Touch</span>
+      <h2>Contact MABUMBA TECH</h2>
+      <p>Have a project in mind or a question for our team? Send us a message and we will get back to you shortly.</p>
+    </div>
+
+    <div class="ct-wrap">
+      <!-- Contact details -->
+      <aside class="ct-info" aria-label="Contact details">
+        <h3>Contact information</h3>
+        <p class="ct-info-lead">Reach us directly, or use the form and we will reply as soon as we can.</p>
+
+        <ul class="ct-list">
+          <li>
+            <span class="ct-ic"><i class="bi bi-geo-alt"></i></span>
+            <div>
+              <small>Location</small>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Mbeya%2C+Tanzania" target="_blank" rel="noopener">Mbeya, Tanzania</a>
+            </div>
+          </li>
+          <li>
+            <span class="ct-ic"><i class="bi bi-envelope"></i></span>
+            <div>
+              <small>Email</small>
+              <a href="mailto:mabumbatech@gmail.com">mabumbatech@gmail.com</a>
+            </div>
+          </li>
+          <li>
+            <span class="ct-ic"><i class="bi bi-telephone"></i></span>
+            <div>
+              <small>Phone</small>
+              <a href="tel:+255620839640">+255 620 839 640</a>
+              <a href="tel:+255760620418">+255 760 620 418</a>
+            </div>
+          </li>
+        </ul>
+
+        <a class="ct-wa" href="https://wa.me/255620839640" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i> Chat with us on WhatsApp</a>
+      </aside>
+
+      <!-- Message form -->
+      <div class="ct-form">
+        <h3>Send us a message</h3>
+        <p class="ct-form-lead">Fields marked <span class="ct-req">*</span> are required.</p>
+        <form id="contactForm" class="form">
+          <div class="form-row">
+            <div class="form-group"><label for="ctName">Full Name <span class="ct-req">*</span></label><input id="ctName" type="text" name="name" placeholder="Your full name" autocomplete="name" required></div>
+            <div class="form-group"><label for="ctEmail">Email <span class="ct-req">*</span></label><input id="ctEmail" type="email" name="email" placeholder="you@example.com" autocomplete="email" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="ctPhone">Phone <span class="ct-opt">(optional)</span></label><input id="ctPhone" type="text" name="phone" placeholder="+255 ..." autocomplete="tel"></div>
+            <div class="form-group"><label for="ctSubject">Subject <span class="ct-opt">(optional)</span></label><input id="ctSubject" type="text" name="subject" placeholder="How can we help?"></div>
+          </div>
+          <div class="form-group"><label for="ctMessage">Message <span class="ct-req">*</span></label><textarea id="ctMessage" name="message" rows="5" placeholder="Tell us about your project or question…" required></textarea></div>
+          <button type="submit" class="btn btn-primary btn-block" id="ctSubmit"><i class="bi bi-send"></i> <span>Send Message</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="siteFooter"></div>
+<script src="../../js/config.js?v2"></script>
+<script src="../../js/layout-public.js?v2"></script>
+<script src="../../js/pages/public-contact.js?v3"></script>
+</body>
+</html>

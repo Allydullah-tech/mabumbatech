@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Accounts — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css?v2">
+<link rel="stylesheet" href="../../css/forms.css?v2">
+<link rel="stylesheet" href="../../css/dashboard.css?v2">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3><i class="bi bi-people"></i> All Staff Accounts (<span id="staffCount">0</span>)</h3>
+          <button class="btn btn-primary btn-sm" onclick="openModal('createStaffModal')"><i class="bi bi-person-plus"></i> Add Staff</button>
+        </div>
+        <div class="panel-body" style="padding-bottom:0;">
+          <div class="filter-bar">
+            <div class="search-box" style="flex:1;min-width:220px;"><i class="bi bi-search"></i><input type="text" id="searchInput" placeholder="Search by name, email or username…"></div>
+            <select id="deptFilter"><option value="">All Departments</option></select>
+            <select id="statusFilter">
+              <option value="">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr><th>Staff</th><th>Username</th><th>Position / Category</th><th>Contact</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+            <tbody id="staffTableBody"><tr><td colspan="7" class="empty-state">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="createStaffModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('createStaffModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-person-plus"></i> Add New Staff</h3>
+    <form id="createStaffForm">
+      <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-group"><label>Phone</label><input type="text" name="phone"></div>
+      </div>
+      <div class="form-group">
+        <label>Category / Department</label>
+        <div style="display:flex;gap:8px;">
+          <select name="staff_category" id="categorySelect" required style="flex:1;"><option value="">Select department…</option></select>
+          <button type="button" class="btn btn-light btn-sm" onclick="openModal('addDeptModal')" title="Add a new department"><i class="bi bi-plus-lg"></i></button>
+        </div>
+      </div>
+      <div class="form-group"><label>Position Title (optional)</label><input type="text" name="position_title" placeholder="e.g. Senior Web Developer"></div>
+      <div class="form-group"><label>Temporary Password</label><input type="password" name="password" required minlength="6"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Create Staff Account</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="addDeptModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('addDeptModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-plus-circle"></i> Add New Department</h3>
+    <form id="addDeptForm">
+      <div class="form-group"><label>Department Name</label><input type="text" name="label" required placeholder="e.g. Cloud Services"></div>
+      <div class="form-group"><label>Icon (Bootstrap Icons class, optional)</label><input type="text" name="icon" placeholder="bi-briefcase"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Add Department</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="editCatModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('editCatModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-pencil"></i> Edit Position — <span id="editCatName"></span></h3>
+    <form id="editCatForm">
+      <input type="hidden" name="staff_id" id="editCatStaffId">
+      <div class="form-group">
+        <label>Category / Department</label>
+        <select name="staff_category" id="editCatSelect" required></select>
+      </div>
+      <div class="form-group"><label>Position Title</label><input type="text" name="position_title" id="editCatPosition"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="publicProfileModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('publicProfileModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-globe"></i> Public Team Page — <span id="publicProfileName"></span></h3>
+    <form id="publicProfileForm">
+      <input type="hidden" name="staff_id" id="publicProfileStaffId">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:12px;">
+        <input type="checkbox" id="publicProfileToggle" style="width:auto;"> Show this person on the public Team page
+      </label>
+      <div class="form-group"><label>Short Bio (optional, public)</label><textarea id="publicProfileBio" name="public_bio" rows="3" maxlength="300"></textarea></div>
+      <div class="form-group"><label>Skills (comma-separated, public)</label><input type="text" id="publicProfileSkills" name="public_skills" placeholder="e.g. React, Laravel, UI Design" maxlength="300"></div>
+      <p class="small">Off by default. Nothing about this person appears publicly unless you check the box above.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js?v2"></script>
+<script src="../../js/layout-dash.js?v2"></script>
+<script src="../../js/dashboard.js?v2"></script>
+<script src="../../js/pages/admin-staff.js?v2"></script>
+</body>
+</html>

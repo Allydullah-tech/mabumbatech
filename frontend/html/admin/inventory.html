@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css?v=3">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+      <div id="pageBody">Loading…</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="productModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('productModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-box-seam"></i> <span id="productModalTitle">New Product</span></h3>
+    <form id="productForm">
+      <input type="hidden" name="product_id" id="productEditId" value="">
+      <div class="form-group"><label>Product Name (parent)</label><input type="text" name="name" placeholder="e.g. Pen" required></div>
+      <div class="form-group"><label>Category</label><select name="category_id" id="productCategorySelect" required><option value="">— choose —</option></select>
+        <div class="small" style="margin-top:5px;">Only categories you saved appear here. <a href="#" onclick="closeModal('productModal');goToCategories();return false;">Manage categories</a></div></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> <span id="productSubmitLabel">Create Product</span></button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="importModal">
+  <div class="modal-box" style="max-width:820px;">
+    <span class="modal-close" onclick="closeModal('importModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-file-earmark-excel"></i> Import from Excel</h3>
+    <div class="tpl-box" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;margin:0 0 14px;border:1px dashed var(--blue-400);border-radius:12px;background:var(--blue-50);">
+      <i class="bi bi-file-earmark-arrow-down" style="font-size:1.6rem;color:var(--blue-600);"></i>
+      <div style="flex:1;min-width:200px;">
+        <b>Step 1 — Download the purchase template</b>
+        <div class="small">Fill in one row per item you bought (Category, Description, Quantity, Amount), save it, then upload it in Step 2.</div>
+      </div>
+      <button type="button" class="btn btn-light btn-sm" onclick="downloadInventoryTemplate()"><i class="bi bi-download"></i> Download Template</button>
+    </div>
+    <p class="small"><b>Step 2 — Upload the filled file</b> (.xlsx or .csv). Columns must stay in this order: <b>Category, Description, Quantity, Amount</b>. Amount is recorded as the buying/cost price — you'll set the selling price before saving.</p>
+    <p class="small" id="importCategoryHint"></p>
+    <div id="importUploadStep">
+      <div class="form-group"><input type="file" id="importFileInput" accept=".xlsx,.csv"></div>
+      <button type="button" class="btn btn-primary btn-block" id="importPreviewBtn"><i class="bi bi-eye"></i> Preview</button>
+    </div>
+    <div id="importPreviewStep" style="display:none;">
+      <div class="table-wrap" style="max-height:360px;overflow-y:auto;">
+        <table class="tbl">
+          <thead><tr><th>Category</th><th>Description</th><th>Qty</th><th>Cost (Amount)</th><th>Selling Price</th><th>Reorder Level</th></tr></thead>
+          <tbody id="importPreviewBody"></tbody>
+        </table>
+      </div>
+      <p class="small" id="importPreviewSummary" style="margin-top:8px;"></p>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn btn-light" onclick="cancelImportPreview()"><i class="bi bi-arrow-left"></i> Choose Different File</button>
+        <button type="button" class="btn btn-primary" style="flex:1;" id="importConfirmBtn"><i class="bi bi-check2-circle"></i> Confirm &amp; Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="supplierModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('supplierModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-truck"></i> New Supplier</h3>
+    <form id="supplierForm">
+      <div class="form-group"><label>Supplier / Company Name</label><input type="text" name="name" placeholder="e.g. Techmart Supplies Ltd" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Contact Person <span class="small">(a name)</span></label><input type="text" name="contact_person" placeholder="e.g. Amina Juma" autocomplete="off"></div>
+        <div class="form-group"><label>Phone <span class="small">(a number)</span></label><input type="tel" name="phone" placeholder="e.g. 0712 345 678" inputmode="tel" autocomplete="off"></div>
+      </div>
+      <p class="small" style="margin:-4px 0 10px;"><b>Contact Person</b> is the person to ask for at the supplier. <b>Phone</b> is the number to reach them on.</p>
+      <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="e.g. sales@techmart.co.tz"></div>
+      <div class="form-group"><label>Address</label><input type="text" name="address" placeholder="Street, city"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="purchaseModal">
+  <div class="modal-box" style="max-width:560px;">
+    <span class="modal-close" onclick="closeModal('purchaseModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-cart-plus"></i> Record Purchase</h3>
+    <form id="purchaseForm">
+      <div class="form-row">
+        <div class="form-group"><label>Supplier</label><select name="supplier_id" id="purchaseSupplierSelect"><option value="">—</option></select></div>
+        <div class="form-group"><label>Date</label><input type="date" name="purchase_date"></div>
+      </div>
+      <label>Line Items</label>
+      <div id="purchaseLines"></div>
+      <button type="button" class="btn btn-light btn-sm" style="margin:8px 0;" onclick="addPurchaseLine()"><i class="bi bi-plus-circle"></i> Add Line</button>
+      <div class="form-group"><label>Notes</label><textarea name="notes" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record Purchase &amp; Stock In</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="productDetailModal">
+  <div class="modal-box" style="max-width:640px;">
+    <span class="modal-close" onclick="closeModal('productDetailModal')"><i class="bi bi-x-lg"></i></span>
+    <div id="productDetailBody">Loading…</div>
+  </div>
+</div>
+
+<div class="modal-bg" id="typeModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('typeModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-tags"></i> Add Type</h3>
+    <form id="typeForm">
+      <input type="hidden" name="product_id" id="typeProductId">
+      <div class="form-group"><label>Type Name</label><input type="text" name="name" placeholder="e.g. Obama Pen - Black" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Unit</label><input type="text" name="unit" value="pcs"></div>
+        <div class="form-group"><label>Reorder Level</label><input type="number" name="minimum_stock_level" value="5"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Buying Price</label><input type="number" step="0.01" name="buying_price" required></div>
+        <div class="form-group"><label>Selling Price</label><input type="number" step="0.01" name="selling_price" required></div>
+      </div>
+      <div class="form-group"><label>Minimum Selling Price (lowest price allowed at sale; leave empty to use the buying price)</label><input type="number" step="0.01" name="minimum_selling_price"></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Add Type</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="stockActionModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('stockActionModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="stockActionTitle"><i class="bi bi-arrow-repeat"></i> Adjust Stock</h3>
+    <form id="stockActionForm">
+      <input type="hidden" name="action" id="stockActionType">
+      <input type="hidden" name="product_type_id" id="stockActionTypeId">
+      <input type="hidden" name="direction" id="stockActionDirection" value="in">
+      <div class="form-group"><label>Quantity</label><input type="number" name="quantity" required min="1"></div>
+      <div class="form-group"><label id="stockActionNotesLabel">Notes</label><textarea name="notes" id="stockActionNotes" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="categoryModal">
+  <div class="modal-box" style="max-width:440px;">
+    <span class="modal-close" onclick="closeModal('categoryModal')"><i class="bi bi-x-lg"></i></span>
+    <h3 id="categoryModalTitle"><i class="bi bi-tag"></i> New Category</h3>
+    <form id="categoryForm">
+      <input type="hidden" name="category_id" id="categoryId">
+      <div class="form-group"><label>Category Name</label><input type="text" name="name" id="categoryName" maxlength="100" placeholder="e.g. Laptops, Printers, Networking" required></div>
+      <p class="small" style="margin:-4px 0 10px;">Saved categories appear in the product form, the Excel import and purchases.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save Category</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="damageModal">
+  <div class="modal-box" style="max-width:520px;">
+    <span class="modal-close" onclick="closeModal('damageModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-exclamation-triangle"></i> Record Damaged Product</h3>
+    <form id="damageForm">
+      <input type="hidden" name="action" value="record_damage">
+      <div class="form-group"><label>Product</label>
+        <input type="hidden" name="product_type_id" id="damageTypeSelect" value="">
+        <div class="dpick">
+          <div class="dpick-search"><i class="bi bi-search"></i><input type="search" id="damageSearch" placeholder="Search product, type or category…" autocomplete="off"></div>
+          <div class="dpick-cats" id="damageCats"></div>
+          <div class="dpick-list" id="damageList"></div>
+        </div>
+        <div class="dpick-chosen" id="damageChosen"></div></div>
+      <div class="form-row">
+        <div class="form-group"><label>Quantity Damaged</label><input type="number" name="quantity" id="damageQty" min="1" value="1" required></div>
+        <div class="form-group"><label>Estimated Loss</label><input type="text" id="damageLoss" value="0.00" readonly></div>
+      </div>
+      <div class="form-group"><label>Remark <span class="small">(required — what happened?)</span></label><textarea name="notes" id="damageRemark" rows="3" placeholder="e.g. Screen cracked during delivery / water damage in storage" required minlength="3"></textarea></div>
+      <p class="small" style="margin:-4px 0 10px;">The damaged quantity is removed from stock and its buying cost is counted as a loss.</p>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Record Damage</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js?v=3"></script>
+<script src="../../js/pages/admin-inventory.js?v=7"></script>
+</body>
+</html>

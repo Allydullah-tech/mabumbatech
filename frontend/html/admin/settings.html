@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mail Settings — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="grid grid-2" style="align-items:start;">
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-envelope-gear"></i> Email Delivery Settings</h3></div>
+          <div class="panel-body">
+            <form id="mailForm">
+              <div class="form-group">
+                <label>Delivery Method</label>
+                <select name="mail_method" id="mailMethod">
+                  <option value="php_mail">Server's built-in mail() function</option>
+                  <option value="smtp">SMTP (Gmail, Zoho, custom mail server…)</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>From Email</label><input type="email" name="mail_from_email" required></div>
+                <div class="form-group"><label>From Name</label><input type="text" name="mail_from_name" required></div>
+              </div>
+              <div id="smtpFields" style="display:none;">
+                <div class="form-section-title"><i class="bi bi-hdd-network"></i> SMTP Details</div>
+                <div class="form-row">
+                  <div class="form-group"><label>SMTP Host</label><input type="text" name="smtp_host" placeholder="smtp.gmail.com"></div>
+                  <div class="form-group"><label>Port</label><input type="text" name="smtp_port" placeholder="587"></div>
+                </div>
+                <div class="form-group"><label>SMTP Username</label><input type="text" name="smtp_username"></div>
+                <div class="form-group"><label>SMTP Password / App Password</label><input type="password" name="smtp_password" placeholder="Leave blank to keep current password"></div>
+                <div class="form-group">
+                  <label>Security</label>
+                  <select name="smtp_secure">
+                    <option value="tls">STARTTLS (port 587)</option>
+                    <option value="ssl">SSL (port 465)</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-primary"><i class="bi bi-check2"></i> Save Settings</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3><i class="bi bi-send-check"></i> Send a Test Email</h3></div>
+          <div class="panel-body">
+            <form id="testForm">
+              <div class="form-group"><label>Send test email to</label><input type="email" name="test_email" id="testEmailInput" required></div>
+              <button class="btn btn-light btn-block"><i class="bi bi-send"></i> Send Test Email</button>
+            </form>
+            <div class="divider"></div>
+            <p class="small"><i class="bi bi-info-circle"></i> Notifications are sent automatically for new requests, status changes, task assignments, new messages, and new contact form submissions — to admins, staff, and customers as relevant.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-settings.js"></script>
+</body>
+</html>

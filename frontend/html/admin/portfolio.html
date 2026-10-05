@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — MABUMBA TECH</title>
+<link rel="icon" href="../../img/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/forms.css">
+<link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dash-body">
+<div class="dash-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="dash-main">
+    <div class="dash-topbar" id="dashTopbar"></div>
+    <div class="dash-content">
+      <div id="flashContainer"></div>
+
+      <div class="panel" style="margin-bottom:18px;">
+        <div class="panel-head"><h3><i class="bi bi-plus-circle"></i> Add Portfolio Item</h3></div>
+        <div class="panel-body">
+          <form id="addPortfolioForm" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group"><label>Project Title</label><input type="text" name="title" required></div>
+              <div class="form-group">
+                <label>Category</label>
+                <select name="category_key" id="categorySelect"><option value="">General</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Client (optional)</label><input type="text" name="client_name"></div>
+              <div class="form-group"><label>Project URL (optional)</label><input type="text" name="project_url" placeholder="https://"></div>
+            </div>
+            <div class="form-group">
+              <label>Link to a Completed Project (optional, internal reference only — never shown publicly)</label>
+              <select name="linked_request_id" id="linkedRequestSelect"><option value="">— None —</option></select>
+            </div>
+            <div class="form-group"><label>Description</label><textarea name="description" rows="3"></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>Technologies Used (optional)</label><input type="text" name="technologies" placeholder="e.g. React, Node.js, MySQL"></div>
+              <div class="form-group"><label>Completion Date (optional)</label><input type="date" name="completion_date"></div>
+            </div>
+            <div class="form-group"><label>Project Outcome (optional)</label><textarea name="project_outcome" rows="2" placeholder="What changed for the client as a result — real results only."></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>Cover Image</label><input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"></div>
+              <div class="form-group" style="display:flex;align-items:end;">
+                <label><input type="checkbox" name="is_featured" value="1"> Feature on homepage</label>
+              </div>
+            </div>
+            <button class="btn btn-primary"><i class="bi bi-check2"></i> Add to Portfolio</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="portfolioGrid"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="editPortfolioModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('editPortfolioModal')"><i class="bi bi-x-lg"></i></span>
+    <h3><i class="bi bi-pencil-square"></i> Edit Portfolio Item</h3>
+    <form id="editPortfolioForm" enctype="multipart/form-data">
+      <input type="hidden" name="portfolio_id">
+      <div class="form-row">
+        <div class="form-group"><label>Project Title</label><input type="text" name="title" required></div>
+        <div class="form-group"><label>Category</label><select name="category_key" id="editCategorySelect"><option value="">General</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Client (optional)</label><input type="text" name="client_name"></div>
+        <div class="form-group"><label>Project URL (optional)</label><input type="text" name="project_url" placeholder="https://"></div>
+      </div>
+      <div class="form-group">
+        <label>Link to a Completed Project (optional, internal only)</label>
+        <select name="linked_request_id" id="editLinkedRequestSelect"><option value="">— None —</option></select>
+      </div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="3"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Technologies Used (optional)</label><input type="text" name="technologies" placeholder="e.g. React, Node.js, MySQL"></div>
+        <div class="form-group"><label>Completion Date (optional)</label><input type="date" name="completion_date"></div>
+      </div>
+      <div class="form-group"><label>Project Outcome (optional)</label><textarea name="project_outcome" rows="2"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Replace Cover Image (optional)</label><input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"></div>
+        <div class="form-group" style="display:flex;align-items:end;">
+          <label><input type="checkbox" name="is_featured" value="1"> Feature on homepage</label>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block"><i class="bi bi-check2"></i> Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/layout-dash.js"></script>
+<script src="../../js/dashboard.js"></script>
+<script src="../../js/pages/admin-portfolio.js"></script>
+</body>
+</html>
