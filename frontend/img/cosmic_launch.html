@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Launch — Portfolio Animation</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b0e18;font-family:system-ui,sans-serif;color:white}
+.wrap{width:min(900px,94vw)}
+.stage{position:relative;overflow:hidden;border-radius:24px;background:#080b16;border:1px solid #252b3d;min-height:500px}
+.stars{position:absolute;inset:0;background-image:
+radial-gradient(circle at 12% 22%,#fff 0 1px,transparent 2px),
+radial-gradient(circle at 31% 71%,#fff 0 1px,transparent 2px),
+radial-gradient(circle at 52% 18%,#fff 0 1px,transparent 2px),
+radial-gradient(circle at 77% 35%,#fff 0 1px,transparent 2px),
+radial-gradient(circle at 91% 76%,#fff 0 1px,transparent 2px);
+background-size:180px 150px;animation:drift 10s linear infinite}
+.title{position:absolute;top:30px;left:32px;z-index:4}
+.title h1{margin:0;font-size:30px}.title p{margin:6px 0;color:#aab1c7}
+.planet{position:absolute;width:140px;height:140px;border-radius:50%;right:11%;top:25%;
+background:radial-gradient(circle at 32% 28%,#fff 0 3%,#d9c8ff 4%,#8e72e8 28%,#4b3a98 68%,#211b52);
+box-shadow:0 0 55px #7055d966;animation:float 3s ease-in-out infinite}
+.ring{position:absolute;width:200px;height:46px;border:3px solid #dcd3ff88;border-radius:50%;right:5%;top:38%;transform:rotate(-17deg)}
+.rocket{position:absolute;left:10%;bottom:15%;font-size:70px;z-index:3;transform:rotate(-25deg);filter:drop-shadow(0 8px 12px #0008)}
+.flame{position:absolute;left:18%;bottom:12%;width:34px;height:78px;background:linear-gradient(#ffe58a,#ff9a5c,transparent);border-radius:50%;filter:blur(4px);transform:rotate(25deg);animation:flame .18s infinite alternate}
+.star{position:absolute;color:#ffe99b;font-size:28px;animation:twinkle 1.3s ease-in-out infinite alternate}
+.s1{left:37%;top:31%}.s2{left:58%;top:62%;animation-delay:.3s}.s3{left:73%;top:18%;animation-delay:.6s}.s4{left:43%;top:78%;animation-delay:.9s}
+.trail{position:absolute;left:13%;bottom:24%;width:55%;height:2px;background:linear-gradient(90deg,transparent,#b4a0ff88,transparent);transform:rotate(-25deg);transform-origin:left;animation:trail 2.8s ease-in-out infinite}
+.controls{text-align:center;margin-top:15px}
+button{border:1px solid #30384d;background:#151b2b;color:white;border-radius:12px;padding:11px 20px;margin:4px;cursor:pointer;font-weight:600}
+button:hover{background:#20283b}
+.status{text-align:center;color:#8f97ad;font-size:13px;margin-top:8px}
+.paused *{animation-play-state:paused!important}
+@keyframes drift{to{background-position:180px 150px}}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes flame{to{height:58px;opacity:.7}}
+@keyframes twinkle{to{transform:scale(1.35);opacity:.45}}
+@keyframes trail{50%{opacity:.25;transform:rotate(-25deg) scaleX(.7)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="animation" class="stage">
+<div class="stars"></div>
+<div class="title"><h1>Cosmic Launch</h1></div>
+<div class="planet"></div><div class="ring"></div>
+<div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div><div class="star s4">✦</div>
+<div class="trail"></div><div class="flame"></div><div class="rocket">🚀</div>
+</div>
+<div class="controls">
+<button id="toggle">Pause animation</button>
+<button id="restart">Restart</button>
+</div>
+<div id="status" class="status">Animation running • CSS motion + interactive controls</div>
+</div>
+<script>
+const box=document.getElementById('animation');
+const toggle=document.getElementById('toggle');
+const restart=document.getElementById('restart');
+const status=document.getElementById('status');
+let paused=false;
+toggle.onclick=()=>{paused=!paused;box.classList.toggle('paused',paused);toggle.textContent=paused?'Play animation':'Pause animation';status.textContent=paused?'Animation paused • press Play to continue':'Animation running • CSS motion + interactive controls'};
+restart.onclick=()=>{paused=false;box.classList.remove('paused');toggle.textContent='Pause animation';status.textContent='Animation restarted • CSS motion + interactive controls'};
+</script>
+</body>
+</html>

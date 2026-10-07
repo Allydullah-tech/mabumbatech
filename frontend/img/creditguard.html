@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>CreditGuard: Late-Payment Risk Demo</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#07100c;color:#eef5ea;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px 16px}.w{max-width:960px;margin:auto}h1{margin:0 0 6px;font-size:clamp(28px,5vw,44px);letter-spacing:-.03em}h1 span{color:#b8f24c}.sub{color:#93a38f;margin:0 0 22px;line-height:1.6}
+.g{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}@media(max-width:700px){.g{grid-template-columns:1fr}}.c{background:#0e1a13;border:1px solid #223a2b;border-radius:18px;padding:18px}small{color:#7f947f;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+label{display:block;margin:14px 0 6px;font-size:13px;color:#b9c9b5}input[type=range]{width:100%}.big{font-size:64px;font-weight:750;line-height:1;margin:10px 0 8px}.bar{height:10px;border-radius:9px;background:#07100c;overflow:hidden;border:1px solid #223a2b}.bar i{display:block;height:100%;width:0;transition:.25s}
+.tag{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:99px;font-weight:650;font-size:13px}.m{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}@media(max-width:700px){.m{grid-template-columns:1fr 1fr}}.m div{background:#0e1a13;border:1px solid #223a2b;border-radius:14px;padding:12px}.m b{display:block;font-size:22px;margin-top:4px}
+.n{color:#7f947f;font-size:12px;line-height:1.6;margin-top:14px}</style></head><body><div class="w">
+<h1>Credit<span>Guard</span></h1><p class="sub">A machine-learning model that scores how likely a shop customer is to pay late on credit. Adjust the customer's profile and watch the risk change.</p>
+<div class="g"><div class="c"><small>Customer profile</small>
+<label>Late payments in the past: <b id="v0"></b></label><input type="range" id="i0" min="0" max="8" value="1">
+<label>Credit amount (thousands): <b id="v1"></b></label><input type="range" id="i1" min="20" max="400" value="100">
+<label>Months as customer: <b id="v2"></b></label><input type="range" id="i2" min="1" max="60" value="24">
+<label>Usual days to repay: <b id="v3"></b></label><input type="range" id="i3" min="2" max="60" value="18">
+<label>Credit limit used: <b id="v4"></b>%</label><input type="range" id="i4" min="0" max="100" value="40"></div>
+<div class="c"><small>Late-payment risk</small><div class="big" id="o"></div><div class="bar"><i id="br"></i></div><span class="tag" id="tg"></span></div></div>
+<div class="m"><div><small>Ranking quality (AUC)</small><b>0.78</b></div><div><small>Customers who pay late</small><b>8%</b></div><div><small>Late payers caught</small><b>41%</b></div><div><small>Flags that were right (vs 8% random)</small><b>38%</b></div></div>
+<p class="n">Method: logistic regression on five customer features. Trained on 2,250 customers and tested on 750 unseen ones; the flag threshold was chosen on training data only. <b>The data is synthetic (generated for this demo)</b>, so these figures show the pipeline works, not performance on real customers.</p></div>
+<script>const M={"w": [0.5842, 0.5457, -0.2313, 0.562, 0.228], "b": -2.9849, "mu": [1.163, 100.537, 30.968, 17.966, 40.463], "sd": [1.106, 50.194, 17.203, 7.809, 19.746], "thr": 0.17, "auc": 0.78, "acc": 89, "base": 91, "rec": 41, "prec": 38, "rate": 8};const $=i=>document.getElementById(i);
+function f(){const x=[0,1,2,3,4].map(i=>+$('i'+i).value);x.forEach((v,i)=>$('v'+i).textContent=v);
+let l=M.b;x.forEach((v,i)=>l+=M.w[i]*(v-M.mu[i])/M.sd[i]);const p=1/(1+Math.exp(-l)),q=Math.round(p*100);
+$('o').textContent=q+'%';const hi=p>=M.thr,md=p>=.10&&!hi,c=hi?'#ff7a6b':md?'#f2c94c':'#b8f24c';
+$('o').style.color=c;$('br').style.width=q+'%';$('br').style.background=c;const t=$('tg');t.textContent=hi?'High risk: flag for review':md?'Medium risk: watch':'Low risk';t.style.background=c+'22';t.style.color=c}
+for(let i=0;i<5;i++)$('i'+i).addEventListener('input',f);f();</script></body></html>

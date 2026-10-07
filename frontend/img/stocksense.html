@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>StockSense: Demand Forecast Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07100c;color:#eef5ea;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px 16px;min-height:100%}
+.w{max-width:960px;margin:auto}h1{margin:0 0 6px;font-size:clamp(28px,5vw,44px);letter-spacing:-.03em}h1 span{color:#b8f24c}
+.sub{color:#93a38f;margin:0 0 22px;line-height:1.6}.g{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.g{grid-template-columns:1fr}}
+.c{background:#0e1a13;border:1px solid #223a2b;border-radius:18px;padding:18px}.c small{color:#7f947f;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+label{display:block;margin:14px 0 6px;font-size:13px;color:#b9c9b5}select,input[type=range]{width:100%}select{background:#07100c;color:#eef5ea;border:1px solid #2c4a36;border-radius:10px;padding:10px}
+.big{font-size:64px;font-weight:750;color:#b8f24c;line-height:1;margin:10px 0 4px}.m{display:flex;gap:10px;margin:14px 0}.m div{flex:1;background:#0e1a13;border:1px solid #223a2b;border-radius:14px;padding:12px}.m b{display:block;font-size:22px;margin-top:4px}
+svg{width:100%;height:auto}.n{color:#7f947f;font-size:12px;line-height:1.6;margin-top:14px}.k{display:flex;gap:16px;font-size:12px;color:#93a38f;margin-bottom:6px}.k i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
+</style></head><body><div class="w">
+<h1>Stock<span>Sense</span></h1><p class="sub">A demand-forecasting model for a drinks shop. Set tomorrow's conditions and it predicts how many units will sell.</p>
+<div class="g"><div class="c"><small>Forecast inputs</small>
+<label>Day of week</label><select id="d"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option selected>Saturday</option><option>Sunday</option></select>
+<label><input type="checkbox" id="p"> Promotion running</label>
+<label>Temperature: <b id="tv">28</b> °C</label><input type="range" id="t" min="18" max="36" value="28"></div>
+<div class="c"><small>Predicted sales</small><div class="big" id="o">0</div><div style="color:#93a38f">units for that day</div></div></div>
+<div class="m"><div><small>Model error (MAE)</small><b>±10.0</b></div><div><small>Last-week baseline</small><b>±18.1</b></div><div><small>Avg % error</small><b>6.8%</b></div></div>
+<div class="c"><small>Last 28 test days: actual vs predicted</small><div class="k"><span><i style="background:#eef5ea"></i>Actual</span><span><i style="background:#b8f24c"></i>Predicted</span></div><svg id="ch" viewBox="0 0 600 200"></svg></div>
+<p class="n">Method: linear regression on day of week, promotion, temperature and trend. Trained on the first 600 days, tested on the final 130 unseen days. <b>The data is synthetic (generated for this demo)</b>, so these figures prove the pipeline works, not performance on a real shop.</p></div>
+<script>
+const W=[120.9535, 119.0453, 122.1621, 123.5113, 143.2995, 164.3381, 139.2696, 32.2213, 2.4369, 2.9704],A=[140, 157, 149, 185, 172, 180, 175, 158, 140, 176, 189, 181, 118, 153, 129, 142, 180, 161, 153, 130, 167, 128, 164, 203, 191, 153, 125, 125],P=[143, 141, 162, 178, 164, 177, 170, 142, 132, 163, 181, 159, 142, 136, 133, 144, 191, 182, 156, 139, 161, 148, 145, 201, 194, 160, 134, 137];
+function f(){const d=+document.getElementById('d').value||document.getElementById('d').selectedIndex,p=document.getElementById('p').checked?1:0,t=+document.getElementById('t').value;document.getElementById('tv').textContent=t;
+const v=W[d]+W[7]*p+W[8]*(t-26)+W[9]*7.3;document.getElementById('o').textContent=Math.round(v)}
+['d','p','t'].forEach(i=>document.getElementById(i).addEventListener('input',f));f();
+const mn=90,mx=215,pt=a=>a.map((v,i)=>(i*600/27).toFixed(1)+','+(190-(v-mn)/(mx-mn)*180).toFixed(1)).join(' ');
+document.getElementById('ch').innerHTML='<polyline fill="none" stroke="#eef5ea" stroke-width="2" points="'+pt(A)+'"/><polyline fill="none" stroke="#b8f24c" stroke-width="2.5" points="'+pt(P)+'"/>';
+</script></body></html>

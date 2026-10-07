@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Deep Current — Ocean Exploration</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#02070d;color:#eefcff;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{width:min(1120px,94vw)}
+.ocean{position:relative;min-height:650px;overflow:hidden;border-radius:30px;background:
+linear-gradient(180deg,#071d2b 0%,#05243a 28%,#031827 63%,#01080f 100%);
+border:1px solid #21485a;box-shadow:0 35px 100px #000b,inset 0 1px #ffffff12}
+.ocean:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#02101a22,#56d8ff0c,#02101a33);pointer-events:none}
+.light{position:absolute;width:560px;height:560px;left:50%;top:-390px;transform:translateX(-50%);background:conic-gradient(from 180deg,#75eaff22,#75eaff03 25%,#75eaff18 50%,#75eaff03 75%,#75eaff22);filter:blur(12px);animation:light 7s ease-in-out infinite}
+.caustics{position:absolute;inset:0;opacity:.22;background-image:
+radial-gradient(ellipse at 20% 10%,transparent 0 18%,#8beeff10 19% 20%,transparent 21%),
+radial-gradient(ellipse at 65% 5%,transparent 0 16%,#8beeff0b 17% 18%,transparent 19%);
+background-size:260px 180px,330px 220px;animation:water 9s linear infinite}
+.depth{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0 45%,#0003 68%,#000b 100%);z-index:2}
+.header{position:absolute;z-index:8;top:30px;left:34px;right:34px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:.17em;font-size:12px;color:#c5e8f3}
+.mark{width:35px;height:35px;border-radius:11px;border:1px solid #5fe3ff55;background:#62ddff0d;display:grid;place-items:center}
+.mark:after{content:"";width:12px;height:12px;border:2px solid #69eaff;border-radius:50%;box-shadow:0 0 16px #69eaff}
+.badge{font-size:11px;color:#9eb8c6;border:1px solid #ffffff16;border-radius:99px;padding:8px 12px;background:#07172299;backdrop-filter:blur(12px)}
+.badge b{color:#65f2c0}
+.copy{position:absolute;z-index:8;left:34px;top:115px;width:410px}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#5fe3ff;margin-bottom:17px}
+h1{font-size:clamp(42px,6vw,75px);line-height:.92;letter-spacing:-.055em;margin:0 0 20px}
+h1 em{font-style:normal;color:#73eaff}
+.copy p{color:#9ab3c0;line-height:1.7;font-size:15px;margin:0;max-width:390px}
+.submarine{position:absolute;z-index:6;right:18%;top:40%;width:330px;height:125px;animation:sub 5s ease-in-out infinite;filter:drop-shadow(0 22px 24px #0009)}
+.hull{position:absolute;left:15px;top:35px;width:275px;height:65px;border-radius:52% 48% 46% 48%;background:linear-gradient(180deg,#a7c4ca,#526d76 48%,#263b43);border:1px solid #c8e5e855;box-shadow:inset 0 10px 18px #ffffff20}
+.hull:after{content:"";position:absolute;right:-14px;top:20px;border-left:28px solid #314a53;border-top:12px solid transparent;border-bottom:12px solid transparent}
+.window{position:absolute;z-index:2;top:48px;left:75px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#dffcff,#54cfe8 35%,#082d3d 75%);border:3px solid #263d45;box-shadow:0 0 15px #5fe3ff88}
+.window.w2{left:111px}.window.w3{left:147px}
+.fin{position:absolute;left:130px;top:25px;width:52px;height:28px;background:#38515a;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.fin.bottom{top:87px;transform:rotate(180deg)}
+.prop{position:absolute;right:5px;top:43px;width:52px;height:52px;border:3px solid #79e6f066;border-radius:50%;animation:spin .8s linear infinite}
+.prop:before,.prop:after{content:"";position:absolute;left:22px;top:-3px;width:4px;height:52px;background:#8cecff77;border-radius:5px;transform:rotate(35deg)}
+.prop:after{transform:rotate(-35deg)}
+.beam{position:absolute;z-index:5;right:25%;top:54%;width:360px;height:190px;transform:rotate(8deg);background:linear-gradient(90deg,#8befff1a,#8befff00);clip-path:polygon(0 42%,100% 0,100% 100%,0 58%);filter:blur(5px);animation:beam 3s ease-in-out infinite}
+.fish{position:absolute;z-index:4;color:#72eaff;font-size:15px;opacity:.7;animation:fish 10s linear infinite}
+.f1{left:9%;top:55%}.f2{left:52%;top:32%;animation-delay:3s;transform:scale(.7)}.f3{left:72%;top:72%;animation-delay:6s;transform:scale(.55)}
+.jelly{position:absolute;z-index:4;width:28px;height:22px;border-radius:50% 50% 40% 40%;background:#74f4ff44;box-shadow:0 0 22px #66f1ff66;animation:jelly 4s ease-in-out infinite}
+.jelly:after{content:"";position:absolute;left:5px;right:5px;top:16px;height:28px;border-left:2px solid #72efff66;border-right:2px solid #72efff66}
+.j1{left:78%;top:39%}.j2{left:17%;top:66%;transform:scale(.65);animation-delay:1.5s}
+.bubble{position:absolute;z-index:7;border:1px solid #a9efff66;border-radius:50%;width:7px;height:7px;animation:bubble 6s linear infinite;opacity:.7}
+.b1{left:57%;top:55%}.b2{left:60%;top:58%;animation-delay:1s}.b3{left:55%;top:57%;animation-delay:2.2s}.b4{left:63%;top:60%;animation-delay:3s}
+.sonar{position:absolute;z-index:7;right:36px;bottom:36px;width:145px;height:145px;border:1px solid #5ce3ff35;border-radius:50%;background:radial-gradient(circle,#5ce3ff09 0 8%,transparent 9% 27%,#5ce3ff09 28% 29%,transparent 30% 48%,#5ce3ff09 49% 50%,transparent 51%);box-shadow:inset 0 0 35px #55dfff0a}
+.sonar:after{content:"";position:absolute;left:50%;top:50%;width:50%;height:1px;background:linear-gradient(90deg,#5ce3ff,#5ce3ff00);transform-origin:left;animation:radar 3s linear infinite}
+.sonar span{position:absolute;bottom:12px;left:18px;color:#6d9dab;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.data{position:absolute;z-index:8;left:34px;bottom:34px;display:flex;gap:10px}
+.card{padding:13px 15px;min-width:125px;border:1px solid #9beaff18;background:#06141dcc;border-radius:15px;backdrop-filter:blur(13px)}
+.card small{display:block;color:#63818e;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}.card strong{font-size:16px}
+.controls{position:absolute;z-index:10;right:34px;bottom:30px;display:flex;gap:8px}
+button{border:1px solid #9beaff22;background:#081925dd;color:#dffaff;border-radius:12px;padding:10px 15px;font-weight:650;cursor:pointer;transition:.2s}
+button:hover{border-color:#5ce3ff66;transform:translateY(-2px);box-shadow:0 8px 22px #0006}.primary{background:#52dfff14}
+.status{text-align:center;margin-top:13px;color:#607984;font-size:12px}
+.paused *{animation-play-state:paused!important}
+@keyframes light{50%{transform:translateX(-50%) rotate(10deg) scale(1.1);opacity:.7}}
+@keyframes water{to{background-position:260px 180px, -330px 220px}}
+@keyframes sub{50%{transform:translateY(-13px) translateX(-7px)}}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes beam{50%{opacity:.45;transform:rotate(8deg) scaleX(.85)}}
+@keyframes fish{0%{transform:translateX(0)}50%{transform:translateX(55px) translateY(-10px)}100%{transform:translateX(0)}}
+@keyframes jelly{50%{transform:translateY(-18px);opacity:.45}}
+@keyframes bubble{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:.8}100%{transform:translateY(-180px) translateX(25px);opacity:0}}
+@keyframes radar{to{transform:rotate(360deg)}}
+@media(max-width:850px){
+.ocean{min-height:720px}.copy{left:25px;top:105px;right:25px;width:auto}.submarine{right:10%;top:48%;transform:scale(.82)}.sonar{display:none}.data{left:25px;bottom:28px}.card:nth-child(3){display:none}.controls{right:25px;bottom:87px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="ocean" class="ocean">
+<div class="light"></div><div class="caustics"></div><div class="depth"></div>
+<header class="header">
+<div class="brand"><span class="mark"></span>Deep Current</div>
+<div class="badge"><b>●</b>&nbsp; Expedition 07 · Online</div>
+</header>
+
+<section class="copy">
+<div class="eyebrow">Ocean intelligence</div>
+<h1>Into the <em>unknown.</em></h1>
+<p>Discovering what lies beneath the surface through exploration, observation and a little courage.</p>
+</section>
+
+<div class="beam"></div>
+<div class="submarine">
+<div class="fin"></div><div class="fin bottom"></div><div class="hull"></div>
+<div class="window"></div><div class="window w2"></div><div class="window w3"></div><div class="prop"></div>
+</div>
+
+<div class="fish f1">➤</div><div class="fish f2">➤</div><div class="fish f3">➤</div>
+<div class="jelly j1"></div><div class="jelly j2"></div>
+<div class="bubble b1"></div><div class="bubble b2"></div><div class="bubble b3"></div><div class="bubble b4"></div>
+
+<div class="sonar"><span>Sonar scan</span></div>
+
+<div class="data">
+<div class="card"><small>Depth</small><strong>4,280 m</strong></div>
+<div class="card"><small>Temp</small><strong>2.4 °C</strong></div>
+<div class="card"><small>Signal</small><strong>94.8%</strong></div>
+</div>
+
+<div class="controls">
+<button class="primary" id="toggle">Pause dive</button>
+<button id="restart">Restart</button>
+</div>
+</div>
+<div class="status" id="status">Deep-water simulation · Interactive motion · Responsive design</div>
+</div>
+<script>
+const ocean=document.getElementById('ocean'),toggle=document.getElementById('toggle'),restart=document.getElementById('restart'),status=document.getElementById('status');
+let paused=false;
+toggle.onclick=()=>{paused=!paused;ocean.classList.toggle('paused',paused);toggle.textContent=paused?'Resume dive':'Pause dive';status.textContent=paused?'Dive paused · press Resume dive to continue':'Deep-water simulation · Interactive motion · Responsive design'};
+restart.onclick=()=>{paused=false;ocean.classList.remove('paused');toggle.textContent='Pause dive';status.textContent='Dive restarted · Interactive motion · Responsive design'};
+</script>
+</body>
+</html>
