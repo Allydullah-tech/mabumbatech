@@ -8,9 +8,9 @@
     <meta name="description" content="Technology. Innovation. Solution. — quality and affordable technology solutions that turn ideas into practical results.">
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../css/style.css?v2">
+    <link rel="stylesheet" href="../css/style.css?v3">
     <link rel="stylesheet" href="../css/forms.css?v2">
-    <link rel="stylesheet" href="../css/landing.css?v2">
+    <link rel="stylesheet" href="../css/landing.css?v6">
 </head>
 
 <body class="landing">
@@ -46,7 +46,7 @@
         <div class="lp-wrap lp-hero-grid">
             <div class="lp-hero-copy">
                 <span class="lp-pill"><i class="bi bi-lightning-charge-fill"></i> Technology. Innovation. Solution.</span>
-                <h1>Turning ideas into <em>practical technology</em> solutions</h1>
+                <h1>Turning ideas into<br><span class="lp-rot" id="lpRot"><em class="lp-rot-word">smart solutions</em></span></h1>
                 <p class="lp-sub">Smart technology solutions that drive innovation, efficiency, and growth. For businesses, organizations, and individuals across Tanzania, East Africa and beyond.</p>
                 <div class="lp-actions">
                     <a href="public/request-service.html" class="btn btn-primary"><i class="bi bi-send"></i> Request a Service</a>
@@ -55,17 +55,19 @@
                 <ul class="lp-stats">
                     <li><b id="statStaff">8+</b><span>Skilled Specialists</span></li>
                     <li><b id="statDone">40+</b><span>Projects Completed</span></li>
-                    <li><b>8+</b><span>Service Categories</span></li>
+                    <li><b id="statCats">8+</b><span>Service Categories</span></li>
                 </ul>
             </div>
             <div class="hero-logo-wrap">
                 <div class="hero-logo-circle">
                     <img src="../img/logo2.png" alt="MABUMBA TECH logo">
                 </div>
-                <span class="lp-chip c1" aria-hidden="true"><i class="bi bi-code-slash"></i> Web</span>
-                <span class="lp-chip c2" aria-hidden="true"><i class="bi bi-phone"></i> Mobile Apps</span>
-                <span class="lp-chip c3" aria-hidden="true"><i class="bi bi-cpu"></i> AI / ML</span>
-                <span class="lp-chip c4" aria-hidden="true"><i class="bi bi-palette"></i> Design</span>
+                <div class="lp-orbit" aria-hidden="true">
+                    <span class="lp-chip c1" style="--a:-135deg"><span class="lp-chip-in"><i class="bi bi-code-slash"></i> Web</span></span>
+                    <span class="lp-chip c2" style="--a:-45deg"><span class="lp-chip-in"><i class="bi bi-phone"></i> Mobile Apps</span></span>
+                    <span class="lp-chip c3" style="--a:45deg"><span class="lp-chip-in"><i class="bi bi-cpu"></i> AI / ML</span></span>
+                    <span class="lp-chip c4" style="--a:135deg"><span class="lp-chip-in"><i class="bi bi-palette"></i> Design</span></span>
+                </div>
             </div>
         </div>
     </section>
@@ -134,7 +136,7 @@
                 <h2 class="lp-title">How it works</h2>
                 <p class="lp-lead">Four easy steps from your first idea to a finished solution.</p>
             </div>
-            <div class="lp-steps" data-reveal>
+            <div class="lp-steps" id="lpSteps">
                 <div class="lp-step"><span class="lp-step-num">1</span><h3>Submit Request</h3><p>Tell us what you need through our simple request form.</p></div>
                 <div class="lp-step"><span class="lp-step-num">2</span><h3>We Review</h3><p>Our admin team reviews and assigns your request to the right specialist.</p></div>
                 <div class="lp-step"><span class="lp-step-num">3</span><h3>We Build</h3><p>Our staff work on your project and keep your status updated.</p></div>
@@ -180,12 +182,7 @@
                         <span>MABUMBA TECH</span>
                     </div>
                     <p>Technology. Innovation. Solution. To deliver quality and affordable technology solutions that turn ideas into practical results and help people, businesses, and organizations grow.</p>
-                    <div class="social-row">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                    </div>
+                    <div class="social-row" data-social-links style="display:none;"></div>
                 </div>
                 <div>
                     <h4>Company</h4>
@@ -222,10 +219,11 @@
     </footer>
 
 
-    <script src="../js/config.js?v2"></script>
-    <script src="../js/layout-public.js?v2"></script>
+    <script src="../js/config.js?v3"></script>
+    <script src="../js/layout-public.js?v5"></script>
     <script src="../js/main.js?v2"></script>
-    <script src="../js/pages/home_page.js?v4"></script>
+    <script src="../js/pages/home_page.js?v7"></script>
+    <script>loadSocialLinks(); renderFloatingWhatsApp();</script>
 </body>
 
 </html>

@@ -83,6 +83,9 @@ function renderPublicHeader(activeKey) {
     window.addEventListener('resize', () => {
       if (window.innerWidth > 960 && links.classList.contains('open-mobile')) closeNav();
     });
+    // Coming back with the browser's Back button can restore the page with the menu still open
+    // (and scrolling locked). Always start closed.
+    window.addEventListener('pageshow', () => { if (links.classList.contains('open-mobile')) closeNav(); });
   }
 }
 
@@ -114,12 +117,7 @@ function renderPublicFooter() {
             <span>MABUMBA TECH</span>
           </div>
           <p>Technology. Innovation. Solution. To deliver quality and affordable technology solutions that turn ideas into practical results and help people, businesses, and organizations grow.</p>
-          <div class="social-row">
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-          </div>
+          <div class="social-row" data-social-links style="display:none;"></div>
         </div>
         <div>
           <h4>Company</h4>
@@ -156,6 +154,49 @@ function renderPublicFooter() {
     </div>
   </footer>`;
   document.getElementById('siteFooter').innerHTML = html;
+  loadSocialLinks(document.getElementById('siteFooter'));
+}
+
+/**
+ * Fills every footer `.social-row[data-social-links]` with the official social media
+ * icons the Super Admin configured (Admin → Settings → Social Media Links).
+ * Platforms with no URL are simply not shown; if none are set the row stays hidden.
+ * Links are built with DOM APIs (never innerHTML) and only https:// URLs are used.
+ */
+async function loadSocialLinks(root) {
+  const rows = (root || document).querySelectorAll('.social-row[data-social-links]');
+  if (!rows.length) return;
+  let links = [];
+  try {
+    const res = await fetch(apiUrl('/public/social-links.php'), { credentials: 'same-origin', cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      links = Array.isArray(data.links) ? data.links : [];
+    }
+  } catch (e) {
+    links = [];
+  }
+  rows.forEach(row => {
+    row.textContent = '';
+    let shown = 0;
+    links.forEach(l => {
+      const url = String(l && l.url || '');
+      const icon = String(l && l.icon || '');
+      if (!/^https:\/\//i.test(url) || !/^bi-[a-z0-9-]+$/.test(icon)) return;
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer nofollow';
+      a.title = String(l.label || '');
+      a.setAttribute('aria-label', 'MABUMBA TECH on ' + String(l.label || 'social media'));
+      const i = document.createElement('i');
+      i.className = 'bi ' + icon;
+      a.appendChild(i);
+      row.appendChild(a);
+      shown++;
+    });
+    row.style.display = shown ? '' : 'none';
+  });
 }
 
 async function initPublicLayout(activeKey) {
@@ -166,10 +207,16 @@ async function initPublicLayout(activeKey) {
   initScrollReveal();
 }
 
-/** A small always-on-brand touch for an East-Africa-facing company — WhatsApp is the primary contact channel for most visitors here. */
+/**
+ * A small always-on-brand touch for an East-Africa-facing company — WhatsApp is the primary contact channel for most visitors here.
+ * The number and welcome message come from WHATSAPP_CONFIG (js/config.js). Safe to call more than once; home.html
+ * (static header, no initPublicLayout) calls it directly.
+ */
 function renderFloatingWhatsApp() {
+  // Any other in-page WhatsApp link (e.g. Contact page) opts in with data-whatsapp-link.
+  document.querySelectorAll('[data-whatsapp-link]').forEach(a => { a.href = whatsappUrl(); });
   if (document.getElementById('floatingWhatsapp')) return;
-  const html = `<a id="floatingWhatsapp" href="https://wa.me/255620839640" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat with us on WhatsApp"><i class="bi bi-whatsapp"></i></a>`;
+  const html = `<a id="floatingWhatsapp" href="${whatsappUrl()}" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="${WHATSAPP_CONFIG.buttonLabel}"><i class="bi bi-whatsapp"></i></a>`;
   document.body.insertAdjacentHTML('beforeend', html);
 }
 

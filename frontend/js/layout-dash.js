@@ -90,7 +90,7 @@ function renderSidebar(activeKey) {
       <div class="group-title">System</div>
       <a href="${pageUrl('/admin/activity-log.html')}" class="${activeKey === 'activity-log' ? 'active' : ''}"><i class="bi bi-clock-history"></i> Activity Log</a>
       <a href="${pageUrl('/admin/reports.html')}" class="${activeKey === 'reports' ? 'active' : ''}"><i class="bi bi-bar-chart"></i> Reports</a>
-      <a href="${pageUrl('/admin/settings.html')}" class="${activeKey === 'settings' ? 'active' : ''}"><i class="bi bi-sliders"></i> Mail Settings</a>
+      <a href="${pageUrl('/admin/settings.html')}" class="${activeKey === 'settings' ? 'active' : ''}"><i class="bi bi-sliders"></i> Settings</a>
       <a href="${pageUrl('/admin/profile.html')}" class="${activeKey === 'profile' ? 'active' : ''}"><i class="bi bi-person-gear"></i> My Profile</a>`;
   } else if (user.role === 'staff') {
     navHtml = `

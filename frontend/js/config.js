@@ -12,6 +12,40 @@ const APP_ROOT = (function () {
 
 const API_BASE = APP_ROOT + '/backend/api';
 
+/**
+ * WhatsApp — the ONE place to change MABUMBA TECH's official WhatsApp number or the
+ * welcome message. Every public page (floating button, Contact page link) reads from here.
+ *   number : international format, digits only (no "+", spaces or dashes)
+ *   welcomeMessage : pre-filled into the visitor's chat when they tap the WhatsApp button
+ */
+const WHATSAPP_CONFIG = {
+  number: '255620839640',
+  buttonLabel: 'Chat with us on WhatsApp',
+  welcomeMessage: [
+    'Hello MABUMBA TECH \u{1F44B}',
+    'I am contacting you from your website and would like some help.',
+    '',
+    '*Inquiry options*',
+    '1. Web & Mobile Development',
+    '2. Software, Systems & AI/ML Projects',
+    '3. UI/UX Design, Branding & Graphic Design',
+    '4. Animation & Multimedia Projects',
+    '5. IT Consulting, Technical Support & Digital Solutions',
+    '6. Pricing, Quotations & Project Consultation',
+    '7. Other Inquiries (describe your specific needs)',
+    '',
+    'Please select your preferred option number (1-7) and add any project details where necessary.',
+    '',
+    'Option number: ',
+    'Project details: ',
+  ].join('\n'),
+};
+
+/** Click-to-chat link to the official WhatsApp account with the welcome message pre-filled. */
+function whatsappUrl() {
+  return 'https://wa.me/' + WHATSAPP_CONFIG.number + '?text=' + encodeURIComponent(WHATSAPP_CONFIG.welcomeMessage);
+}
+
 /** Build a link to another page under frontend/html/, e.g. link('/admin/dashboard.html') */
 function pageUrl(path) {
   return APP_ROOT + '/frontend/html' + path;

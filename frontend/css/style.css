@@ -1135,7 +1135,9 @@ footer ul {
     position: fixed;
     inset: 0;
     background: rgba(6, 20, 45, .45);
-    z-index: 55;
+    /* Must stay BELOW .topbar (z-index 50): the open menu lives inside the topbar, so a backdrop above it
+       covers the menu and swallows every tap on its links. */
+    z-index: 45;
     opacity: 0;
     transition: opacity .2s ease;
 }
@@ -1231,8 +1233,8 @@ footer ul {
 /* ---- Floating WhatsApp quick-contact button ---- */
 .floating-whatsapp {
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: calc(20px + env(safe-area-inset-right, 0px));
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -1257,8 +1259,8 @@ footer ul {
         width: 48px;
         height: 48px;
         font-size: 1.35rem;
-        right: 14px;
-        bottom: 14px;
+        right: calc(14px + env(safe-area-inset-right, 0px));
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
     }
 }
 

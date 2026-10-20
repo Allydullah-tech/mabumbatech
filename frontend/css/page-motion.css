@@ -1,0 +1,190 @@
+/* =========================================================
+   PAGE MOTION — shared by the public inner pages (services, team, portfolio,
+   track-request, contact, request-service, terms). All rules are scoped to
+   body.pm-page. Anything that hides content is applied by js/page-motion.js,
+   so with JS off (or "reduce motion") every page stays fully visible.
+   ========================================================= */
+
+/* ---------- Hero band: staggered entrance, growing underline ---------- */
+.pm-page #siteHeader + .section > .container > .section-head:first-child.reveal { opacity: 1; transform: none; transition: none; }
+.pm-page #siteHeader + .section > .container > .section-head:first-child > * { animation: pmRise .8s cubic-bezier(.2, .7, .2, 1) both; }
+.pm-page #siteHeader + .section > .container > .section-head:first-child > .tag { animation-delay: .08s; }
+.pm-page #siteHeader + .section > .container > .section-head:first-child > h2 { animation-delay: .22s; }
+.pm-page #siteHeader + .section > .container > .section-head:first-child > p { animation-delay: .42s; }
+.pm-page #siteHeader + .section > .container > .section-head:first-child > .rs-chips { animation-delay: .6s; }
+.pm-page .section-head:first-child h2::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 4px;
+    margin: 18px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #5aa7ff, var(--cyan));
+    box-shadow: 0 0 16px rgba(23, 184, 214, .6);
+    animation: pmBar .9s cubic-bezier(.2, .7, .2, 1) .8s forwards;
+}
+@keyframes pmRise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes pmBar { to { width: 76px; } }
+@keyframes pmPop { 0% { opacity: 0; transform: scale(.9) translateY(14px); } 100% { opacity: 1; transform: none; } }
+
+/* ---------- Scroll reveal (classes added by JS; also picks up cards injected later) ---------- */
+.pm-rv { opacity: 0; transform: translateY(30px); }
+.pm-rv.pm-rv { transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--d, 0s); }
+.pm-rv.pm-left { transform: translateX(-46px); }
+.pm-rv.pm-right { transform: translateX(46px); }
+.pm-rv.pm-zoom { transform: translateY(22px) scale(.95); }
+.pm-rv.pm-in { opacity: 1; transform: none; }
+
+/* ---------- Team ---------- */
+.pm-page .team-card { position: relative; isolation: isolate; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.pm-page .team-card::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    z-index: -1;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 22px 44px rgba(13, 82, 184, .15), 0 0 0 1px rgba(47, 131, 240, .15), 0 0 34px rgba(23, 184, 214, .18);
+    opacity: 0;
+    transform: scale(.95);
+    transition: opacity .3s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+.pm-page .team-avatar { position: relative; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .team-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 2px solid rgba(47, 131, 240, .38);
+    pointer-events: none;
+    animation: pmRipple 3.6s ease-out infinite;
+}
+.pm-page .team-card:nth-child(3n+2) .team-avatar::after { animation-delay: 1.2s; }
+.pm-page .team-card:nth-child(3n) .team-avatar::after { animation-delay: 2.4s; }
+@keyframes pmRipple { 0% { transform: scale(.94); opacity: .75; } 100% { transform: scale(1.4); opacity: 0; } }
+@media (hover: hover) {
+    .pm-page .team-card:hover { transform: translateY(-8px); }
+    .pm-page .team-card:hover::after { opacity: 1; transform: none; }
+    .pm-page .team-card:hover .team-avatar { transform: scale(1.07) rotate(-3deg); }
+}
+
+/* ---------- Services (the page keeps its own reveal; we only polish) ---------- */
+.pm-page .sv-chip { transition: transform .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.pm-page .sv-chip:hover { transform: translateY(-3px); }
+.pm-page .sv-ic { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .sv-feature:hover .sv-ic { transform: rotate(-9deg) scale(1.12); }
+.pm-page .sv-fc i { transition: transform .4s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .sv-fc:hover i { transform: scale(1.18) rotate(-6deg); }
+.pm-page .sv-tag { transition: transform .2s ease; }
+.pm-page .sv-tag:hover { transform: translateY(-2px); }
+.pm-page .sv-actions .btn { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease; }
+.pm-page .sv-actions .btn:hover { transform: translateY(-3px); }
+
+/* ---------- Portfolio (cards already animate in; polish filters / stats) ---------- */
+.pm-page .pfx-filter a { transition: transform .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.pm-page .pfx-filter a:active { transform: scale(.96); }
+.pm-page .pfx-stats b { font-variant-numeric: tabular-nums; }
+
+/* ---------- Track request ---------- */
+.pm-page .tr-search-ic { animation: pmBob 5s ease-in-out infinite, pmIcPulse 3.4s ease-in-out infinite; }
+.pm-page .tr-search::after { animation: pmGlow 7s ease-in-out infinite; }
+.pm-page .tr-tabs a { transition: color .25s ease, background-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.pm-page .tr-tabs a:active { transform: scale(.97); }
+.pm-page .tr-field input { transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.pm-page .tr-step { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+.pm-page .tr-step:hover { transform: translateY(-4px); }
+.pm-page .tr-step-num { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease; }
+.pm-page .tr-step:hover .tr-step-num { transform: rotate(-8deg) scale(1.14); }
+.pm-page .tr-card { transition: transform .3s cubic-bezier(.2, .7, .2, 1), box-shadow .3s ease; }
+@media (hover: hover) { .pm-page .tr-card:hover { transform: translateY(-4px); } }
+@keyframes pmBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes pmIcPulse {
+    0%, 100% { box-shadow: 0 12px 26px rgba(0, 84, 184, .3), 0 0 0 0 rgba(47, 131, 240, 0); }
+    50% { box-shadow: 0 14px 30px rgba(0, 84, 184, .38), 0 0 0 12px rgba(47, 131, 240, .10); }
+}
+@keyframes pmGlow { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.18); } }
+
+/* ---------- Contact ---------- */
+.pm-page .ct-info::after {
+    content: '';
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: -120px;
+    bottom: -140px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, .14);
+    pointer-events: none;
+    animation: pmSpin 46s linear infinite;
+}
+.pm-page .ct-info > * { position: relative; z-index: 1; }
+.pm-page .ct-ic { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease; }
+.pm-page .ct-list li:hover .ct-ic { transform: rotate(-9deg) scale(1.12); box-shadow: 0 10px 24px rgba(23, 184, 214, .5); }
+.pm-page .ct-wa { animation: pmWa 2.8s ease-in-out infinite; }
+.pm-page .ct-wa:hover { animation: none; }
+.pm-page .ct-form .btn-block, .pm-page .rs-submit { position: relative; overflow: hidden; }
+.pm-page .ct-form .btn-block::after, .pm-page .rs-submit::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: -60%;
+    width: 40%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .32), transparent);
+    transform: skewX(-20deg);
+    animation: pmShine 4.2s ease-in-out 1.2s infinite;
+    pointer-events: none;
+}
+@keyframes pmSpin { to { transform: rotate(360deg); } }
+@keyframes pmWa { 0%, 100% { box-shadow: 0 10px 24px rgba(37, 211, 102, .32), 0 0 0 0 rgba(37, 211, 102, .4); } 60% { box-shadow: 0 10px 24px rgba(37, 211, 102, .32), 0 0 0 12px rgba(37, 211, 102, 0); } }
+@keyframes pmShine { 0%, 55% { left: -60%; } 100% { left: 140%; } }
+
+/* ---------- Request service ---------- */
+.pm-page .rs-chips span { transition: transform .25s ease, background-color .25s ease; }
+.pm-page .rs-chips span:hover { transform: translateY(-3px); }
+.pm-page .rs-num { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .rs-sec:hover .rs-num { transform: rotate(-8deg) scale(1.12); }
+.pm-page .rs-step-ic { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .rs-steps li:hover .rs-step-ic { transform: rotate(-8deg) scale(1.12); }
+.pm-page .rs-panel { transition: transform .3s cubic-bezier(.2, .7, .2, 1), box-shadow .3s ease; }
+@media (hover: hover) { .pm-page .rs-panel:hover { transform: translateY(-4px); } }
+.pm-page .rs-drop-ic { animation: pmBob 4s ease-in-out infinite; }
+.pm-page .rs-field input, .pm-page .rs-field select, .pm-page .rs-field textarea { transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.pm-page .rs-field:focus-within > i { color: var(--blue-600); transform: scale(1.12); }
+.pm-page .rs-field > i { transition: color .2s ease, transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.pm-page .rs-success { animation: pmPop .6s cubic-bezier(.2, .7, .2, 1) both; }
+.pm-page .rs-success-ic { animation: pmCheck .7s cubic-bezier(.34, 1.56, .64, 1) .2s both; }
+@keyframes pmCheck { 0% { transform: scale(0) rotate(-40deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+
+/* ---------- Terms ---------- */
+.pm-page .terms-toc a { transition: color .2s ease, padding-left .25s ease; }
+.pm-page .terms-toc a:hover { padding-left: 6px; }
+.pm-page .terms-section { transition: background-color .3s ease; }
+.pm-page .terms-section h3 { position: relative; }
+.pm-progress {                       /* reading-progress bar (terms page only, added by JS) */
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 100%;
+    z-index: 9999;
+    background: linear-gradient(90deg, var(--blue-600), var(--cyan));
+    box-shadow: 0 0 10px rgba(23, 184, 214, .6);
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+    .pm-rv.pm-left, .pm-rv.pm-right { transform: translateY(30px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pm-page #siteHeader + .section > .container > .section-head:first-child > *,
+    .pm-page #siteHeader + .section > .container > .section-head:first-child::after,
+    .pm-page .team-avatar::after, .pm-page .tr-search-ic, .pm-page .tr-search::after,
+    .pm-page .ct-info::after, .pm-page .ct-wa, .pm-page .ct-form .btn-block::after,
+    .pm-page .rs-submit::after, .pm-page .rs-drop-ic, .pm-page .rs-success, .pm-page .rs-success-ic { animation: none !important; }
+    .pm-page .section-head:first-child h2::after { animation: none; width: 76px; }
+    .pm-rv { opacity: 1; transform: none; transition: none; }
+    .pm-page .team-card:hover, .pm-page .tr-card:hover, .pm-page .rs-panel:hover { transform: none; }
+}

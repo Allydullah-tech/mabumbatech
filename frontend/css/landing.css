@@ -30,8 +30,20 @@
         radial-gradient(700px 420px at 0% 100%, rgba(23, 184, 214, .16), transparent 60%),
         linear-gradient(160deg, #050b1a 0%, #0a1a3d 55%, #0b2a63 100%);
 }
-/* grid-line overlay removed */
-.lp-hero::after { content: none; }
+
+/* Staggered entrance of the hero copy */
+.lp-hero-copy > * { animation: lpRise .75s cubic-bezier(.2, .7, .2, 1) both; }
+.lp-hero-copy > .lp-pill { animation-delay: .05s; }
+.lp-hero-copy > h1 { animation-delay: .2s; }
+.lp-hero-copy > .lp-sub { animation-delay: .38s; }
+.lp-hero-copy > .lp-actions { animation-delay: .54s; }
+.lp-hero-copy > .lp-stats { animation-delay: .7s; }
+.lp-hero .hero-logo-wrap .hero-logo-circle { animation: lpLogoIn .9s cubic-bezier(.2, .7, .2, 1) .25s both; }
+.lp-orbit { animation-name: lpOrbit, lpFadeIn; animation-duration: 40s, .8s; animation-delay: 0s, 1s;
+            animation-timing-function: linear, ease; animation-iteration-count: infinite, 1; animation-fill-mode: none, both; }
+@keyframes lpRise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes lpLogoIn { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: none; } }
+@keyframes lpFadeIn { from { opacity: 0; } to { opacity: 1; } }
 .lp-slash {
     position: absolute;
     height: 3px;
@@ -110,10 +122,12 @@
     width: fit-content;
     margin: 0 auto;
     padding: 40px;
+    --lp-c: clamp(240px, 32vw, 390px);   /* logo circle diameter; the chip orbit radius follows it */
+    --lp-o: 36px;                         /* gap between the logo circle and the chip ring */
     animation: lpBob 7s ease-in-out infinite;
 }
 .lp-hero .hero-logo-circle {
-    width: clamp(240px, 32vw, 390px);
+    width: var(--lp-c);
     height: auto;
     aspect-ratio: 1 / 1;
     box-shadow: 0 0 0 10px rgba(255, 255, 255, .06), 0 0 90px rgba(47, 131, 240, .55), inset 0 0 0 10px #fff;
@@ -122,14 +136,27 @@
 .lp-hero .hero-logo-circle::after {
     content: '';
     position: absolute;
-    inset: -36px;
+    inset: calc(var(--lp-o) * -1);
     border-radius: 50%;
     border: 1px solid rgba(140, 194, 255, .22);
     animation: spin 60s linear infinite reverse;
 }
 
+/* Chips orbit the logo on the same ring as the dashed outer circle. The .lp-orbit layer turns
+   slowly; each pill counter-rotates so its text always stays upright. */
+.lp-orbit { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .lp-chip {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: rotate(var(--a)) translateX(calc(var(--lp-c) / 2 + var(--lp-o))) rotate(calc(var(--a) * -1));
+}
+.lp-chip-in {
+    position: absolute;
+    left: 0;
+    top: 0;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -143,14 +170,22 @@
     font-size: .76rem;
     font-weight: 700;
     white-space: nowrap;
-    z-index: 3;
-    animation: lpBob 5s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    animation: lpUpright 40s linear infinite, lpChipPulse 3.4s ease-in-out infinite;
 }
-.lp-chip i { color: var(--cyan); }
-.lp-chip.c1 { top: 6%; left: 0; }
-.lp-chip.c2 { top: 22%; right: -4%; animation-delay: -1.5s; }
-.lp-chip.c3 { bottom: 20%; left: -6%; animation-delay: -3s; }
-.lp-chip.c4 { bottom: 5%; right: 4%; animation-delay: -2s; }
+.lp-chip.c2 .lp-chip-in { animation-delay: 0s, -.9s; }
+.lp-chip.c3 .lp-chip-in { animation-delay: 0s, -1.7s; }
+.lp-chip.c4 .lp-chip-in { animation-delay: 0s, -2.5s; }
+.lp-chip-in i { color: var(--cyan); }
+@keyframes lpOrbit { to { transform: rotate(360deg); } }
+@keyframes lpUpright {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+@keyframes lpChipPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(23, 184, 214, 0); }
+    50% { box-shadow: 0 0 18px 2px rgba(23, 184, 214, .38); }
+}
 
 @keyframes lpBob {
     0%, 100% { transform: translateY(0); }
@@ -269,7 +304,26 @@
     right: 12.5%;
     border-top: 2px dashed rgba(125, 184, 255, .35);
 }
+/* The line that draws itself from step 1 to step 4. --lp-prog (0 to 1) is set by home_page.js on scroll. */
+.lp-steps::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--blue-500), var(--cyan));
+    box-shadow: 0 0 14px rgba(23, 184, 214, .6);
+    transform: scaleX(var(--lp-prog, 1));
+    transform-origin: left;
+}
 .lp-step { position: relative; text-align: center; padding: 0 8px; }
+/* Only hidden once JS adds .lp-steps-anim, so without JS the steps simply stay visible. */
+.lp-steps-anim .lp-step { opacity: .22; transform: translateY(26px); transition: opacity .55s ease, transform .55s cubic-bezier(.2, .7, .2, 1); }
+.lp-steps-anim .lp-step.on { opacity: 1; transform: none; }
+.lp-steps-anim .lp-step .lp-step-num { transition: box-shadow .5s ease, transform .5s cubic-bezier(.34, 1.56, .64, 1); transform: scale(.82); }
+.lp-steps-anim .lp-step.on .lp-step-num { transform: none; }
 .lp-step-num {
     position: relative;
     z-index: 1;
@@ -301,9 +355,24 @@
     overflow: hidden; text-decoration: none; background: #fff;
     border: 1px solid #e3ebf8; border-radius: 20px;
     box-shadow: 0 6px 22px rgba(8, 28, 64, .07);
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .18s ease-out, box-shadow .25s ease, border-color .25s ease;
+    will-change: transform;
 }
-.lp-work-tile:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(8, 28, 64, .16); border-color: #bcd5fa; }
+/* Tilts toward the mouse (home_page.js sets --rx/--ry/--mx/--my), with a soft light that follows the cursor. */
+.lp-work-tile:hover { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px); box-shadow: 0 22px 44px rgba(8, 28, 64, .16); border-color: #bcd5fa; }
+.lp-work-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .38), transparent 55%);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+.lp-work-tile:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .lp-work-tile, .lp-work-tile:hover { transform: none; } }
 .lp-work-thumb {
     position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 26px; overflow: hidden;
     background: radial-gradient(circle at 28% 18%, #ffffff 0%, #eef5ff 100%);
@@ -418,16 +487,16 @@
     .lp-hero p.lp-sub { margin-left: auto; margin-right: auto; }
     .lp-actions { justify-content: center; }
     .lp-stats { margin-left: auto; margin-right: auto; }
-    .lp-hero .hero-logo-circle { width: clamp(220px, 52vw, 320px); }
+    .lp-hero .hero-logo-wrap { --lp-c: clamp(220px, 52vw, 320px); }
     .lp-steps { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
-    .lp-steps::before { display: none; }
+    .lp-steps::before, .lp-steps::after { display: none; }
     .lp-section { padding: 70px 0; }
 }
 @media (max-width: 600px) {
     .svc-grid, .lp-values { grid-template-columns: 1fr; }
     .lp-steps { grid-template-columns: 1fr; }
-    .lp-chip { display: none; }
-    .lp-hero .hero-logo-wrap { padding: 24px; }
+    .lp-hero .hero-logo-wrap { --lp-c: clamp(180px, 50vw, 240px); --lp-o: 26px; padding: 46px; }
+    .lp-chip-in { padding: 6px 10px; gap: 5px; font-size: .66rem; }
     .lp-stats { flex-direction: column; }
     .lp-stats li { border-left: none; border-top: 1px solid rgba(255, 255, 255, .12); }
     .lp-stats li:first-child { border-top: none; }
@@ -436,7 +505,11 @@
     .lp-cta-actions, .lp-cta-actions .btn { width: 100%; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .lp-ticker-track, .lp-chip, .lp-hero .hero-logo-wrap { animation: none !important; }
+    .lp-ticker-track, .lp-orbit, .lp-chip-in, .lp-hero .hero-logo-wrap,
+    .lp-hero::before, .lp-hero::after, .lp-hero-copy > *, .lp-hero .hero-logo-circle { animation: none !important; }
+    .lp-steps-anim .lp-step { opacity: 1; transform: none; transition: none; }
+    .lp-steps::after { transform: none; }
+    .svc-item, .svc-item:hover { transform: none; }
 }
 
 
@@ -659,9 +732,27 @@ html { background: var(--navy-950); }
     padding: 0;
 }
 .svc-item::before { display: none; }
-.svc-item:hover { transform: none; box-shadow: none; border-color: transparent; }
-.svc-item:hover .svc-ic { transform: translateY(-4px); }
-.svc-ic { transition: transform .25s ease; }
+/* Cards stay flat at rest; on hover a soft white panel with a glow fades in behind the content,
+   the card rises and the icon tilts and grows. */
+.svc-item { overflow: visible; isolation: isolate; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.svc-item::after {
+    content: '';
+    position: absolute;
+    inset: -18px -16px;
+    z-index: -1;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 22px 44px rgba(13, 82, 184, .16), 0 0 0 1px rgba(47, 131, 240, .16), 0 0 38px rgba(23, 184, 214, .22);
+    opacity: 0;
+    transform: scale(.94);
+    transition: opacity .3s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+.svc-ic { transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease; }
+@media (hover: hover) {
+    .svc-item:hover { transform: translateY(-8px); }
+    .svc-item:hover::after { opacity: 1; transform: none; }
+    .svc-item:hover .svc-ic { transform: rotate(-8deg) scale(1.14); box-shadow: 0 12px 28px rgba(23, 184, 214, .5); }
+}
 .lp-value:nth-child(even) { transform: none; }
 .lp-values { row-gap: 30px; }
 
@@ -883,3 +974,12 @@ body.pfx-lock { overflow: hidden; }
     .ct-wa { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .ct-spin { animation: none; } }
+
+/* Hero headline: rotating phrase with typing / deleting effect */
+.lp-rot { display: inline-block; position: relative; min-height: 1.1em; }
+.lp-rot::after {
+    content: ''; display: inline-block; width: 3px; height: .85em; margin-left: 5px;
+    background: var(--cyan); vertical-align: -.06em; animation: lp-blink 1s steps(1) infinite;
+}
+@keyframes lp-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .lp-rot::after { animation: none; } }

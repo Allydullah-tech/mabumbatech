@@ -303,3 +303,229 @@
     border-radius: 4px;
     background: linear-gradient(90deg, var(--blue-700), var(--cyan));
 }
+
+
+/* =========================================================
+   v5 — MOTION + NEW BLOCKS (stats band, "How we work", CTA)
+   Everything animated is added by js/pages/public-about.js, so with JS off
+   (or "reduce motion") the page is fully visible and static.
+   ========================================================= */
+
+/* ---------- Hero band: staggered entrance, growing underline ---------- */
+.about-page #siteHeader + .section > .container > .section-head:first-child.reveal { opacity: 1; transform: none; transition: none; }
+.about-page #siteHeader + .section > .container > .section-head:first-child > * { animation: abRise .8s cubic-bezier(.2, .7, .2, 1) both; }
+.about-page #siteHeader + .section > .container > .section-head:first-child > .tag { animation-delay: .08s; }
+.about-page #siteHeader + .section > .container > .section-head:first-child > h2 { animation-delay: .22s; }
+.about-page #siteHeader + .section > .container > .section-head:first-child > p { animation-delay: .42s; }
+.about-page .section-head:first-child h2::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 4px;
+    margin: 18px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #5aa7ff, var(--cyan));
+    box-shadow: 0 0 16px rgba(23, 184, 214, .6);
+    animation: abBar .9s cubic-bezier(.2, .7, .2, 1) .8s forwards;
+}
+@keyframes abRise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes abBar { to { width: 76px; } }
+
+/* ---------- Scroll reveal (classes added by JS) ---------- */
+.ab-rv {
+    opacity: 0;
+    transform: translateY(32px);
+}
+/* doubled class: must win over the components' own (later) hover transitions while the entrance plays */
+.ab-rv.ab-rv {
+    transition: opacity .75s ease, transform .75s cubic-bezier(.2, .7, .2, 1);
+    transition-delay: var(--d, 0s);
+}
+.ab-rv.ab-left { transform: translateX(-52px); }
+.ab-rv.ab-right { transform: translateX(52px); }
+.ab-rv.ab-zoom { transform: translateY(24px) scale(.95); }
+.ab-rv.ab-fade { transform: translateY(14px); }
+.ab-rv.ab-in { opacity: 1; transform: none; }
+
+/* ---------- Motto ---------- */
+.ab-motto-panel::before {
+    background: linear-gradient(90deg, var(--blue-700), var(--cyan), var(--blue-700));
+    background-size: 640px 100%;
+    animation: abSlide 7s linear infinite;
+}
+.ab-motto-panel::after { animation: abRing 10s ease-in-out infinite; }
+.ab-motto-ic { animation: abBob 5s ease-in-out infinite, abIcPulse 3.4s ease-in-out infinite; }
+.ab-motto-word { transition: transform .3s ease; }
+.ab-motto-word:hover { transform: translateY(-4px); }
+.ab-motto-word h3 { transition: color .3s ease; }
+.ab-motto-word:hover h3 { color: var(--blue-700); }
+.ab-motto-word h3 i { display: inline-block; animation: abDot 2.6s ease-in-out infinite; }
+.ab-motto-word:nth-child(2) h3 i { animation-delay: .5s; }
+.ab-motto-word:nth-child(3) h3 i { animation-delay: 1s; }
+@keyframes abSlide { to { background-position: 640px 0; } }
+@keyframes abRing { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+@keyframes abBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes abIcPulse {
+    0%, 100% { box-shadow: 0 12px 26px rgba(0, 84, 184, .32), 0 0 0 8px var(--blue-100); }
+    50% { box-shadow: 0 16px 32px rgba(0, 84, 184, .4), 0 0 0 15px rgba(47, 131, 240, .09); }
+}
+@keyframes abDot { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-5px) scale(1.35); } }
+
+/* ---------- Mission & Vision ---------- */
+.ab-mv-card { transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
+.ab-mv-card:hover { transform: translateY(-7px); }
+.ab-mission:hover { box-shadow: 0 28px 56px rgba(8, 28, 64, .15); }
+.ab-vision:hover { box-shadow: 0 30px 62px rgba(8, 28, 64, .36); }
+.ab-mv-card .ab-mv-ic { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.ab-mv-card:hover .ab-mv-ic { transform: rotate(-9deg) scale(1.12); }
+.ab-mission::after { animation: abGlow 7s ease-in-out infinite; }
+.ab-vision::after { border: 2px dashed rgba(255, 255, 255, .16); animation: abSpin 46s linear infinite; }
+@keyframes abGlow { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.18); } }
+@keyframes abSpin { to { transform: rotate(360deg); } }
+
+/* ---------- Stats band ---------- */
+.ab-stats {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 46px 20px;
+    border-radius: 28px;
+    color: #fff;
+    background:
+        radial-gradient(520px 280px at 85% 0%, rgba(21, 104, 214, .55), transparent 62%),
+        radial-gradient(420px 260px at 0% 100%, rgba(23, 184, 214, .22), transparent 60%),
+        linear-gradient(160deg, #050b1a 0%, #0a1a3d 55%, #0b2a63 100%);
+    box-shadow: 0 26px 56px rgba(8, 28, 64, .3);
+}
+.ab-stat { position: relative; text-align: center; padding: 6px 18px; }
+.ab-stat + .ab-stat { border-left: 1px solid rgba(255, 255, 255, .13); }
+.ab-stat i {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    border-radius: 16px;
+    font-size: 1.3rem;
+    color: var(--cyan);
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .16);
+    transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), background-color .3s ease;
+}
+.ab-stat:hover i { transform: rotate(-8deg) scale(1.12); background: rgba(23, 184, 214, .2); }
+.ab-stat b {
+    display: block;
+    font-family: 'Sora', var(--font-sans);
+    font-size: clamp(2.2rem, 4.4vw, 3.3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(90deg, #fff, #9cc9ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.ab-stat span { display: block; margin-top: 6px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9db8e6; }
+
+/* ---------- Values: lift on hover ---------- */
+.ab-values { transition: box-shadow .3s ease; }
+.ab-values:hover { box-shadow: 0 24px 54px rgba(8, 28, 64, .13); }
+
+/* ---------- Who we work with: ripple + spring icon ---------- */
+.ab-who-ic { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.ab-who-ic::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(47, 131, 240, .38);
+    pointer-events: none;
+    animation: abRipple 3.4s ease-out infinite;
+}
+.ab-who-item:nth-child(2) .ab-who-ic::after { animation-delay: .55s; }
+.ab-who-item:nth-child(3) .ab-who-ic::after { animation-delay: 1.1s; }
+.ab-who-item:nth-child(4) .ab-who-ic::after { animation-delay: 1.65s; }
+.ab-who-item:hover .ab-who-ic { transform: rotate(-8deg) scale(1.1); }
+@keyframes abRipple { 0% { transform: scale(.92); opacity: .75; } 100% { transform: scale(1.5); opacity: 0; } }
+
+/* ---------- How we work: connecting line that draws itself ---------- */
+.ab-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+.ab-steps::before {
+    content: '';
+    position: absolute;
+    top: 33px;
+    left: 12.5%;
+    right: 12.5%;
+    border-top: 2px dashed #bcd5fa;
+}
+.ab-steps::after {            /* --ab-prog (0 to 1) is set by JS while scrolling */
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--blue-600), var(--cyan));
+    box-shadow: 0 0 14px rgba(23, 184, 214, .55);
+    transform: scaleX(var(--ab-prog, 1));
+    transform-origin: left;
+}
+.ab-step { position: relative; text-align: center; padding: 0 8px; }
+.ab-step-num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    font-family: 'Sora', var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+    box-shadow: 0 10px 24px rgba(0, 84, 184, .3), 0 0 0 8px var(--blue-100);
+}
+.ab-step h4 { margin: 0 0 6px; font-family: 'Sora', var(--font-sans); font-size: 1.05rem; font-weight: 700; color: var(--navy-900); }
+.ab-step p { margin: 0; font-size: .88rem; line-height: 1.65; color: var(--ink-soft); }
+/* Dimmed until reached; only set when JS runs */
+.ab-steps-anim .ab-step { opacity: .25; transform: translateY(26px); transition: opacity .55s ease, transform .55s cubic-bezier(.2, .7, .2, 1); }
+.ab-steps-anim .ab-step.on { opacity: 1; transform: none; }
+.ab-steps-anim .ab-step .ab-step-num { transform: scale(.8); transition: transform .55s cubic-bezier(.34, 1.56, .64, 1); }
+.ab-steps-anim .ab-step.on .ab-step-num { transform: none; }
+
+/* ---------- Call to action ---------- */
+.ab-cta { box-shadow: 0 26px 56px rgba(8, 28, 64, .25); }
+.ab-cta .btn { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease; }
+.ab-cta .btn:hover { transform: translateY(-3px); }
+
+/* ---------- Responsive additions ---------- */
+@media (max-width: 960px) {
+    .ab-steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .ab-steps::before, .ab-steps::after { display: none; }
+}
+@media (max-width: 760px) {
+    .ab-stats { grid-template-columns: 1fr; padding: 34px 20px; gap: 6px; }
+    .ab-stat + .ab-stat { border-left: none; border-top: 1px solid rgba(255, 255, 255, .13); padding-top: 22px; margin-top: 16px; }
+    .ab-rv.ab-left, .ab-rv.ab-right { transform: translateY(32px); }
+}
+@media (max-width: 560px) {
+    .ab-steps { grid-template-columns: 1fr; }
+    .ab-cta { padding: 38px 24px; }
+    .ab-cta .lp-cta-actions, .ab-cta .btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-page #siteHeader + .section > .container > .section-head:first-child > *,
+    .about-page #siteHeader + .section > .container > .section-head:first-child::after,
+    .ab-motto-panel::before, .ab-motto-panel::after, .ab-motto-ic, .ab-motto-word h3 i,
+    .ab-mission::after, .ab-vision::after, .ab-stats::before, .ab-who-ic::after { animation: none !important; }
+    .about-page .section-head:first-child h2::after { animation: none; width: 76px; }
+    .ab-rv, .ab-steps-anim .ab-step, .ab-steps-anim .ab-step .ab-step-num { opacity: 1; transform: none; transition: none; }
+    .ab-steps::after { transform: none; }
+    .ab-mv-card:hover, .ab-motto-word:hover, .ab-cta .btn:hover { transform: none; }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mail Settings — MABUMBA TECH</title>
+<title>Settings — MABUMBA TECH</title>
 <link rel="icon" href="../../img/favicon.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="../../css/style.css">
@@ -64,6 +64,18 @@
             <div class="divider"></div>
             <p class="small"><i class="bi bi-info-circle"></i> Notifications are sent automatically for new requests, status changes, task assignments, new messages, and new contact form submissions — to admins, staff, and customers as relevant.</p>
           </div>
+        </div>
+      </div>
+
+      <!-- Super Admin only: shown by admin-settings.js, and enforced again by the API. -->
+      <div class="panel" id="socialPanel" style="display:none; margin-top:18px;">
+        <div class="panel-head"><h3><i class="bi bi-share"></i> Social Media Links</h3></div>
+        <div class="panel-body">
+          <p class="small" style="margin-top:0;"><i class="bi bi-info-circle"></i> These are the company's official accounts. The icons in the website footer link to them, on every public page, as soon as you save. Leave a field empty to hide that platform's icon. Each link must belong to its own platform (for example, Instagram links must be on instagram.com).</p>
+          <form id="socialForm" autocomplete="off" novalidate>
+            <div id="socialFields"></div>
+            <button class="btn btn-primary"><i class="bi bi-check2"></i> Save Social Links</button>
+          </form>
         </div>
       </div>
     </div>
