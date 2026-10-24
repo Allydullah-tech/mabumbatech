@@ -197,6 +197,8 @@
     services = Array.isArray(data.services) ? data.services : [];
   } catch (e) { services = []; }
   if (!services.length) services = FALLBACK_LIST;
+  // The site presents ten services; the generic catch-all line is covered by the "Not sure?" call-to-action below.
+  services = services.filter((s) => s.category_key !== 'other_services' || services.length === 1);
 
   /* ---------------- match each service to its content ---------------- */
   const used = new Set();
@@ -372,5 +374,15 @@
       entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
     }, { rootMargin: '-35% 0px -55% 0px' });
     document.querySelectorAll('.sv-feature').forEach((el) => spy.observe(el));
+  }
+
+  /* ---------------- deep links (#svc-camera ...): panels render after load, so scroll once they exist ---------------- */
+  if (location.hash && location.hash.length > 1) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) setTimeout(() => {
+      target.classList.add('sv-in');
+      const y = target.getBoundingClientRect().top + window.scrollY - ((header ? header.offsetHeight : 70) + 70);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 350);
   }
 })();

@@ -166,15 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (data.staff_count) lpSetStat('statStaff', data.staff_count);
     if (data.done_count) lpSetStat('statDone', data.done_count);
 
-    if (data.services && data.services.length) {
-      const list = data.services.slice(0, 4);
-      document.getElementById('servicesList').innerHTML = list.map((s) => `
-        <div class="svc-item">
-          <span class="svc-ic"><i class="bi ${escapeHtml(s.icon)}"></i></span>
-          <h3>${escapeHtml(s.name)}</h3>
-          <p>${escapeHtml(s.description || '')}</p>
-        </div>`).join('');
-    }
+    // Services grid is static (all ten services) so it renders instantly and never depends on the API.
 
     // Only show the Featured Work section if there's real portfolio content —
     // no placeholder projects, per the "don't invent achievements" rule.
@@ -222,3 +214,30 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(tick, delay);
   })();
 });
+
+// Ten-service grid: staggered reveal on scroll + cursor spotlight. Without JS / IO the cards simply stay visible.
+(function initServiceGrid() {
+  const grid = document.getElementById('servicesList');
+  if (!grid) return;
+  const cards = Array.prototype.slice.call(grid.querySelectorAll('.sx-card'));
+  if (!LP_REDUCED && 'IntersectionObserver' in window) {
+    grid.classList.add('sx-js');
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        const c = e.target; io.unobserve(c); c.classList.add('in');
+        setTimeout(function () { c.classList.add('done'); }, 900 + (+c.style.getPropertyValue('--i') || 0) * 70);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    cards.forEach(function (c) { io.observe(c); });
+  }
+  if (!LP_REDUCED && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    grid.addEventListener('pointermove', function (e) {
+      const c = e.target.closest && e.target.closest('.sx-card');
+      if (!c) return;
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  }
+})();

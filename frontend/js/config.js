@@ -60,14 +60,56 @@ let CSRF_TOKEN = null;
 let CURRENT_USER = null;
 let CURRENT_PERMISSIONS = [];
 
-/** Fetch the logged-in user + CSRF token. Every dashboard/auth page calls this first. */
-async function loadSession() {
-  const res = await fetch(apiUrl('/auth/me.php'), { credentials: 'same-origin' });
-  const data = await res.json();
+/**
+ * Fetch the logged-in user + CSRF token. Every dashboard/auth page calls this first.
+ *
+ * Quick start: the result is kept for 90 seconds in this browser tab, so moving between pages does not
+ * wait for the server every time. It is re-checked quietly in the background (and every data request is
+ * still verified by the server). Any save/change (apiPost) clears it so it is always fresh afterwards.
+ */
+const SESSION_CACHE_KEY = 'mbt_session_cache';
+const SESSION_CACHE_MS = 90 * 1000;
+
+function applySession(data) {
   CSRF_TOKEN = data.csrf_token;
   CURRENT_USER = data.user;
   CURRENT_PERMISSIONS = data.permissions || [];
   if (CURRENT_USER && data.job_role_label) CURRENT_USER.job_role_label = data.job_role_label;
+}
+
+async function fetchSession() {
+  const res = await fetch(apiUrl('/auth/me.php'), { credentials: 'same-origin' });
+  return res.json();
+}
+
+async function loadSession() {
+  let cached = null;
+  try {
+    const c = JSON.parse(sessionStorage.getItem(SESSION_CACHE_KEY) || 'null');
+    if (c && c.data && c.data.user && (Date.now() - c.t) < SESSION_CACHE_MS) cached = c.data;
+  } catch (e) { /* ignore */ }
+
+  if (cached) {
+    applySession(cached);
+    fetchSession().then(function (fresh) {
+      if (!fresh || !fresh.user) {
+        try { sessionStorage.removeItem(SESSION_CACHE_KEY); } catch (e) { /* ignore */ }
+        window.location.reload(); // session ended: the normal sign-in flow takes over
+        return;
+      }
+      CSRF_TOKEN = fresh.csrf_token;
+      try { sessionStorage.setItem(SESSION_CACHE_KEY, JSON.stringify({ t: Date.now(), data: fresh })); } catch (e) { /* ignore */ }
+      if (fresh.user.role !== cached.user.role || fresh.user.job_role_key !== cached.user.job_role_key) window.location.reload();
+    }).catch(function () { /* offline: keep going with what we have */ });
+    return cached;
+  }
+
+  const data = await fetchSession();
+  applySession(data);
+  try {
+    if (data.user) sessionStorage.setItem(SESSION_CACHE_KEY, JSON.stringify({ t: Date.now(), data: data }));
+    else sessionStorage.removeItem(SESSION_CACHE_KEY);
+  } catch (e) { /* ignore */ }
   return data;
 }
 
@@ -84,6 +126,8 @@ async function apiPost(path, formData) {
     formData = fd;
   }
   if (CSRF_TOKEN) formData.append('csrf_token', CSRF_TOKEN);
+  // Anything being saved/changed (including login and logout) makes the remembered session out of date.
+  try { sessionStorage.removeItem(SESSION_CACHE_KEY); } catch (e) { /* ignore */ }
   // Only a genuinely fully-qualified URL (http://...) is used as-is. Every other
   // path — including ones starting with '/', which is the convention used across
   // every page script — is resolved against the API base (APP_ROOT + /backend/api).

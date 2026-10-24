@@ -713,6 +713,50 @@ const ALLOWED_AVATAR_EXT = ['jpg', 'jpeg', 'png', 'webp'];
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024; // 2MB
 
 /**
+ * Profile photos are shown as small circles, so a multi-megabyte phone photo only slows every page down.
+ * Scale it to at most 400px on its longest side (needs PHP's GD extension; silently skipped if missing).
+ */
+function shrink_avatar_image(string $path, string $ext, int $max = 400): void
+{
+    try {
+        if (!function_exists('imagecreatefromjpeg') || !function_exists('getimagesize')) {
+            return;
+        }
+        $info = @getimagesize($path);
+        if (!$info || ($info[0] <= $max && $info[1] <= $max)) {
+            return;
+        }
+        [$w, $h] = $info;
+        $scale = $max / max($w, $h);
+        $nw = max(1, (int)round($w * $scale));
+        $nh = max(1, (int)round($h * $scale));
+        $src = match ($ext) {
+            'png'  => @imagecreatefrompng($path),
+            'webp' => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($path) : false,
+            default => @imagecreatefromjpeg($path),
+        };
+        if (!$src) {
+            return;
+        }
+        $dst = imagecreatetruecolor($nw, $nh);
+        if ($ext === 'png' || $ext === 'webp') {
+            imagealphablending($dst, false);
+            imagesavealpha($dst, true);
+        }
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
+        match ($ext) {
+            'png'  => imagepng($dst, $path, 8),
+            'webp' => function_exists('imagewebp') ? imagewebp($dst, $path, 82) : null,
+            default => imagejpeg($dst, $path, 82),
+        };
+        imagedestroy($src);
+        imagedestroy($dst);
+    } catch (Throwable $e) {
+        // Keep the original file if anything goes wrong.
+    }
+}
+
+/**
  * Save an uploaded profile photo (from a single $_FILES[...] entry) and
  * point that user's `avatar` column at it, replacing/deleting whatever
  * photo they had before. Returns an error string on failure, or null on
@@ -743,6 +787,7 @@ function save_avatar_upload(int $userId, array $file): ?string
     if (!move_uploaded_file($file['tmp_name'], $dir . $storedName)) {
         return 'Could not save the uploaded image.';
     }
+    shrink_avatar_image($dir . $storedName, $ext);
 
     // Remove the old photo, if any, so uploads/avatars/ doesn't accumulate
     // an orphaned file every time someone changes their picture.

@@ -8,6 +8,25 @@ DirectoryIndex index.php
     Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
+# ---- Updates appear automatically + faster loading ----------------------------
+# Pages, scripts and styles are re-checked with the server on every visit. When nothing
+# changed the server answers with a tiny "304 not modified"; when you upload a new version
+# it is downloaded straight away - no refreshing or clearing browsing data needed.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|js|css)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+    # Images and fonts rarely change: keep them for a day so they load instantly.
+    <FilesMatch "\.(png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+</IfModule>
+
+# Compress text so pages, scripts and styles download much faster.
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml text/plain
+</IfModule>
+
 <Files "*.sql">
     <IfModule mod_authz_core.c>
         Require all denied

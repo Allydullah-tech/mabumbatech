@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="../css/style.css?v3">
     <link rel="stylesheet" href="../css/forms.css?v2">
     <link rel="stylesheet" href="../css/landing.css?v6">
+    <link rel="stylesheet" href="../css/intro-services.css?v1">
 </head>
 
 <body class="landing">
+
 
     <!-- Header is static so navigation (including Login) always works, even before any JS/API call completes. -->
     <header class="topbar topbar-home">
@@ -55,7 +57,7 @@
                 <ul class="lp-stats">
                     <li><b id="statStaff">8+</b><span>Skilled Specialists</span></li>
                     <li><b id="statDone">40+</b><span>Projects Completed</span></li>
-                    <li><b id="statCats">8+</b><span>Service Categories</span></li>
+                    <li><b id="statCats">10+</b><span>Service Categories</span></li>
                 </ul>
             </div>
             <div class="hero-logo-wrap">
@@ -74,8 +76,8 @@
 
     <div class="lp-ticker" aria-hidden="true">
         <div class="lp-ticker-track">
-            <span>Web Development</span><span>App Development</span><span>AI / ML Projects</span><span>Graphics Designing</span><span>IT Consultancy</span><span>Software &amp; Hardware</span>
-            <span>Web Development</span><span>App Development</span><span>AI / ML Projects</span><span>Graphics Designing</span><span>IT Consultancy</span><span>Software &amp; Hardware</span>
+            <span>Website</span><span>Mobile App</span><span>AI / ML</span><span>Modern Graphic Design</span><span>IT Consultancy</span><span>Software &amp; Hardware</span><span>Animation &amp; Multimedia</span><span>Camera Installations</span><span>Network Installations</span><span>IT Equipment Supply</span>
+            <span>Website</span><span>Mobile App</span><span>AI / ML</span><span>Modern Graphic Design</span><span>IT Consultancy</span><span>Software &amp; Hardware</span><span>Animation &amp; Multimedia</span><span>Camera Installations</span><span>Network Installations</span><span>IT Equipment Supply</span>
         </div>
     </div>
 
@@ -96,36 +98,66 @@
         </div>
     </section>
 
-    <section class="lp-section lp-alt">
+        <section class="lp-section lp-alt sx-section">
         <div class="lp-wrap">
             <div class="lp-head" data-reveal>
                 <span class="lp-eyebrow">What We Do</span>
-                <h2 class="lp-title">Digital services we provide</h2>
+                <h2 class="lp-title">Ten services. One trusted team.</h2>
                 <p class="lp-lead">From concept to launch, our specialist teams cover every part of your technology needs.</p>
             </div>
-            <div class="svc-grid" id="servicesList" data-reveal>
-                <div class="svc-item">
-                    <span class="svc-ic"><i class="bi bi-code-slash"></i></span>
-                    <h3>Web Development</h3>
-                    <p>Business websites, e-commerce platforms and web applications.</p>
-                </div>
-                <div class="svc-item">
-                    <span class="svc-ic"><i class="bi bi-phone"></i></span>
-                    <h3>App Development</h3>
-                    <p>Android, iOS and cross-platform mobile applications.</p>
-                </div>
-                <div class="svc-item">
-                    <span class="svc-ic"><i class="bi bi-cpu"></i></span>
-                    <h3>Software &amp; Hardware Solutions</h3>
-                    <p>Custom software, system installation, repair and maintenance.</p>
-                </div>
-                <div class="svc-item">
-                    <span class="svc-ic"><i class="bi bi-diagram-3"></i></span>
-                    <h3>IT Consultancy</h3>
-                    <p>Technology planning, systems audit and digital strategy.</p>
-                </div>
+            <div class="sx-grid" id="servicesList">
+                <a class="sx-card" href="public/services.html#svc-web_dev" style="--i:0">
+                    <span class="sx-num">01</span>
+                    <span class="sx-ic"><i class="bi bi-window-stack"></i></span>
+                    <span class="sx-body"><h3>Website</h3><p>Fast, secure business sites, online stores and web apps that turn visitors into customers.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-app_dev" style="--i:1">
+                    <span class="sx-num">02</span>
+                    <span class="sx-ic"><i class="bi bi-phone"></i></span>
+                    <span class="sx-body"><h3>Mobile App</h3><p>Android, iOS and cross-platform apps that are smooth, secure and easy to love.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-ai_ml" style="--i:2">
+                    <span class="sx-num">03</span>
+                    <span class="sx-ic"><i class="bi bi-cpu-fill"></i></span>
+                    <span class="sx-body"><h3>AI / ML</h3><p>Machine learning, automation and analytics that turn your data into decisions.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-graphics" style="--i:3">
+                    <span class="sx-num">04</span>
+                    <span class="sx-ic"><i class="bi bi-palette2"></i></span>
+                    <span class="sx-body"><h3>Modern Graphic Design</h3><p>Logos, brand identities and social visuals that make you look as good as you are.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-it_consultancy" style="--i:4">
+                    <span class="sx-num">05</span>
+                    <span class="sx-ic"><i class="bi bi-diagram-3-fill"></i></span>
+                    <span class="sx-body"><h3>IT Consultancy</h3><p>Clear technology strategy, security audits and roadmaps you can act on.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-software_hardware" style="--i:5">
+                    <span class="sx-num">06</span>
+                    <span class="sx-ic"><i class="bi bi-motherboard"></i></span>
+                    <span class="sx-body"><h3>Software &amp; Hardware Solutions</h3><p>Custom software, plus installation, repair and maintenance of the hardware behind it.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-multimedia" style="--i:6">
+                    <span class="sx-num">07</span>
+                    <span class="sx-ic"><i class="bi bi-film"></i></span>
+                    <span class="sx-body"><h3>Animation &amp; Multimedia</h3><p>Motion graphics, explainer videos and 2D/3D animation that people remember.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-camera" style="--i:7">
+                    <span class="sx-num">08</span>
+                    <span class="sx-ic"><i class="bi bi-camera-video-fill"></i></span>
+                    <span class="sx-body"><h3>Camera Installations</h3><p>HD CCTV with night vision and live viewing on your phone, professionally installed.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-network" style="--i:8">
+                    <span class="sx-num">09</span>
+                    <span class="sx-ic"><i class="bi bi-router-fill"></i></span>
+                    <span class="sx-body"><h3>Network Installations</h3><p>Structured cabling, strong Wi-Fi and secure LANs for homes, offices and campuses.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
+                <a class="sx-card" href="public/services.html#svc-equipment" style="--i:9">
+                    <span class="sx-num">10</span>
+                    <span class="sx-ic"><i class="bi bi-pc-display-horizontal"></i></span>
+                    <span class="sx-body"><h3>IT Equipment Supply</h3><p>Laptops, networking gear, printers and servers: supplied, set up and supported.</p><span class="sx-go">Learn more <i class="bi bi-arrow-right"></i></span></span>
+                </a>
             </div>
-            <div class="lp-more"><a href="public/services.html" class="btn btn-primary">View All 8 Services <i class="bi bi-arrow-right"></i></a></div>
+            <div class="lp-more"><a href="public/services.html" class="btn btn-primary">Explore All 10 Services <i class="bi bi-arrow-right"></i></a></div>
         </div>
     </section>
 
@@ -154,6 +186,27 @@
             </div>
             <div class="lp-work-grid" id="featuredWorkGrid"></div>
             <div class="lp-more"><a href="public/portfolio.html" class="btn btn-outline">View Full Portfolio <i class="bi bi-arrow-right"></i></a></div>
+        </div>
+    </section>
+
+    <section class="lp-section vp-section" id="promo">
+        <div class="lp-wrap vp-grid">
+            <div class="vp-copy" data-reveal>
+                <span class="lp-eyebrow">See Us In Motion</span>
+                <h2 class="lp-title">What we do, how it works, why it matters</h2>
+                <p>A 40-second look at MABUMBA TECH: ten services, a simple four-step process and the reasons clients stay with us.</p>
+                <ul class="vp-list">
+                    <li><i class="bi bi-check2-circle"></i> Ten services under one roof</li>
+                    <li><i class="bi bi-check2-circle"></i> Request, review, build, receive</li>
+                    <li><i class="bi bi-check2-circle"></i> Track every request online</li>
+                </ul>
+                <a href="public/request-service.html" class="btn btn-primary"><i class="bi bi-send"></i> Request a Service</a>
+            </div>
+            <div class="vp-phone" data-reveal>
+                <video controls playsinline preload="none" poster="../video/mabumbatech-promo-poster.jpg" aria-label="MABUMBA TECH promotional video">
+                    <source src="../video/mabumbatech-promo.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </section>
 
@@ -196,10 +249,12 @@
                 <div>
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="public/services.html">Web Development</a></li>
-                        <li><a href="public/services.html">App Development</a></li>
-                        <li><a href="public/services.html">AI/ML Projects</a></li>
-                        <li><a href="public/services.html">Graphics Designing</a></li>
+                        <li><a href="public/services.html#svc-web_dev">Website</a></li>
+                        <li><a href="public/services.html#svc-app_dev">Mobile App</a></li>
+                        <li><a href="public/services.html#svc-ai_ml">AI / ML</a></li>
+                        <li><a href="public/services.html#svc-graphics">Graphic Design</a></li>
+                        <li><a href="public/services.html#svc-camera">Camera &amp; Network</a></li>
+                        <li><a href="public/services.html">All 10 Services</a></li>
                     </ul>
                 </div>
                 <div>

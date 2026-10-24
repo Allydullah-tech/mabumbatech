@@ -75,6 +75,12 @@ function api_require_login(): array
     if (!is_logged_in()) {
         json_error('You must be logged in.', 401);
     }
+    // Reading data does not change the session, so release the session lock right away.
+    // Otherwise PHP makes every request of the same person wait for the previous one to finish
+    // (the dashboard loads several at once). Saving (POST) keeps the session open as before.
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET' && session_status() === PHP_SESSION_ACTIVE) {
+        session_write_close();
+    }
     return current_user();
 }
 
