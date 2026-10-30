@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap');
 
 /* =========================================================
-   LOGIN PAGE — centered animated sign-in card on a living navy background.
+   LOGIN PAGE — sign-in card over an anime-inspired animated night-city scene (canvas).
    Scoped to body.login-page so other auth pages are unaffected.
    ========================================================= */
 
@@ -16,75 +16,106 @@ html { background: var(--navy-950); }
     background: var(--navy-950);
 }
 
-/* ---------- Animated background ---------- */
+/* ---------- Stage + animated anime scene ---------- */
 .lg-stage {
     position: relative;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 40px 18px;
     overflow: hidden;
+    /* fallback while the canvas scene loads (or if JS is off) */
     background:
-        radial-gradient(900px 560px at 85% 10%, rgba(21, 104, 214, .5), transparent 60%),
-        radial-gradient(700px 500px at 0% 100%, rgba(23, 184, 214, .2), transparent 60%),
-        linear-gradient(160deg, #050b1a 0%, #0a1a3d 55%, #0b2a63 100%);
+        radial-gradient(900px 560px at 40% 20%, rgba(21, 104, 214, .5), transparent 60%),
+        linear-gradient(180deg, #02060f 0%, #0b3a86 60%, #4cc3e6 100%);
 }
-.lg-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; pointer-events: none; }
-.lg-blob.b1 { width: 380px; height: 380px; background: #1568d6; top: -120px; right: -80px; animation: lgDrift 14s ease-in-out infinite; }
-.lg-blob.b2 { width: 320px; height: 320px; background: #17b8d6; bottom: -100px; left: -80px; animation: lgDrift 17s ease-in-out infinite reverse; }
-.lg-blob.b3 { width: 240px; height: 240px; background: #2f83f0; top: 45%; left: 55%; opacity: .25; animation: lgDrift 21s ease-in-out infinite; }
+.lg-scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
 
-.lg-slash {
-    position: absolute;
-    height: 3px;
-    border-radius: 3px;
-    transform: rotate(-18deg);
-    background: linear-gradient(90deg, transparent, #2f83f0, transparent);
-    background-size: 200% 100%;
-    opacity: .6;
+/* cinematic grading: soft vignette + top/bottom falloff */
+.lg-vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
     pointer-events: none;
-    animation: lgSweep 5s linear infinite;
+    background:
+        radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(2, 6, 16, .55) 100%),
+        linear-gradient(to bottom, rgba(2, 6, 16, .35), transparent 22%, transparent 78%, rgba(2, 6, 16, .3));
 }
-.lg-slash.s1 { top: 24%; left: -15%; width: 70%; }
-.lg-slash.s2 { top: 78%; right: -18%; width: 75%; background-image: linear-gradient(90deg, transparent, #17b8d6, transparent); animation-duration: 7s; }
-
-.lg-dots { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.lg-dots i {
+/* slow sweep of light across the whole frame (film light-leak) */
+.lg-leak { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; mix-blend-mode: screen; }
+.lg-leak::before {
+    content: '';
     position: absolute;
-    bottom: -12px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(140, 194, 255, .7);
-    animation: lgRise 10s linear infinite;
+    top: 0; bottom: 0; left: 0;
+    width: 160%;
+    background: linear-gradient(115deg, transparent 32%, rgba(80, 180, 255, .1) 44%, rgba(255, 200, 140, .08) 52%, transparent 64%);
+    transform: translateX(-70%);
+    animation: lgLeak 16s ease-in-out infinite alternate;
+    will-change: transform;
 }
-.lg-dots i:nth-child(1) { left: 8%;  animation-delay: 0s; }
-.lg-dots i:nth-child(2) { left: 20%; animation-delay: -3s; width: 4px; height: 4px; }
-.lg-dots i:nth-child(3) { left: 34%; animation-delay: -6s; }
-.lg-dots i:nth-child(4) { left: 52%; animation-delay: -1.5s; width: 8px; height: 8px; opacity: .6; }
-.lg-dots i:nth-child(5) { left: 67%; animation-delay: -4.5s; width: 4px; height: 4px; }
-.lg-dots i:nth-child(6) { left: 80%; animation-delay: -7.5s; }
-.lg-dots i:nth-child(7) { left: 92%; animation-delay: -2.2s; width: 5px; height: 5px; }
+
+/* brand tagline over the scene (desktop only) */
+.lg-caption {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: clamp(28px, 5vw, 84px);
+    top: clamp(28px, 6vh, 64px);
+    pointer-events: none;
+    font-family: 'Sora', var(--font-sans);
+    color: rgba(235, 246, 255, .94);
+    text-shadow: 0 0 22px rgba(80, 170, 255, .65), 0 2px 12px rgba(2, 8, 24, .6);
+}
+.lg-cap-kicker {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .42em;
+    color: #8fd4ff;
+    margin-bottom: 14px;
+    animation: lgCapIn 1s .2s both;
+}
+.lg-cap-words { margin: 0; font-size: clamp(1.3rem, 2.3vw, 2.1rem); font-weight: 700; line-height: 1.28; letter-spacing: -.01em; }
+.lg-cap-words span {
+    display: block;
+    animation: lgCapIn .9s both, lgCapGlow 5s ease-in-out infinite;
+}
+.lg-cap-words span:nth-child(1) { animation-delay: .45s, 1.4s; }
+.lg-cap-words span:nth-child(2) { animation-delay: .7s, 2.2s; }
+.lg-cap-words span:nth-child(3) { animation-delay: .95s, 3s; }
 
 /* ---------- Card with rotating light border ---------- */
 .lg-wrap {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
     max-width: 440px;
     border-radius: 30px;
     padding: 2px;
-    background: conic-gradient(from var(--lg-ang), rgba(255,255,255,.08) 0deg, #2f83f0 70deg, #17b8d6 120deg, rgba(255,255,255,.08) 200deg, rgba(255,255,255,.08) 360deg);
-    box-shadow: 0 40px 90px rgba(0, 0, 0, .45), 0 0 80px rgba(47, 131, 240, .28);
+    background: conic-gradient(from var(--lg-ang), rgba(255,255,255,.14) 0deg, #2f83f0 70deg, #17b8d6 120deg, rgba(255,255,255,.14) 200deg, rgba(255,255,255,.14) 360deg);
+    box-shadow: 0 40px 90px rgba(0, 0, 0, .5), 0 0 90px rgba(47, 131, 240, .35);
     animation: lgAng 6s linear infinite, lgCard .9s cubic-bezier(.2, .8, .2, 1) both;
 }
 .lg-card {
     position: relative;
-    background: #fff;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .97), rgba(244, 249, 255, .95));
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
     border-radius: 28px;
     padding: 36px 34px 28px;
     overflow: hidden;
+}
+/* shimmering brand-colour edge along the top of the card */
+.lg-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #2f83f0, #17b8d6, #2f83f0, transparent);
+    background-size: 200% 100%;
+    animation: lgSweep 4.5s linear infinite;
 }
 .lg-card::before {
     content: '';
@@ -124,7 +155,21 @@ html { background: var(--navy-950); }
     background-clip: text;
     color: transparent;
 }
-.lg-head p { margin: 0; color: var(--ink-soft); font-size: .9rem; }
+.lg-head p { margin: 0; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; }
+.lg-secure {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 30px;
+    background: var(--blue-100);
+    color: var(--blue-700);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
 
 /* Role tabs */
 .login-page .auth-tabs {
@@ -239,13 +284,23 @@ html { background: var(--navy-950); }
 @keyframes lgSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @keyframes lgPop { 0% { transform: scale(.94); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
 @keyframes lgBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-@keyframes lgDrift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(34px, 26px); } }
+@keyframes lgLeak { from { transform: translateX(-70%); } to { transform: translateX(8%); } }
+@keyframes lgCapIn { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+@keyframes lgCapGlow { 0%, 100% { text-shadow: 0 0 14px rgba(80, 170, 255, .45), 0 2px 12px rgba(2, 8, 24, .6); } 50% { text-shadow: 0 0 30px rgba(120, 210, 255, .95), 0 2px 12px rgba(2, 8, 24, .6); } }
 @keyframes lgSweep { from { background-position: 200% 0; } to { background-position: -100% 0; } }
-@keyframes lgRise { from { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } to { transform: translateY(-105vh); opacity: 0; } }
 @keyframes lgShine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
 
+/* Desktop: card sits on the right so the scene (moon, skyline, character) stays visible */
+@media (min-width: 900px) {
+    .lg-stage { justify-content: flex-end; padding-right: clamp(24px, 8vw, 150px); }
+    .lg-caption { display: block; }
+}
+@media (max-height: 640px) {
+    .lg-stage { align-items: flex-start; padding-top: 24px; padding-bottom: 24px; }
+}
 @media (max-width: 480px) {
     .lg-card { padding: 28px 20px 22px; }
+    .lg-wrap { border-radius: 26px; }
     .lg-logo { height: 62px; }
     .lg-head h1 { font-size: 1.5rem; }
 }

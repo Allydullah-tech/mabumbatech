@@ -10,19 +10,21 @@
     <link rel="stylesheet" href="../../css/style.css?v2">
     <link rel="stylesheet" href="../../css/forms.css?v2">
     <link rel="stylesheet" href="../../css/auth.css?v2">
-    <link rel="stylesheet" href="../../css/login.css?v1">
+    <link rel="stylesheet" href="../../css/login.css?v3">
 </head>
 
 <body class="login-page">
     <main class="lg-stage">
 
-        <!-- Animated background (decorative) -->
-        <span class="lg-blob b1"></span>
-        <span class="lg-blob b2"></span>
-        <span class="lg-blob b3"></span>
-        <span class="lg-slash s1"></span>
-        <span class="lg-slash s2"></span>
-        <div class="lg-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <!-- Animated anime-style scene (decorative, drawn by js/login-scene.js) -->
+        <canvas id="lgScene" class="lg-scene" aria-hidden="true"></canvas>
+        <div class="lg-vignette" aria-hidden="true"></div>
+        <div class="lg-leak" aria-hidden="true"></div>
+
+        <div class="lg-caption" aria-hidden="true">
+            <span class="lg-cap-kicker">MABUMBA TECH</span>
+            <p class="lg-cap-words"><span>Technology.</span><span>Innovation.</span><span>Solution.</span></p>
+        </div>
 
         <div class="lg-wrap">
             <div class="lg-card">
@@ -30,8 +32,9 @@
                 <img class="lg-logo" src="../../img/logo.png" alt="MABUMBA TECH">
 
                 <div class="lg-head">
+                    <span class="lg-secure"><i class="bi bi-shield-lock-fill"></i> Secure sign-in</span>
                     <h1>Welcome <em>back</em></h1>
-                    <p>Sign in to access your account.</p>
+                    <p>Enter your credentials below to securely access your account.</p>
                 </div>
 
                 <div class="auth-tabs" id="authTabs"></div>
@@ -63,6 +66,7 @@
     </main>
     <script src="../../js/config.js?v2"></script>
     <script src="../../js/pages/auth-login.js?v2"></script>
+    <script src="../../js/login-scene.js?v1" defer></script>
 </body>
 
 </html>
